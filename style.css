@@ -99,7 +99,7 @@ body {
 
 
 /* =====================================================
-   LOGO CONTAINER
+   LOGO
 ===================================================== */
 
 .logo-container {
@@ -141,580 +141,22 @@ body {
 
     z-index: 1;
 
+    /*
+       VERY subtle blue glow
+       รอบ Logo เท่านั้น
+    */
+
     filter:
 
         drop-shadow(
-            0 0 8px
-            rgba(0, 190, 255, 0.35)
-        )
-
-        drop-shadow(
-            0 0 24px
-            rgba(0, 130, 255, 0.20)
-        );
-
-}
-
-
-/* =====================================================
-   BLUE SPIRIT EFFECT
-===================================================== */
-
-.spirit-effect {
-
-    position: absolute;
-
-    /*
-       ตำแหน่ง Effect
-       สามารถปรับภายหลังได้
-    */
-
-    left: 48.5%;
-
-    top: 52%;
-
-    width: 70px;
-
-    height: 85px;
-
-    transform:
-        translate(-50%, -50%);
-
-    z-index: 3;
-
-    pointer-events: none;
-
-}
-
-
-/* =====================================================
-   OUTER AURA
-===================================================== */
-
-.spirit-aura {
-
-    position: absolute;
-
-    left: 50%;
-
-    top: 50%;
-
-    width: 85px;
-
-    height: 85px;
-
-    transform:
-        translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background:
-
-        radial-gradient(
-
-            circle,
-
-            rgba(
-                0,
-                225,
-                255,
-                0.32
-            )
-            0%,
-
+            0 0 7px
             rgba(
                 0,
                 190,
                 255,
-                0.20
+                0.25
             )
-            22%,
-
-            rgba(
-                0,
-                120,
-                255,
-                0.08
-            )
-            48%,
-
-            transparent
-            72%
-
         );
-
-    filter:
-        blur(8px);
-
-    animation:
-
-        auraPulse
-        2.1s
-        ease-in-out
-        infinite;
-
-}
-
-
-/* =====================================================
-   SPIRIT CORE
-===================================================== */
-
-.spirit-core {
-
-    position: absolute;
-
-    left: 50%;
-
-    top: 50%;
-
-    width: 25px;
-
-    height: 25px;
-
-    transform:
-        translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background:
-
-        radial-gradient(
-
-            circle,
-
-            rgba(
-                255,
-                255,
-                255,
-                0.95
-            )
-            0%,
-
-            rgba(
-                100,
-                240,
-                255,
-                0.9
-            )
-            18%,
-
-            rgba(
-                0,
-                210,
-                255,
-                0.45
-            )
-            42%,
-
-            transparent
-            75%
-
-        );
-
-    filter:
-        blur(2px);
-
-    animation:
-
-        corePulse
-        1.35s
-        ease-in-out
-        infinite;
-
-}
-
-
-/* =====================================================
-   ENERGY FLARES
-===================================================== */
-
-.spirit-flare {
-
-    position: absolute;
-
-    left: 50%;
-
-    top: 50%;
-
-    width: 3px;
-
-    height: 35px;
-
-    border-radius: 50%;
-
-    background:
-
-        linear-gradient(
-
-            to top,
-
-            transparent,
-
-            rgba(
-                70,
-                235,
-                255,
-                0.9
-            ),
-
-            transparent
-
-        );
-
-    filter:
-        blur(1px);
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* upward flame */
-
-.flare-1 {
-
-    transform:
-
-        translate(-50%, -90%)
-        rotate(-18deg)
-        scaleY(1.2);
-
-    animation:
-
-        flameFlicker
-        0.9s
-        ease-in-out
-        infinite;
-
-}
-
-
-/* second flame */
-
-.flare-2 {
-
-    transform:
-
-        translate(-10%, -75%)
-        rotate(25deg)
-        scaleY(0.75);
-
-    opacity: 0.65;
-
-    animation:
-
-        flameFlicker
-        1.15s
-        ease-in-out
-        infinite reverse;
-
-}
-
-
-/* =====================================================
-   AURA ANIMATION
-===================================================== */
-
-@keyframes auraPulse {
-
-    0% {
-
-        transform:
-            translate(-50%, -50%)
-            scale(0.72);
-
-        opacity: 0.35;
-
-    }
-
-    50% {
-
-        transform:
-            translate(-50%, -50%)
-            scale(1.15);
-
-        opacity: 0.9;
-
-    }
-
-    100% {
-
-        transform:
-            translate(-50%, -50%)
-            scale(0.72);
-
-        opacity: 0.35;
-
-    }
-
-}
-
-
-/* =====================================================
-   CORE PULSE
-===================================================== */
-
-@keyframes corePulse {
-
-    0% {
-
-        transform:
-            translate(-50%, -50%)
-            scale(0.7);
-
-        opacity: 0.4;
-
-    }
-
-    45% {
-
-        transform:
-            translate(-50%, -50%)
-            scale(1.3);
-
-        opacity: 1;
-
-    }
-
-    100% {
-
-        transform:
-            translate(-50%, -50%)
-            scale(0.7);
-
-        opacity: 0.4;
-
-    }
-
-}
-
-
-/* =====================================================
-   FLAME FLICKER
-===================================================== */
-
-@keyframes flameFlicker {
-
-    0% {
-
-        opacity: 0.25;
-
-        transform:
-            translate(-50%, -90%)
-            rotate(-18deg)
-            scaleY(0.8);
-
-    }
-
-    50% {
-
-        opacity: 1;
-
-        transform:
-            translate(-50%, -100%)
-            rotate(5deg)
-            scaleY(1.25);
-
-    }
-
-    100% {
-
-        opacity: 0.35;
-
-        transform:
-            translate(-50%, -90%)
-            rotate(-12deg)
-            scaleY(0.9);
-
-    }
-
-}
-
-
-/* =====================================================
-   SPIRIT SPARKS
-===================================================== */
-
-.spirit-sparks {
-
-    position: absolute;
-
-    inset: 0;
-
-}
-
-
-.spirit-sparks i {
-
-    position: absolute;
-
-    width: 3px;
-
-    height: 3px;
-
-    border-radius: 50%;
-
-    background: #4cecff;
-
-    box-shadow:
-
-        0 0 5px #00dfff,
-
-        0 0 12px #009dff;
-
-    opacity: 0;
-
-    animation:
-
-        spiritSpark
-        2.3s
-        ease-out
-        infinite;
-
-}
-
-
-.spirit-sparks i:nth-child(1) {
-
-    left: 45%;
-    top: 50%;
-
-    animation-delay: 0s;
-
-}
-
-
-.spirit-sparks i:nth-child(2) {
-
-    left: 58%;
-    top: 55%;
-
-    animation-delay: 0.25s;
-
-}
-
-
-.spirit-sparks i:nth-child(3) {
-
-    left: 38%;
-    top: 60%;
-
-    animation-delay: 0.5s;
-
-}
-
-
-.spirit-sparks i:nth-child(4) {
-
-    left: 66%;
-    top: 65%;
-
-    animation-delay: 0.75s;
-
-}
-
-
-.spirit-sparks i:nth-child(5) {
-
-    left: 30%;
-    top: 52%;
-
-    animation-delay: 1s;
-
-}
-
-
-.spirit-sparks i:nth-child(6) {
-
-    left: 70%;
-    top: 58%;
-
-    animation-delay: 1.25s;
-
-}
-
-
-.spirit-sparks i:nth-child(7) {
-
-    left: 48%;
-    top: 40%;
-
-    animation-delay: 1.5s;
-
-}
-
-
-.spirit-sparks i:nth-child(8) {
-
-    left: 55%;
-    top: 35%;
-
-    animation-delay: 1.75s;
-
-}
-
-
-.spirit-sparks i:nth-child(9) {
-
-    left: 35%;
-    top: 45%;
-
-    animation-delay: 2s;
-
-}
-
-
-.spirit-sparks i:nth-child(10) {
-
-    left: 62%;
-    top: 45%;
-
-    animation-delay: 2.15s;
-
-}
-
-
-@keyframes spiritSpark {
-
-    0% {
-
-        opacity: 0;
-
-        transform:
-            translate(
-                0,
-                8px
-            )
-            scale(0.4);
-
-    }
-
-    20% {
-
-        opacity: 1;
-
-    }
-
-    55% {
-
-        opacity: 0.8;
-
-    }
-
-    100% {
-
-        opacity: 0;
-
-        transform:
-            translate(
-                5px,
-                -38px
-            )
-            scale(0);
-
-    }
 
 }
 
@@ -799,6 +241,10 @@ body {
 }
 
 
+/* =====================================================
+   BUTTON LIGHT SWEEP
+===================================================== */
+
 .view-button::before {
 
     content: "";
@@ -842,6 +288,10 @@ body {
 }
 
 
+/* =====================================================
+   BUTTON UNDERLINE
+===================================================== */
+
 .view-button::after {
 
     content: "";
@@ -866,6 +316,10 @@ body {
 
 }
 
+
+/* =====================================================
+   BUTTON HOVER
+===================================================== */
 
 .view-button:hover {
 
@@ -926,7 +380,7 @@ body {
 
 
 /* =====================================================
-   LEADERBOARD
+   LEADERBOARD SCREEN
 ===================================================== */
 
 .leaderboard-screen {
@@ -1066,7 +520,7 @@ body {
 
 
 /* =====================================================
-   LEADERBOARD HEADER
+   HEADER
 ===================================================== */
 
 .leaderboard-header {
@@ -1256,6 +710,10 @@ body {
 }
 
 
+/* =====================================================
+   WIP ANIMATION
+===================================================== */
+
 @keyframes symbolPulse {
 
     0%,
@@ -1372,18 +830,6 @@ body {
         margin-top: 30px;
 
         font-size: 15px;
-
-    }
-
-
-    .spirit-effect {
-
-        transform:
-            translate(
-                -50%,
-                -50%
-            )
-            scale(0.75);
 
     }
 
