@@ -12,7 +12,6 @@
 
     <title>Hyakkiyako Club</title>
 
-    <!-- IMPORTANT: CSS path -->
     <link
         rel="stylesheet"
         href="./style.css"
@@ -33,14 +32,12 @@
         class="screen menu-screen"
     >
 
-        <!-- Particle Canvas -->
-
         <canvas
             id="particleCanvas"
         ></canvas>
 
 
-        <!-- Logo -->
+        <!-- LOGO -->
 
         <div
             id="logoContainer"
@@ -56,7 +53,7 @@
         </div>
 
 
-        <!-- VIEW -->
+        <!-- VIEW BUTTON -->
 
         <button
             id="viewButton"
@@ -87,20 +84,24 @@
         >
 
 
-            <!-- =================================================
-                 HEADER
-            ================================================== -->
+            <!-- HEADER -->
 
-            <div class="leaderboard-header">
+            <div
+                class="leaderboard-header"
+            >
 
-                <div class="leaderboard-title">
+                <div
+                    class="leaderboard-title"
+                >
 
                     HYAKKIYAKO CLUB
 
                 </div>
 
 
-                <div class="leaderboard-subtitle">
+                <div
+                    class="leaderboard-subtitle"
+                >
 
                     5TH CLUB LEADERBOARD
 
@@ -118,12 +119,25 @@
                 class="leaderboard-placeholder"
             >
 
-                <!-- Decorative corners -->
 
-                <div class="corner corner-tl"></div>
-                <div class="corner corner-tr"></div>
-                <div class="corner corner-bl"></div>
-                <div class="corner corner-br"></div>
+                <!-- Corner decorations -->
+
+                <div
+                    class="corner corner-tl"
+                ></div>
+
+                <div
+                    class="corner corner-tr"
+                ></div>
+
+                <div
+                    class="corner corner-bl"
+                ></div>
+
+                <div
+                    class="corner corner-br"
+                ></div>
+
 
 
                 <!-- Placeholder content -->
@@ -151,6 +165,17 @@
                 ></div>
 
 
+                <!-- WIP -->
+
+                <div
+                    class="placeholder-wip"
+                >
+
+                    WIP
+
+                </div>
+
+
                 <div
                     class="placeholder-description"
                 >
@@ -159,16 +184,6 @@
 
                 </div>
 
-
-                <div
-                    class="placeholder-status"
-                >
-
-                    <span class="status-dot"></span>
-
-                    SYSTEM READY
-
-                </div>
 
             </div>
 
@@ -184,13 +199,17 @@
             >
 
 
-                <!-- Score -->
+                <!-- SCORE -->
 
-                <div class="pet-score">
+                <div
+                    class="pet-score"
+                >
 
                     You have pet Izuna for
 
-                    <span id="petSeconds">
+                    <span
+                        id="petSeconds"
+                    >
                         0.0
                     </span>
 
@@ -199,7 +218,8 @@
                 </div>
 
 
-                <!-- Izuna -->
+
+                <!-- IZUNA -->
 
                 <div
                     id="izunaArea"
@@ -224,8 +244,6 @@
                     >
 
 
-                    <!-- Glow -->
-
                     <div
                         class="pet-glow"
                     ></div>
@@ -233,7 +251,8 @@
                 </div>
 
 
-                <!-- Instruction -->
+
+                <!-- INSTRUCTION -->
 
                 <div
                     id="petInstruction"
@@ -250,7 +269,7 @@
 
 
 
-        <!-- BACK BUTTON -->
+        <!-- BACK -->
 
         <button
             id="backButton"
@@ -264,8 +283,6 @@
     </section>
 
 
-
-    <!-- JavaScript -->
 
     <script src="./script.js"></script>
 
