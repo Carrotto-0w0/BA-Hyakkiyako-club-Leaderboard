@@ -4,54 +4,473 @@
     box-sizing: border-box;
 }
 
+
 html,
 body {
+
     width: 100%;
     height: 100%;
+
     overflow: hidden;
+
     background: #000;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
 }
 
-body {
-    position: relative;
-}
 
-/* Particle Canvas */
+/* =====================================================
+   PARTICLE CANVAS
+===================================================== */
 
 #particleCanvas {
+
     position: fixed;
+
     inset: 0;
 
     width: 100%;
     height: 100%;
 
     z-index: 1;
+
+    pointer-events: none;
+
 }
 
-/* Logo */
 
-.logo-container {
+/* =====================================================
+   MENU
+===================================================== */
+
+#menu {
+
     position: fixed;
 
-    left: 50%;
-    top: 50%;
+    inset: 0;
 
-    transform: translate(-50%, -50%);
+    z-index: 5;
 
-    z-index: 2;
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo-container {
 
     width: min(70vw, 900px);
 
-    pointer-events: none;
+    position: relative;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease,
+        filter 0.5s ease;
+
 }
 
+
 .logo-container img {
+
     display: block;
 
     width: 100%;
+
     height: auto;
 
+    user-select: none;
+
+    pointer-events: none;
+
+
     filter:
-        drop-shadow(0 0 8px rgba(0, 190, 255, 0.5))
-        drop-shadow(0 0 25px rgba(0, 140, 255, 0.35));
+
+        drop-shadow(
+            0 0 6px
+            rgba(0, 200, 255, 0.55)
+        )
+
+        drop-shadow(
+            0 0 20px
+            rgba(0, 150, 255, 0.35)
+        );
+
+}
+
+
+/* =====================================================
+   VIEW BUTTON
+===================================================== */
+
+.view-button {
+
+    margin-top: 45px;
+
+    width: 180px;
+
+    height: 58px;
+
+    position: relative;
+
+    border: 1px solid
+        rgba(70, 220, 255, 0.8);
+
+    background:
+        rgba(0, 15, 25, 0.75);
+
+    color: #dffaff;
+
+    font-size: 18px;
+
+    font-weight: 500;
+
+    letter-spacing: 7px;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+
+    box-shadow:
+
+        0 0 8px
+        rgba(0, 190, 255, 0.35),
+
+        inset 0 0 15px
+        rgba(0, 160, 255, 0.08);
+
+}
+
+
+/* เส้นแสงวิ่งผ่านปุ่ม */
+
+.view-button::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -120%;
+
+    width: 80%;
+
+    height: 100%;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(100, 235, 255, 0.35),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: left 0.7s ease;
+
+}
+
+
+/* เส้นด้านล่าง */
+
+.view-button::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 15%;
+
+    right: 15%;
+
+    bottom: 5px;
+
+    height: 1px;
+
+    background: #42dcff;
+
+    box-shadow:
+
+        0 0 6px #00cfff,
+
+        0 0 15px #008cff;
+
+}
+
+
+/* Hover */
+
+.view-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+        rgba(0, 55, 80, 0.65);
+
+    box-shadow:
+
+        0 0 15px
+        rgba(0, 200, 255, 0.7),
+
+        0 0 40px
+        rgba(0, 140, 255, 0.3),
+
+        inset 0 0 20px
+        rgba(0, 200, 255, 0.12);
+
+}
+
+
+.view-button:hover::before {
+
+    left: 140%;
+
+}
+
+
+/* Click */
+
+.view-button:active {
+
+    transform:
+        scale(0.96);
+
+}
+
+
+/* =====================================================
+   LEADERBOARD SCREEN
+===================================================== */
+
+.leaderboard-screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 10;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(0, 40, 65, 0.25),
+            rgba(0, 0, 0, 0.98) 70%
+        );
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        scale(1.08);
+
+    transition:
+
+        opacity 0.8s ease,
+
+        transform 0.9s
+        cubic-bezier(.16,1,.3,1),
+
+        visibility 0.8s;
+
+}
+
+
+/* เปิดหน้า Leaderboard */
+
+.leaderboard-screen.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        scale(1);
+
+}
+
+
+/* =====================================================
+   LEADERBOARD PANEL
+===================================================== */
+
+.leaderboard-panel {
+
+    width: min(1100px, 85vw);
+
+    min-height: 650px;
+
+    padding: 45px;
+
+    border: 1px solid
+        rgba(0, 200, 255, 0.35);
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(5, 20, 30, 0.94),
+            rgba(0, 5, 10, 0.96)
+        );
+
+    box-shadow:
+
+        0 0 30px
+        rgba(0, 170, 255, 0.12),
+
+        inset 0 0 40px
+        rgba(0, 120, 255, 0.05);
+
+}
+
+
+/* Title */
+
+.leaderboard-title {
+
+    color: #dffaff;
+
+    font-size: 32px;
+
+    letter-spacing: 8px;
+
+    text-align: center;
+
+    text-shadow:
+
+        0 0 8px #00cfff,
+
+        0 0 25px
+        rgba(0, 150, 255, 0.5);
+
+}
+
+
+.leaderboard-subtitle {
+
+    margin-top: 10px;
+
+    text-align: center;
+
+    color: #42dfff;
+
+    font-size: 13px;
+
+    letter-spacing: 5px;
+
+}
+
+
+/* =====================================================
+   PLACEHOLDER
+===================================================== */
+
+.leaderboard-placeholder {
+
+    height: 400px;
+
+    margin-top: 40px;
+
+    border: 1px solid
+        rgba(0, 200, 255, 0.15);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #42dfff;
+
+    letter-spacing: 4px;
+
+}
+
+
+.leaderboard-placeholder span {
+
+    margin-top: 15px;
+
+    color: rgba(200, 240, 255, 0.35);
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+.back-button {
+
+    display: block;
+
+    margin:
+        25px auto 0;
+
+    padding:
+        10px 35px;
+
+    background: transparent;
+
+    color: #8cecff;
+
+    border: 1px solid
+        rgba(0, 200, 255, 0.5);
+
+    cursor: pointer;
+
+    letter-spacing: 4px;
+
+}
+
+
+.back-button:hover {
+
+    background:
+        rgba(0, 180, 255, 0.12);
+
+    box-shadow:
+        0 0 15px
+        rgba(0, 200, 255, 0.3);
+
 }
