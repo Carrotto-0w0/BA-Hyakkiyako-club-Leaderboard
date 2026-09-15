@@ -14,7 +14,7 @@
 
 
     <!-- =====================================================
-         DISCORD EMBED
+         DISCORD / SOCIAL PREVIEW
     ====================================================== -->
 
     <meta
@@ -34,7 +34,7 @@
 
     <meta
         property="og:image"
-        content="https://carrotto_0w0.github.io/Peroro_5th_Club_Leaderboard/Hyakkiyako_Intro.webp"
+        content="https://carrotto-0w0.github.io/BA-Hyakkiyako-club-Leaderboard/Hyakkiyako_Intro.png"
     >
 
     <meta
@@ -49,12 +49,12 @@
 
     <meta
         property="og:url"
-        content="https://carrotto_0w0.github.io/Peroro_5th_Club_Leaderboard/"
+        content="https://carrotto-0w0.github.io/BA-Hyakkiyako-club-Leaderboard/"
     >
 
 
     <!-- =====================================================
-         TWITTER / SOCIAL PREVIEW
+         TWITTER / DISCORD LARGE PREVIEW
     ====================================================== -->
 
     <meta
@@ -74,7 +74,7 @@
 
     <meta
         name="twitter:image"
-        content="https://carrotto_0w0.github.io/Peroro_5th_Club_Leaderboard/Hyakkiyako_Intro.webp"
+        content="https://carrotto-0w0.github.io/BA-Hyakkiyako-club-Leaderboard/Hyakkiyako_Intro.png"
     >
 
 
@@ -94,7 +94,7 @@
 
 
     <!-- =====================================================
-         MENU
+         MAIN MENU
     ====================================================== -->
 
     <section
@@ -102,15 +102,14 @@
         class="screen menu-screen"
     >
 
-
-        <!-- PARTICLE CANVAS -->
+        <!-- Background particle canvas -->
 
         <canvas
             id="particleCanvas"
         ></canvas>
 
 
-        <!-- LOGO -->
+        <!-- Hyakkiyako Logo -->
 
         <div
             id="logoContainer"
@@ -118,9 +117,10 @@
         >
 
             <img
+                id="hyakkiyakoLogo"
+                class="hyakkiyako-logo"
                 src="./hyakkiyako.png"
-                class="main-logo"
-                alt="Hyakkiyako"
+                alt="Hyakkiyako Club"
             >
 
         </div>
@@ -132,17 +132,8 @@
             id="viewButton"
             class="view-button"
         >
-
-            <span>
-                VIEW
-            </span>
-
-            <div
-                class="button-line"
-            ></div>
-
+            VIEW
         </button>
-
 
     </section>
 
@@ -158,194 +149,111 @@
     >
 
 
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <div class="leaderboard-header">
+
+            <div class="club-title">
+                HYAKKIYAKO CLUB
+            </div>
+
+            <div class="club-subtitle">
+                5TH CLUB LEADERBOARD
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             LEADERBOARD PLACEHOLDER
+        ================================================== -->
+
         <div
-            class="leaderboard-container"
+            id="leaderboardPlaceholder"
+            class="leaderboard-placeholder"
+        >
+
+            <div class="ranking-title">
+                CLUB RANKING
+            </div>
+
+            <div class="ranking-main">
+                LEADERBOARD
+            </div>
+
+            <div class="wip-text">
+                WIP
+            </div>
+
+            <div class="ranking-description">
+                MEMBER RANKING WILL APPEAR HERE
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             IZUNA PET GAME
+        ================================================== -->
+
+        <div
+            id="izunaGame"
+            class="izuna-game"
         >
 
 
-            <!-- =================================================
-                 HEADER
-            ================================================== -->
+            <!-- Score -->
 
             <div
-                class="leaderboard-header"
+                id="petScore"
+                class="pet-score"
+            >
+                You have pet Izuna for
+                <span id="petSeconds">0.0</span>
+                second
+            </div>
+
+
+            <!-- Izuna -->
+
+            <div
+                id="izunaContainer"
+                class="izuna-container"
             >
 
-                <div
-                    class="leaderboard-title"
+                <img
+                    id="izunaStatic"
+                    class="izuna-image izuna-static"
+                    src="./izuna-static.png"
+                    alt="Izuna"
                 >
-                    HYAKKIYAKO CLUB
-                </div>
 
+                <img
+                    id="izunaPet"
+                    class="izuna-image izuna-pet"
+                    src="./izuna-pet.png"
+                    alt="Izuna"
+                >
 
                 <div
-                    class="leaderboard-subtitle"
-                >
-                    5TH CLUB LEADERBOARD
-                </div>
+                    id="petGlow"
+                    class="pet-glow"
+                ></div>
 
             </div>
 
 
-
-            <!-- =================================================
-                 LEADERBOARD PLACEHOLDER
-            ================================================== -->
+            <!-- Instruction -->
 
             <div
-                class="leaderboard-placeholder"
+                class="pet-instruction"
             >
-
-
-                <!-- CORNERS -->
-
-                <div
-                    class="corner corner-tl"
-                ></div>
-
-                <div
-                    class="corner corner-tr"
-                ></div>
-
-                <div
-                    class="corner corner-bl"
-                ></div>
-
-                <div
-                    class="corner corner-br"
-                ></div>
-
-
-                <!-- LABEL -->
-
-                <div
-                    class="placeholder-label"
-                >
-                    CLUB RANKING
-                </div>
-
-
-                <!-- MAIN TITLE -->
-
-                <div
-                    class="placeholder-main"
-                >
-                    LEADERBOARD
-                </div>
-
-
-                <!-- LINE -->
-
-                <div
-                    class="placeholder-line"
-                ></div>
-
-
-                <!-- WIP -->
-
-                <div
-                    class="placeholder-wip"
-                >
-                    WIP
-                </div>
-
-
-                <!-- DESCRIPTION -->
-
-                <div
-                    class="placeholder-description"
-                >
-                    MEMBER RANKING WILL APPEAR HERE
-                </div>
-
-
+                RUB IZUNA'S HEAD
             </div>
-
-
-
-            <!-- =================================================
-                 IZUNA MINI GAME
-            ================================================== -->
-
-            <div
-                id="izunaGame"
-                class="izuna-game"
-            >
-
-
-                <!-- SCORE -->
-
-                <div
-                    class="pet-score"
-                >
-
-                    You have pet Izuna for
-
-                    <span
-                        id="petSeconds"
-                    >
-                        0.0
-                    </span>
-
-                    second
-
-                </div>
-
-
-
-                <!-- IZUNA AREA -->
-
-                <div
-                    id="izunaArea"
-                    class="izuna-area"
-                >
-
-
-                    <!-- STATIC IZUNA -->
-
-                    <img
-                        id="izunaStatic"
-                        class="izuna-image"
-                        src="./izuna-static.png"
-                        alt="Izuna"
-                        draggable="false"
-                    >
-
-
-                    <!-- PETTING IZUNA -->
-
-                    <img
-                        id="izunaPet"
-                        class="izuna-image izuna-pet"
-                        src="./izuna-pet.png"
-                        alt="Izuna"
-                        draggable="false"
-                    >
-
-
-                    <!-- GLOW -->
-
-                    <div
-                        class="pet-glow"
-                    ></div>
-
-
-                </div>
-
-
-
-                <!-- PET INSTRUCTION -->
-
-                <div
-                    id="petInstruction"
-                    class="pet-instruction"
-                >
-                    RUB IZUNA'S HEAD
-                </div>
-
-
-            </div>
-
 
         </div>
 
