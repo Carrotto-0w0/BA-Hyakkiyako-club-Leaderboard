@@ -7,13 +7,15 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0">
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Hyakkiyako Club</title>
 
     <link
         rel="stylesheet"
-        href="style.css">
+        href="style.css"
+    >
 
 </head>
 
@@ -21,49 +23,129 @@
 <body>
 
 
-    <!-- ================================================
+    <!-- =====================================================
          PARTICLE CANVAS
-    ================================================= -->
+    ====================================================== -->
 
     <canvas id="particleCanvas"></canvas>
 
 
+    <!-- =====================================================
+         MAIN MENU
+    ====================================================== -->
 
-    <!-- ================================================
-         MENU SCREEN
-    ================================================= -->
-
-    <section
-        id="menuScreen"
-        class="screen menu-screen">
+    <main id="menuScreen" class="menu-screen">
 
 
-        <!-- ============================================
-             LOGO
-        ============================================= -->
+        <!-- LOGO -->
 
         <div
             id="logoContainer"
-            class="logo-container">
+            class="logo-container"
+        >
 
             <img
                 id="logo"
                 src="hyakkiyako.png"
-                alt="Hyakkiyako">
+                alt="Hyakkiyako"
+            >
 
         </div>
 
 
-
-        <!-- ============================================
-             VIEW BUTTON
-        ============================================= -->
+        <!-- VIEW BUTTON -->
 
         <button
             id="viewButton"
-            class="view-button">
+            class="view-button"
+        >
 
-            <span>VIEW</span>
+            VIEW
+
+        </button>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         LEADERBOARD SCREEN
+    ====================================================== -->
+
+    <section
+        id="leaderboardScreen"
+        class="leaderboard-screen"
+    >
+
+
+        <div class="leaderboard-container">
+
+
+            <!-- TITLE -->
+
+            <div class="leaderboard-title">
+
+                HYAKKIYAKO CLUB
+
+            </div>
+
+
+            <div class="leaderboard-subtitle">
+
+                5TH CLUB LEADERBOARD
+
+            </div>
+
+
+            <!-- WIP PLACEHOLDER -->
+
+            <div class="leaderboard-placeholder">
+
+
+                <div class="placeholder-icon">
+
+                    ✦
+
+                </div>
+
+
+                <div class="placeholder-title">
+
+                    LEADERBOARD
+
+                </div>
+
+
+                <div class="placeholder-text">
+
+                    WIP
+
+                </div>
+
+
+                <div class="placeholder-description">
+
+                    MEMBER RANKING DATA<br>
+                    WILL BE ADDED HERE
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- BACK BUTTON -->
+
+        <button
+            id="backButton"
+            class="back-button"
+        >
+
+            BACK
 
         </button>
 
@@ -72,89 +154,9 @@
 
 
 
-    <!-- ================================================
-         LEADERBOARD SCREEN
-    ================================================= -->
-
-    <section
-        id="leaderboardScreen"
-        class="screen leaderboard-screen">
-
-
-        <div class="leaderboard-window">
-
-
-            <!-- HEADER -->
-
-            <div class="leaderboard-header">
-
-                <div class="header-line"></div>
-
-                <h1>
-                    HYAKKIYAKO CLUB
-                </h1>
-
-                <p>
-                    5TH CLUB LEADERBOARD
-                </p>
-
-                <div class="header-line"></div>
-
-            </div>
-
-
-
-            <!-- ========================================
-                 WIP PLACEHOLDER
-            ========================================= -->
-
-            <div class="wip-area">
-
-                <div class="wip-symbol">
-                    ◈
-                </div>
-
-
-                <h2>
-                    LEADERBOARD
-                </h2>
-
-
-                <div class="wip-text">
-                    WIP
-                </div>
-
-
-                <p>
-                    LEADERBOARD DATA
-                    WILL BE INSERTED HERE
-                </p>
-
-            </div>
-
-
-
-            <!-- BACK BUTTON -->
-
-            <button
-                id="backButton"
-                class="back-button">
-
-                BACK
-
-            </button>
-
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- ================================================
+    <!-- =====================================================
          JAVASCRIPT
-    ================================================= -->
+    ====================================================== -->
 
     <script src="script.js"></script>
 
