@@ -12,6 +12,76 @@
 
     <title>Hyakkiyako Club</title>
 
+
+    <!-- =====================================================
+         DISCORD EMBED
+    ====================================================== -->
+
+    <meta
+        property="og:title"
+        content="Hyakkiyako Club"
+    >
+
+    <meta
+        property="og:description"
+        content="Hyakkiyako Club 5th Club Leaderboard"
+    >
+
+    <meta
+        property="og:type"
+        content="website"
+    >
+
+    <meta
+        property="og:image"
+        content="https://carrotto_0w0.github.io/Peroro_5th_Club_Leaderboard/Hyakkiyako_Intro.webp"
+    >
+
+    <meta
+        property="og:image:width"
+        content="1280"
+    >
+
+    <meta
+        property="og:image:height"
+        content="720"
+    >
+
+    <meta
+        property="og:url"
+        content="https://carrotto_0w0.github.io/Peroro_5th_Club_Leaderboard/"
+    >
+
+
+    <!-- =====================================================
+         TWITTER / SOCIAL PREVIEW
+    ====================================================== -->
+
+    <meta
+        name="twitter:card"
+        content="summary_large_image"
+    >
+
+    <meta
+        name="twitter:title"
+        content="Hyakkiyako Club"
+    >
+
+    <meta
+        name="twitter:description"
+        content="Hyakkiyako Club 5th Club Leaderboard"
+    >
+
+    <meta
+        name="twitter:image"
+        content="https://carrotto_0w0.github.io/Peroro_5th_Club_Leaderboard/Hyakkiyako_Intro.webp"
+    >
+
+
+    <!-- =====================================================
+         CSS
+    ====================================================== -->
+
     <link
         rel="stylesheet"
         href="./style.css"
@@ -23,17 +93,24 @@
 <body>
 
 
-    <!-- ==============================
+    <!-- =====================================================
          MENU
-    =============================== -->
+    ====================================================== -->
 
     <section
         id="menuScreen"
         class="screen menu-screen"
     >
 
-        <canvas id="particleCanvas"></canvas>
 
+        <!-- PARTICLE CANVAS -->
+
+        <canvas
+            id="particleCanvas"
+        ></canvas>
+
+
+        <!-- LOGO -->
 
         <div
             id="logoContainer"
@@ -49,42 +126,61 @@
         </div>
 
 
+        <!-- VIEW BUTTON -->
+
         <button
             id="viewButton"
             class="view-button"
         >
 
-            <span>VIEW</span>
+            <span>
+                VIEW
+            </span>
 
-            <div class="button-line"></div>
+            <div
+                class="button-line"
+            ></div>
 
         </button>
+
 
     </section>
 
 
 
-    <!-- ==============================
-         LEADERBOARD
-    =============================== -->
+    <!-- =====================================================
+         LEADERBOARD SCREEN
+    ====================================================== -->
 
     <section
         id="leaderboardScreen"
         class="screen leaderboard-screen"
     >
 
-        <div class="leaderboard-container">
+
+        <div
+            class="leaderboard-container"
+        >
 
 
-            <!-- HEADER -->
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
 
-            <div class="leaderboard-header">
+            <div
+                class="leaderboard-header"
+            >
 
-                <div class="leaderboard-title">
+                <div
+                    class="leaderboard-title"
+                >
                     HYAKKIYAKO CLUB
                 </div>
 
-                <div class="leaderboard-subtitle">
+
+                <div
+                    class="leaderboard-subtitle"
+                >
                     5TH CLUB LEADERBOARD
                 </div>
 
@@ -92,48 +188,84 @@
 
 
 
-            <!-- ==========================
-                 PLACEHOLDER
-            =========================== -->
+            <!-- =================================================
+                 LEADERBOARD PLACEHOLDER
+            ================================================== -->
 
-            <div class="leaderboard-placeholder">
-
-
-                <div class="corner corner-tl"></div>
-                <div class="corner corner-tr"></div>
-                <div class="corner corner-bl"></div>
-                <div class="corner corner-br"></div>
+            <div
+                class="leaderboard-placeholder"
+            >
 
 
-                <div class="placeholder-label">
+                <!-- CORNERS -->
+
+                <div
+                    class="corner corner-tl"
+                ></div>
+
+                <div
+                    class="corner corner-tr"
+                ></div>
+
+                <div
+                    class="corner corner-bl"
+                ></div>
+
+                <div
+                    class="corner corner-br"
+                ></div>
+
+
+                <!-- LABEL -->
+
+                <div
+                    class="placeholder-label"
+                >
                     CLUB RANKING
                 </div>
 
 
-                <div class="placeholder-main">
+                <!-- MAIN TITLE -->
+
+                <div
+                    class="placeholder-main"
+                >
                     LEADERBOARD
                 </div>
 
 
-                <div class="placeholder-line"></div>
+                <!-- LINE -->
+
+                <div
+                    class="placeholder-line"
+                ></div>
 
 
-                <div class="placeholder-wip">
+                <!-- WIP -->
+
+                <div
+                    class="placeholder-wip"
+                >
                     WIP
                 </div>
 
 
-                <div class="placeholder-description">
+                <!-- DESCRIPTION -->
+
+                <div
+                    class="placeholder-description"
+                >
                     MEMBER RANKING WILL APPEAR HERE
                 </div>
+
 
             </div>
 
 
 
-            <!-- ==========================
+            <!-- =================================================
                  IZUNA MINI GAME
-            =========================== -->
+            ================================================== -->
 
             <div
                 id="izunaGame"
@@ -141,11 +273,17 @@
             >
 
 
-                <div class="pet-score">
+                <!-- SCORE -->
+
+                <div
+                    class="pet-score"
+                >
 
                     You have pet Izuna for
 
-                    <span id="petSeconds">
+                    <span
+                        id="petSeconds"
+                    >
                         0.0
                     </span>
 
@@ -154,10 +292,16 @@
                 </div>
 
 
+
+                <!-- IZUNA AREA -->
+
                 <div
                     id="izunaArea"
                     class="izuna-area"
                 >
+
+
+                    <!-- STATIC IZUNA -->
 
                     <img
                         id="izunaStatic"
@@ -168,6 +312,8 @@
                     >
 
 
+                    <!-- PETTING IZUNA -->
+
                     <img
                         id="izunaPet"
                         class="izuna-image izuna-pet"
@@ -177,10 +323,18 @@
                     >
 
 
-                    <div class="pet-glow"></div>
+                    <!-- GLOW -->
+
+                    <div
+                        class="pet-glow"
+                    ></div>
+
 
                 </div>
 
+
+
+                <!-- PET INSTRUCTION -->
 
                 <div
                     id="petInstruction"
@@ -189,12 +343,17 @@
                     RUB IZUNA'S HEAD
                 </div>
 
+
             </div>
+
 
         </div>
 
 
-        <!-- BACK -->
+
+        <!-- =================================================
+             BACK BUTTON
+        ================================================== -->
 
         <button
             id="backButton"
@@ -203,11 +362,19 @@
             BACK
         </button>
 
+
     </section>
 
 
 
-    <script src="./script.js"></script>
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script
+        src="./script.js"
+    ></script>
+
 
 </body>
 
