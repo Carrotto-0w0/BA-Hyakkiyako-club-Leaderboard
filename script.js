@@ -1,263 +1,62 @@
-/* =====================================================
+/* =========================================================
+   HYAKKIYAKO CLUB
+   Particle + Logo Dissolve + Leaderboard Transition
+========================================================= */
+
+
+/* =========================================================
    ELEMENTS
-===================================================== */
+========================================================= */
 
-const canvas =
-    document.getElementById(
-        "particleCanvas"
-    );
+const canvas = document.getElementById("particleCanvas");
+const ctx = canvas.getContext("2d");
 
-const ctx =
-    canvas.getContext("2d");
+const logo = document.getElementById("logo");
+const logoContainer = document.getElementById("logoContainer");
 
-
-const logo =
-    document.getElementById(
-        "logo"
-    );
-
-
-const logoContainer =
-    document.getElementById(
-        "logoContainer"
-    );
-
-
-const viewButton =
-    document.getElementById(
-        "viewButton"
-    );
-
+const viewButton = document.getElementById("viewButton");
 
 const leaderboardScreen =
-    document.getElementById(
-        "leaderboardScreen"
-    );
-
+    document.getElementById("leaderboardScreen");
 
 const backButton =
-    document.getElementById(
-        "backButton"
-    );
+    document.getElementById("backButton");
 
 
-/* =====================================================
-   CANVAS SIZE
-===================================================== */
+/* =========================================================
+   CANVAS
+========================================================= */
 
-let width = 0;
-
-let height = 0;
-
+let width = window.innerWidth;
+let height = window.innerHeight;
 
 function resizeCanvas() {
 
-    width =
-        window.innerWidth;
+    width = window.innerWidth;
+    height = window.innerHeight;
 
-    height =
-        window.innerHeight;
-
-
-    canvas.width =
-        width;
-
-    canvas.height =
-        height;
-
+    canvas.width = width;
+    canvas.height = height;
 }
-
 
 resizeCanvas();
 
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
+window.addEventListener("resize", resizeCanvas);
 
 
-/* =====================================================
+/* =========================================================
    PARTICLE ARRAYS
-===================================================== */
-
-const ambientParticles = [];
+========================================================= */
 
 const bottomParticles = [];
-
+const ambientParticles = [];
 const logoParticles = [];
 
 
-/* =====================================================
-   AMBIENT PARTICLE
-   Particle เล็ก ๆ ทั่วจอ
-===================================================== */
-
-class AmbientParticle {
-
-    constructor() {
-
-        this.reset(true);
-
-    }
-
-
-    reset(firstSpawn = false) {
-
-        this.x =
-            Math.random()
-            * width;
-
-
-        this.y =
-
-            firstSpawn
-
-                ? Math.random()
-                  * height
-
-                : height + 20;
-
-
-        this.size =
-            Math.random()
-            * 1.5
-            + 0.35;
-
-
-        this.speed =
-            Math.random()
-            * 0.35
-            + 0.1;
-
-
-        this.opacity =
-            Math.random()
-            * 0.45
-            + 0.08;
-
-
-        this.wave =
-            Math.random()
-            * Math.PI
-            * 2;
-
-
-        this.waveSpeed =
-            Math.random()
-            * 0.02
-            + 0.006;
-
-
-        this.waveAmount =
-            Math.random()
-            * 0.55
-            + 0.15;
-
-    }
-
-
-    update() {
-
-        this.y -=
-            this.speed;
-
-
-        this.wave +=
-            this.waveSpeed;
-
-
-        this.x +=
-
-            Math.sin(
-                this.wave
-            )
-            * this.waveAmount;
-
-
-        if (
-            this.y < -20
-        ) {
-
-            this.reset();
-
-        }
-
-    }
-
-
-    draw() {
-
-        ctx.save();
-
-
-        ctx.globalAlpha =
-            this.opacity;
-
-
-        ctx.fillStyle =
-            "#20DFFF";
-
-
-        ctx.shadowBlur =
-            7;
-
-
-        ctx.shadowColor =
-            "#00BFFF";
-
-
-        ctx.beginPath();
-
-
-        ctx.arc(
-
-            this.x,
-
-            this.y,
-
-            this.size,
-
-            0,
-
-            Math.PI * 2
-
-        );
-
-
-        ctx.fill();
-
-
-        ctx.restore();
-
-    }
-
-}
-
-
-/* =====================================================
-   CREATE AMBIENT PARTICLES
-===================================================== */
-
-for (
-    let i = 0;
-    i < 95;
-    i++
-) {
-
-    ambientParticles.push(
-
-        new AmbientParticle()
-
-    );
-
-}
-
-
-/* =====================================================
+/* =========================================================
    BOTTOM PARTICLE
-   Particle หลักที่ลอยขึ้นจากด้านล่าง
-===================================================== */
+   Particle สีฟ้าลอยขึ้นจากด้านล่าง
+========================================================= */
 
 class BottomParticle {
 
@@ -270,121 +69,106 @@ class BottomParticle {
 
     reset(firstSpawn = false) {
 
+        /*
+         * กระจายตามแนวนอน
+         */
+
         this.x =
-            Math.random()
-            * width;
-
-
-        this.y =
-
-            firstSpawn
-
-                ? height
-                  + Math.random()
-                  * height
-
-                : height + 20;
+            Math.random() * width;
 
 
         /*
-            ขนาด Particle
-            ส่วนใหญ่เล็ก
-            บางส่วนใหญ่กว่า
-        */
+         * ตอนเริ่มเว็บ
+         * ให้ Particle อยู่ในช่วงล่างของจอ
+         * เพื่อให้เห็นทันที
+         */
 
-        const sizeRoll =
+        if (firstSpawn) {
+
+            this.y =
+                height -
+                Math.random() *
+                height *
+                0.42;
+
+        } else {
+
+            this.y =
+                height + 20;
+
+        }
+
+
+        /*
+         * ขนาด Particle
+         */
+
+        const sizeRandom =
             Math.random();
 
-
-        if (
-            sizeRoll < 0.65
-        ) {
+        if (sizeRandom < 0.65) {
 
             this.size =
-                Math.random()
-                * 1.6
-                + 0.5;
+                Math.random() * 1.5 + 0.6;
 
         }
-
-        else if (
-            sizeRoll < 0.9
-        ) {
+        else if (sizeRandom < 0.9) {
 
             this.size =
-                Math.random()
-                * 2.2
-                + 1.2;
+                Math.random() * 2.2 + 1.2;
 
         }
-
         else {
 
             this.size =
-                Math.random()
-                * 2.5
-                + 2;
+                Math.random() * 2.8 + 2;
 
         }
 
 
         /*
-            ความเร็ว
-        */
+         * ความเร็วลอยขึ้น
+         */
 
         this.speed =
-            Math.random()
-            * 0.9
-            + 0.3;
+            Math.random() * 0.8 + 0.35;
 
 
         /*
-            ความสว่าง
-        */
+         * ความสว่าง
+         */
 
         this.opacity =
-            Math.random()
-            * 0.65
-            + 0.2;
+            Math.random() * 0.6 + 0.3;
 
 
         /*
-            การส่าย
-        */
+         * การส่าย
+         */
 
         this.wave =
-            Math.random()
-            * Math.PI
-            * 2;
-
+            Math.random() *
+            Math.PI *
+            2;
 
         this.waveSpeed =
-            Math.random()
-            * 0.035
-            + 0.008;
-
+            Math.random() * 0.025 + 0.008;
 
         this.waveAmount =
-            Math.random()
-            * 1.4
-            + 0.3;
+            Math.random() * 1.2 + 0.3;
 
 
         /*
-            Particle บางเม็ด
-            มีการกระพริบ
-        */
+         * การกระพริบ
+         */
 
         this.twinkle =
-            Math.random()
-            * Math.PI
-            * 2;
-
+            Math.random() *
+            Math.PI *
+            2;
 
         this.twinkleSpeed =
-            Math.random()
-            * 0.05
-            + 0.015;
+            Math.random() * 0.045 + 0.015;
 
     }
 
@@ -392,47 +176,38 @@ class BottomParticle {
     update() {
 
         /*
-            ลอยขึ้น
-        */
+         * ลอยขึ้น
+         */
 
-        this.y -=
-            this.speed;
+        this.y -= this.speed;
 
 
         /*
-            ส่ายซ้ายขวา
-        */
+         * ส่ายซ้าย-ขวา
+         */
 
-        this.wave +=
-            this.waveSpeed;
-
+        this.wave += this.waveSpeed;
 
         this.x +=
-
-            Math.sin(
-                this.wave
-            )
-            * this.waveAmount;
+            Math.sin(this.wave) *
+            this.waveAmount;
 
 
         /*
-            กระพริบ
-        */
+         * กระพริบเล็กน้อย
+         */
 
-        this.twinkle +=
-            this.twinkleSpeed;
+        this.twinkle += this.twinkleSpeed;
 
 
         /*
-            ถ้าหลุดด้านบน
-            ให้เกิดใหม่ด้านล่าง
-        */
+         * ถ้าหลุดด้านบน
+         * ให้เกิดใหม่ด้านล่าง
+         */
 
-        if (
-            this.y < -25
-        ) {
+        if (this.y < -30) {
 
-            this.reset();
+            this.reset(false);
 
         }
 
@@ -441,71 +216,58 @@ class BottomParticle {
 
     draw() {
 
-        /*
-            Twinkle
-        */
-
         const pulse =
-
-            0.75
-            +
-            Math.sin(
-                this.twinkle
-            )
-            * 0.25;
+            0.75 +
+            Math.sin(this.twinkle) * 0.25;
 
 
         ctx.save();
 
 
         ctx.globalAlpha =
-            this.opacity
-            * pulse;
+            this.opacity * pulse;
 
 
         /*
-            สีฟ้า
-        */
+         * สี Particle
+         */
 
         ctx.fillStyle =
-            "#27E4FF";
+            "#20DFFF";
 
 
         /*
-            Glow
-        */
-
-        ctx.shadowBlur =
-            this.size > 2.5
-                ? 18
-                : 11;
-
+         * Glow
+         */
 
         ctx.shadowColor =
             "#00BFFF";
 
 
+        if (this.size >= 2.5) {
+
+            ctx.shadowBlur = 20;
+
+        } else {
+
+            ctx.shadowBlur = 11;
+
+        }
+
+
         /*
-            จุด Particle
-        */
+         * วาดจุด
+         */
 
         ctx.beginPath();
 
-
         ctx.arc(
-
             this.x,
-
             this.y,
-
             this.size,
-
             0,
-
             Math.PI * 2
-
         );
-
 
         ctx.fill();
 
@@ -517,116 +279,214 @@ class BottomParticle {
 }
 
 
-/* =====================================================
+/* =========================================================
    CREATE BOTTOM PARTICLES
-===================================================== */
+========================================================= */
 
 /*
-   110 particles
-   เพิ่มจาก Version ก่อน
-*/
+ * เพิ่มเป็น 150 เม็ด
+ */
 
-for (
-    let i = 0;
-    i < 110;
-    i++
-) {
+for (let i = 0; i < 150; i++) {
 
     bottomParticles.push(
-
         new BottomParticle()
-
     );
 
 }
 
 
-/* =====================================================
+/* =========================================================
+   AMBIENT PARTICLE
+   Particle เล็ก ๆ ทั่วหน้าจอ
+========================================================= */
+
+class AmbientParticle {
+
+    constructor() {
+
+        this.reset();
+
+    }
+
+
+    reset() {
+
+        this.x =
+            Math.random() * width;
+
+        this.y =
+            Math.random() * height;
+
+
+        this.size =
+            Math.random() * 1.2 + 0.3;
+
+
+        this.speed =
+            Math.random() * 0.25 + 0.08;
+
+
+        this.opacity =
+            Math.random() * 0.3 + 0.08;
+
+
+        this.wave =
+            Math.random() *
+            Math.PI *
+            2;
+
+        this.waveSpeed =
+            Math.random() * 0.015 + 0.005;
+
+        this.waveAmount =
+            Math.random() * 0.5 + 0.1;
+
+    }
+
+
+    update() {
+
+        this.y -= this.speed;
+
+
+        this.wave += this.waveSpeed;
+
+
+        this.x +=
+            Math.sin(this.wave) *
+            this.waveAmount;
+
+
+        if (this.y < -20) {
+
+            this.y =
+                height + 20;
+
+            this.x =
+                Math.random() * width;
+
+        }
+
+    }
+
+
+    draw() {
+
+        ctx.save();
+
+        ctx.globalAlpha =
+            this.opacity;
+
+        ctx.fillStyle =
+            "#18CFFF";
+
+        ctx.shadowColor =
+            "#00BFFF";
+
+        ctx.shadowBlur = 7;
+
+
+        ctx.beginPath();
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+        ctx.restore();
+
+    }
+
+}
+
+
+/* =========================================================
+   CREATE AMBIENT PARTICLES
+========================================================= */
+
+for (let i = 0; i < 70; i++) {
+
+    ambientParticles.push(
+        new AmbientParticle()
+    );
+
+}
+
+
+/* =========================================================
    LOGO DISSOLVE PARTICLE
-===================================================== */
+========================================================= */
 
 class LogoParticle {
 
-    constructor(
-        x,
-        y
-    ) {
+    constructor(x, y) {
 
         this.x = x;
-
         this.y = y;
 
 
         /*
-            สุ่มทิศทาง
-        */
+         * สุ่มทิศทาง
+         */
 
         const angle =
-
-            Math.random()
-            * Math.PI
-            * 2;
+            Math.random() *
+            Math.PI *
+            2;
 
 
         const speed =
-
-            Math.random()
-            * 3.5
-            + 0.8;
+            Math.random() * 3.2 + 0.7;
 
 
         this.vx =
-
-            Math.cos(angle)
-            * speed;
+            Math.cos(angle) * speed;
 
 
         this.vy =
-
-            Math.sin(angle)
-            * speed;
+            Math.sin(angle) * speed;
 
 
         /*
-            ทำให้บาง Particle
-            ลอยขึ้น
-        */
+         * ให้บางส่วนลอยขึ้น
+         */
 
         this.vy -=
-
-            Math.random()
-            * 1.4;
+            Math.random() * 1.3;
 
 
         this.size =
+            Math.random() * 2 + 0.5;
 
-            Math.random()
-            * 2
-            + 0.6;
 
+        /*
+         * อายุ Particle
+         */
 
         this.life = 1;
 
 
         this.decay =
+            Math.random() * 0.018 + 0.006;
 
-            Math.random()
-            * 0.018
-            + 0.006;
 
+        /*
+         * การส่าย
+         */
 
         this.wave =
-
-            Math.random()
-            * Math.PI
-            * 2;
-
+            Math.random() *
+            Math.PI *
+            2;
 
         this.waveSpeed =
-
-            Math.random()
-            * 0.08
-            + 0.02;
+            Math.random() * 0.07 + 0.02;
 
     }
 
@@ -637,49 +497,41 @@ class LogoParticle {
             this.waveSpeed;
 
 
-        this.x +=
-            this.vx;
+        /*
+         * เคลื่อนที่
+         */
 
+        this.x += this.vx;
 
-        this.y +=
-            this.vy;
+        this.y += this.vy;
 
 
         /*
-            ชะลอ
-        */
+         * ค่อย ๆ ช้าลง
+         */
 
-        this.vx *=
-            0.985;
+        this.vx *= 0.985;
 
-
-        this.vy *=
-            0.985;
+        this.vy *= 0.985;
 
 
         /*
-            การส่าย
-        */
+         * ส่ายเล็กน้อย
+         */
 
         this.x +=
-
-            Math.sin(
-                this.wave
-            )
-            * 0.35;
+            Math.sin(this.wave) * 0.3;
 
 
         /*
-            Fade
-        */
+         * Fade out
+         */
 
         this.life -=
             this.decay;
 
 
-        return (
-            this.life > 0
-        );
+        return this.life > 0;
 
     }
 
@@ -697,31 +549,22 @@ class LogoParticle {
             "#35E6FF";
 
 
-        ctx.shadowBlur =
-            14;
-
-
         ctx.shadowColor =
             "#00BFFF";
 
 
+        ctx.shadowBlur = 14;
+
+
         ctx.beginPath();
 
-
         ctx.arc(
-
             this.x,
-
             this.y,
-
             this.size,
-
             0,
-
             Math.PI * 2
-
         );
-
 
         ctx.fill();
 
@@ -733,9 +576,9 @@ class LogoParticle {
 }
 
 
-/* =====================================================
-   CREATE LOGO PARTICLES
-===================================================== */
+/* =========================================================
+   CREATE PARTICLES FROM LOGO
+========================================================= */
 
 function createLogoParticles() {
 
@@ -743,15 +586,15 @@ function createLogoParticles() {
 
 
     /*
-        ถ้า PNG โหลดไม่ได้
-    */
+     * ตรวจสอบว่า PNG โหลดแล้วหรือไม่
+     */
 
     if (
         !logo.complete ||
         logo.naturalWidth === 0
     ) {
 
-        createFallbackParticles();
+        createFallbackLogoParticles();
 
         return;
 
@@ -759,37 +602,26 @@ function createLogoParticles() {
 
 
     /*
-        Canvas ชั่วคราว
-    */
+     * สร้าง Canvas ชั่วคราว
+     */
 
     const tempCanvas =
-        document.createElement(
-            "canvas"
-        );
-
+        document.createElement("canvas");
 
     const tempCtx =
-        tempCanvas.getContext(
-            "2d"
-        );
+        tempCanvas.getContext("2d");
 
 
     /*
-        ตำแหน่ง Logo
-    */
+     * ตำแหน่ง Logo บนหน้าจอ
+     */
 
     const rect =
         logo.getBoundingClientRect();
 
 
-    /*
-        ขนาด
-    */
-
     const logoWidth =
-        Math.floor(
-            rect.width
-        );
+        Math.floor(rect.width);
 
 
     const ratio =
@@ -799,61 +631,48 @@ function createLogoParticles() {
 
     const logoHeight =
         Math.floor(
-            logoWidth
-            * ratio
+            logoWidth * ratio
         );
 
 
     tempCanvas.width =
         logoWidth;
 
-
     tempCanvas.height =
         logoHeight;
 
 
     /*
-        วาด PNG
-    */
+     * วาด Logo ลง Canvas
+     */
 
     tempCtx.drawImage(
-
         logo,
-
         0,
-
         0,
-
         logoWidth,
-
         logoHeight
-
     );
 
 
     /*
-        อ่าน Pixel
-    */
+     * อ่าน Pixel
+     */
 
     const pixels =
         tempCtx.getImageData(
-
             0,
-
             0,
-
             logoWidth,
-
             logoHeight
-
         ).data;
 
 
     /*
-        Sampling
-
-        5 = รายละเอียดค่อนข้างดี
-    */
+     * ระยะห่างของ Particle
+     *
+     * 5 = รายละเอียดสูง
+     */
 
     const sample = 5;
 
@@ -871,29 +690,23 @@ function createLogoParticles() {
         ) {
 
             const index =
-
                 (
-                    y * logoWidth
-                    + x
-                )
-                * 4;
+                    y * logoWidth +
+                    x
+                ) * 4;
 
 
             const alpha =
+                pixels[index + 3];
 
-                pixels[
-                    index + 3
-                ];
 
+            /*
+             * เฉพาะ Pixel ที่มีภาพ
+             */
 
             if (
-
-                alpha > 80
-
-                &&
-
-                Math.random() > 0.2
-
+                alpha > 80 &&
+                Math.random() > 0.18
             ) {
 
                 logoParticles.push(
@@ -916,25 +729,25 @@ function createLogoParticles() {
 
 
     /*
-        Fallback
-    */
+     * หากไม่มี Particle
+     */
 
     if (
         logoParticles.length === 0
     ) {
 
-        createFallbackParticles();
+        createFallbackLogoParticles();
 
     }
 
 }
 
 
-/* =====================================================
-   FALLBACK PARTICLES
-===================================================== */
+/* =========================================================
+   FALLBACK LOGO PARTICLES
+========================================================= */
 
-function createFallbackParticles() {
+function createFallbackLogoParticles() {
 
     const rect =
         logo.getBoundingClientRect();
@@ -942,24 +755,20 @@ function createFallbackParticles() {
 
     for (
         let i = 0;
-        i < 350;
+        i < 450;
         i++
     ) {
 
         const x =
-
-            rect.left
-            +
-            Math.random()
-            * rect.width;
+            rect.left +
+            Math.random() *
+            rect.width;
 
 
         const y =
-
-            rect.top
-            +
-            Math.random()
-            * rect.height;
+            rect.top +
+            Math.random() *
+            rect.height;
 
 
         logoParticles.push(
@@ -976,34 +785,34 @@ function createFallbackParticles() {
 }
 
 
-/* =====================================================
+/* =========================================================
    TRANSITION BURST
-===================================================== */
+========================================================= */
 
 function createBurst() {
 
     const centerX =
         width / 2;
 
-
     const centerY =
         height / 2;
 
 
+    /*
+     * Burst เพิ่มเติม
+     */
+
     for (
         let i = 0;
-        i < 120;
+        i < 100;
         i++
     ) {
 
         logoParticles.push(
 
             new LogoParticle(
-
                 centerX,
-
                 centerY
-
             )
 
         );
@@ -1013,56 +822,59 @@ function createBurst() {
 }
 
 
-/* =====================================================
+/* =========================================================
    TRANSITION STATE
-===================================================== */
+========================================================= */
 
-let isTransitioning =
-    false;
+let isTransitioning = false;
 
 
-/* =====================================================
+/* =========================================================
+   VIEW BUTTON
+========================================================= */
+
+viewButton.addEventListener(
+    "click",
+    startTransition
+);
+
+
+/* =========================================================
    START TRANSITION
-===================================================== */
+========================================================= */
 
 function startTransition() {
 
-    if (
-        isTransitioning
-    ) {
+    if (isTransitioning) {
 
         return;
 
     }
 
 
-    isTransitioning =
-        true;
+    isTransitioning = true;
 
 
     /*
-        ซ่อนปุ่ม
-    */
+     * ปิดปุ่ม
+     */
 
-    viewButton.style.opacity =
-        "0";
-
+    viewButton.style.opacity = "0";
 
     viewButton.style.pointerEvents =
         "none";
 
 
     /*
-        สร้าง Particle
-        จาก Logo
-    */
+     * สร้าง Particle จาก Logo
+     */
 
     createLogoParticles();
 
 
     /*
-        Logo fade + dissolve
-    */
+     * เริ่มสลาย Logo
+     */
 
     setTimeout(() => {
 
@@ -1075,25 +887,25 @@ function startTransition() {
 
 
         logoContainer.style.filter =
-            "blur(6px)";
+            "blur(5px)";
 
     }, 50);
 
 
     /*
-        Burst ตรงกลาง
-    */
+     * เพิ่ม Burst
+     */
 
     setTimeout(() => {
 
         createBurst();
 
-    }, 300);
+    }, 250);
 
 
     /*
-        เปิดหน้า Leaderboard
-    */
+     * เปิด Leaderboard
+     */
 
     setTimeout(() => {
 
@@ -1101,20 +913,26 @@ function startTransition() {
             "active"
         );
 
-    }, 950);
+    }, 900);
 
 }
 
 
-/* =====================================================
-   BACK
-===================================================== */
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+backButton.addEventListener(
+    "click",
+    goBack
+);
+
 
 function goBack() {
 
     /*
-        ปิด Leaderboard
-    */
+     * ปิด Leaderboard
+     */
 
     leaderboardScreen.classList.remove(
         "active"
@@ -1122,15 +940,15 @@ function goBack() {
 
 
     /*
-        รอ Transition
-    */
+     * รอให้หน้าจอ Fade
+     */
 
     setTimeout(() => {
 
 
         /*
-            Logo กลับมา
-        */
+         * Logo กลับมา
+         */
 
         logoContainer.style.opacity =
             "1";
@@ -1145,8 +963,8 @@ function goBack() {
 
 
         /*
-            ปุ่มกลับมา
-        */
+         * ปุ่มกลับมา
+         */
 
         viewButton.style.opacity =
             "1";
@@ -1157,15 +975,13 @@ function goBack() {
 
 
         /*
-            ล้าง Particle
-        */
+         * ล้าง Logo Particle
+         */
 
-        logoParticles.length =
-            0;
+        logoParticles.length = 0;
 
 
-        isTransitioning =
-            false;
+        isTransitioning = false;
 
 
     }, 700);
@@ -1173,55 +989,28 @@ function goBack() {
 }
 
 
-/* =====================================================
-   BUTTON EVENTS
-===================================================== */
-
-viewButton.addEventListener(
-
-    "click",
-
-    startTransition
-
-);
-
-
-backButton.addEventListener(
-
-    "click",
-
-    goBack
-
-);
-
-
-/* =====================================================
+/* =========================================================
    MAIN ANIMATION LOOP
-===================================================== */
+========================================================= */
 
 function animate() {
 
 
     /*
-        Clear Canvas
-    */
+     * Clear Canvas
+     */
 
     ctx.clearRect(
-
         0,
-
         0,
-
         width,
-
         height
-
     );
 
 
-    /*
-        Ambient particles
-    */
+    /* -----------------------------------------------
+       AMBIENT PARTICLES
+    ------------------------------------------------ */
 
     for (
         const particle
@@ -1235,9 +1024,9 @@ function animate() {
     }
 
 
-    /*
-        Bottom particles
-    */
+    /* -----------------------------------------------
+       BOTTOM PARTICLES
+    ------------------------------------------------ */
 
     for (
         const particle
@@ -1251,9 +1040,9 @@ function animate() {
     }
 
 
-    /*
-        Logo dissolve
-    */
+    /* -----------------------------------------------
+       LOGO DISSOLVE
+    ------------------------------------------------ */
 
     for (
         let i =
@@ -1272,22 +1061,16 @@ function animate() {
             particle.update();
 
 
-        if (
-            alive
-        ) {
+        if (alive) {
 
             particle.draw();
 
         }
-
         else {
 
             logoParticles.splice(
-
                 i,
-
                 1
-
             );
 
         }
@@ -1296,8 +1079,8 @@ function animate() {
 
 
     /*
-        Continue
-    */
+     * Next frame
+     */
 
     requestAnimationFrame(
         animate
@@ -1306,8 +1089,8 @@ function animate() {
 }
 
 
-/* =====================================================
-   START ANIMATION
-===================================================== */
+/* =========================================================
+   START
+========================================================= */
 
 animate();
