@@ -1,9 +1,6 @@
 /* =========================================================
    HYAKKIYAKO
-   MENU
-   LOGO PARTICLE TRANSITION
-   BACKGROUND PARTICLES
-   IZUNA PET GAME
+   MENU + LOGO PARTICLE TRANSITION + IZUNA
 ========================================================= */
 
 
@@ -12,57 +9,31 @@
 ========================================================= */
 
 const menuScreen =
-    document.getElementById(
-        "menuScreen"
-    );
-
+    document.getElementById("menuScreen");
 
 const leaderboardScreen =
-    document.getElementById(
-        "leaderboardScreen"
-    );
-
+    document.getElementById("leaderboardScreen");
 
 const logoContainer =
-    document.getElementById(
-        "logoContainer"
-    );
-
+    document.getElementById("logoContainer");
 
 const mainLogo =
-    document.querySelector(
-        ".main-logo"
-    );
-
+    document.querySelector(".main-logo");
 
 const viewButton =
-    document.getElementById(
-        "viewButton"
-    );
-
+    document.getElementById("viewButton");
 
 const backButton =
-    document.getElementById(
-        "backButton"
-    );
-
+    document.getElementById("backButton");
 
 const izunaArea =
-    document.getElementById(
-        "izunaArea"
-    );
-
+    document.getElementById("izunaArea");
 
 const petSeconds =
-    document.getElementById(
-        "petSeconds"
-    );
-
+    document.getElementById("petSeconds");
 
 const petInstruction =
-    document.getElementById(
-        "petInstruction"
-    );
+    document.getElementById("petInstruction");
 
 
 /* =========================================================
@@ -70,28 +41,18 @@ const petInstruction =
 ========================================================= */
 
 const canvas =
-    document.getElementById(
-        "particleCanvas"
-    );
-
+    document.getElementById("particleCanvas");
 
 const ctx =
-    canvas.getContext(
-        "2d"
-    );
+    canvas.getContext("2d");
 
 
 let canvasWidth =
     window.innerWidth;
 
-
 let canvasHeight =
     window.innerHeight;
 
-
-/* =========================================================
-   PARTICLES
-========================================================= */
 
 let backgroundParticles = [];
 
@@ -99,15 +60,7 @@ let transitionParticles = [];
 
 
 /* =========================================================
-   STATE
-========================================================= */
-
-let transitionActive =
-    false;
-
-
-/* =========================================================
-   CANVAS RESIZE
+   RESIZE
 ========================================================= */
 
 function resizeCanvas() {
@@ -117,7 +70,6 @@ function resizeCanvas() {
 
     canvasHeight =
         window.innerHeight;
-
 
     canvas.width =
         canvasWidth;
@@ -153,14 +105,14 @@ function createBackgroundParticle() {
         y:
             canvasHeight
             +
-            Math.random() * 50,
+            Math.random() * 40,
 
         size:
-            Math.random() * 1.8
+            Math.random() * 1.6
             + 0.5,
 
         speed:
-            Math.random() * 0.45
+            Math.random() * 0.4
             + 0.25,
 
         drift:
@@ -168,7 +120,7 @@ function createBackgroundParticle() {
                 Math.random()
                 - 0.5
             )
-            * 0.20,
+            * 0.18,
 
         alpha:
             Math.random() * 0.35
@@ -189,23 +141,19 @@ function createBackgroundParticle() {
 
 for (
     let i = 0;
-    i < 50;
+    i < 45;
     i++
 ) {
 
     const p =
         createBackgroundParticle();
 
-
     p.y =
         Math.random()
         *
         canvasHeight;
 
-
-    backgroundParticles.push(
-        p
-    );
+    backgroundParticles.push(p);
 
 }
 
@@ -216,162 +164,93 @@ for (
 
 function createLogoParticles() {
 
-    /*
-     * Get current logo position.
-     * This happens BEFORE the logo disappears.
-     */
-
     const rect =
         mainLogo.getBoundingClientRect();
 
 
-    /*
-     * Smaller particle count.
-     */
+    const width =
+        rect.width * 0.72;
 
-    const particleCount =
-        Math.min(
-            150,
-            Math.max(
-                90,
-                Math.floor(
-                    (
-                        rect.width
-                        *
-                        rect.height
-                    )
-                    /
-                    8500
-                )
-            )
-        );
+    const height =
+        rect.height * 0.68;
 
 
-    /*
-     * Smaller emission area.
-     *
-     * Instead of the entire logo rectangle,
-     * keep particles closer to the center.
-     */
-
-    const areaWidth =
-        rect.width
-        *
-        0.78;
-
-
-    const areaHeight =
-        rect.height
-        *
-        0.72;
-
-
-    const areaLeft =
+    const left =
         rect.left
         +
         (
             rect.width
             -
-            areaWidth
-        )
-        /
-        2;
+            width
+        ) / 2;
 
 
-    const areaTop =
+    const top =
         rect.top
         +
         (
             rect.height
             -
-            areaHeight
-        )
-        /
-        2;
+            height
+        ) / 2;
+
+
+    const count =
+        115;
 
 
     for (
         let i = 0;
-        i < particleCount;
+        i < count;
         i++
     ) {
 
-
-        /*
-         * Position.
-         */
-
-        const x =
-            areaLeft
-            +
-            Math.random()
-            *
-            areaWidth;
-
-
-        const y =
-            areaTop
-            +
-            Math.random()
-            *
-            areaHeight;
-
-
-        /*
-         * Mostly upward movement.
-         */
-
-        const vx =
-            (
-                Math.random()
-                - 0.5
-            )
-            *
-            1.4;
-
-
-        const vy =
-            -(
-                Math.random()
-                *
-                1.6
-                +
-                0.35
-            );
-
-
         transitionParticles.push({
 
-            x: x,
+            x:
+                left
+                +
+                Math.random()
+                *
+                width,
 
-            y: y,
+            y:
+                top
+                +
+                Math.random()
+                *
+                height,
 
-            vx: vx,
+            vx:
+                (
+                    Math.random()
+                    - 0.5
+                )
+                * 0.65,
 
-            vy: vy,
+            vy:
+                -(
+                    Math.random()
+                    * 0.9
+                    + 0.15
+                ),
 
             size:
                 Math.random()
-                *
-                1.8
-                +
-                0.5,
+                * 1.8
+                + 0.5,
 
             alpha:
                 Math.random()
-                *
-                0.55
-                +
-                0.35,
+                * 0.55
+                + 0.30,
 
             life: 1,
 
             decay:
                 Math.random()
-                *
-                0.009
-                +
-                0.005
+                * 0.018
+                + 0.012
 
         });
 
@@ -391,10 +270,8 @@ function drawBackgroundParticles() {
         of backgroundParticles
     ) {
 
-
         p.y -=
             p.speed;
-
 
         p.x +=
             p.drift;
@@ -428,8 +305,7 @@ function drawBackgroundParticles() {
             canvasWidth + 10
         ) {
 
-            p.x =
-                -10;
+            p.x = -10;
 
         }
 
@@ -471,7 +347,7 @@ function drawBackgroundParticles() {
 
 
 /* =========================================================
-   DRAW LOGO TRANSITION PARTICLES
+   DRAW TRANSITION PARTICLES
 ========================================================= */
 
 function drawTransitionParticles() {
@@ -489,37 +365,20 @@ function drawTransitionParticles() {
             transitionParticles[i];
 
 
-        /*
-         * Movement.
-         */
-
         p.x +=
             p.vx;
-
 
         p.y +=
             p.vy;
 
 
-        /*
-         * Slight upward acceleration.
-         */
-
         p.vy -=
-            0.006;
+            0.004;
 
-
-        /*
-         * Fade.
-         */
 
         p.life -=
             p.decay;
 
-
-        /*
-         * Draw.
-         */
 
         ctx.beginPath();
 
@@ -527,14 +386,13 @@ function drawTransitionParticles() {
         ctx.shadowBlur =
             7;
 
-
         ctx.shadowColor =
             "rgba(0,225,255,0.85)";
 
 
         ctx.fillStyle =
             `rgba(
-                15,
+                10,
                 220,
                 255,
                 ${p.alpha * p.life}
@@ -552,10 +410,6 @@ function drawTransitionParticles() {
 
         ctx.fill();
 
-
-        /*
-         * Remove particle.
-         */
 
         if (
             p.life <= 0
@@ -589,7 +443,6 @@ function drawParticles() {
 
     drawBackgroundParticles();
 
-
     drawTransitionParticles();
 
 
@@ -608,87 +461,30 @@ drawParticles();
 
 
 /* =========================================================
-   VIEW TRANSITION
+   VIEW BUTTON
 ========================================================= */
 
 viewButton.addEventListener(
     "click",
     () => {
 
-
-        if (
-            transitionActive
-        ) {
-
-            return;
-
-        }
-
-
-        transitionActive =
-            true;
-
-
-        /*
-         * Disable button.
-         */
-
         viewButton.disabled =
             true;
 
-
         viewButton.style.opacity =
             "0";
-
 
         viewButton.style.pointerEvents =
             "none";
 
 
-        /*
-         * -------------------------------------------------
-         * STEP 1
-         *
-         * Logo begins fading.
-         * NO transition particles yet.
-         * -------------------------------------------------
-         */
+        createLogoParticles();
+
 
         logoContainer.classList.add(
             "logo-disappear"
         );
 
-
-        /*
-         * -------------------------------------------------
-         * STEP 2
-         *
-         * Wait until logo is almost completely gone.
-         *
-         * Logo animation = 700ms
-         * Particle starts = 760ms
-         * -------------------------------------------------
-         */
-
-        setTimeout(
-            () => {
-
-                createLogoParticles();
-
-            },
-
-            760
-        );
-
-
-        /*
-         * -------------------------------------------------
-         * STEP 3
-         *
-         * Show leaderboard after
-         * logo + particle transition.
-         * -------------------------------------------------
-         */
 
         setTimeout(
             () => {
@@ -696,10 +492,8 @@ viewButton.addEventListener(
                 menuScreen.style.opacity =
                     "0";
 
-
                 menuScreen.style.pointerEvents =
                     "none";
-
 
                 leaderboardScreen.classList.add(
                     "active"
@@ -707,23 +501,7 @@ viewButton.addEventListener(
 
             },
 
-            1150
-        );
-
-
-        /*
-         * Transition state ends.
-         */
-
-        setTimeout(
-            () => {
-
-                transitionActive =
-                    false;
-
-            },
-
-            1500
+            950
         );
 
     }
@@ -738,7 +516,6 @@ backButton.addEventListener(
     "click",
     () => {
 
-
         leaderboardScreen.classList.remove(
             "active"
         );
@@ -747,51 +524,29 @@ backButton.addEventListener(
         setTimeout(
             () => {
 
-
-                /*
-                 * Restore menu.
-                 */
-
                 menuScreen.style.opacity =
                     "1";
-
 
                 menuScreen.style.pointerEvents =
                     "auto";
 
-
-                /*
-                 * Restore logo.
-                 */
 
                 logoContainer.classList.remove(
                     "logo-disappear"
                 );
 
 
-                /*
-                 * Restore button.
-                 */
-
                 viewButton.disabled =
                     false;
 
-
                 viewButton.style.opacity =
                     "1";
-
 
                 viewButton.style.pointerEvents =
                     "auto";
 
 
-                /*
-                 * Remove old transition particles.
-                 */
-
-                transitionParticles =
-                    [];
-
+                transitionParticles = [];
 
             },
 
@@ -809,37 +564,28 @@ backButton.addEventListener(
 let isPetting =
     false;
 
-
 let petStartTime =
     0;
-
 
 let totalPetTime =
     0;
 
 
-/* =========================================================
-   POINTER
-========================================================= */
-
 let pointerDown =
     false;
-
 
 let lastPointerX =
     0;
 
-
 let lastPointerY =
     0;
-
 
 let petIdleTimer =
     null;
 
 
 /* =========================================================
-   HEAD ZONE
+   HEAD AREA
 ========================================================= */
 
 const HEAD_ZONE = {
@@ -869,35 +615,27 @@ function isInsideHead(
 
 
     const localX =
-        x
-        -
+        x -
         rect.left;
 
 
     const localY =
-        y
-        -
+        y -
         rect.top;
 
 
     const percentX =
         (
-            localX
-            /
+            localX /
             rect.width
-        )
-        *
-        100;
+        ) * 100;
 
 
     const percentY =
         (
-            localY
-            /
+            localY /
             rect.height
-        )
-        *
-        100;
+        ) * 100;
 
 
     return (
@@ -997,7 +735,7 @@ function stopPetting() {
 
 
 /* =========================================================
-   IDLE TIMER
+   IDLE
 ========================================================= */
 
 function resetPetIdleTimer() {
@@ -1022,7 +760,7 @@ function resetPetIdleTimer() {
 
 
 /* =========================================================
-   SCORE
+   SCORE UPDATE
 ========================================================= */
 
 function updateScore() {
@@ -1047,8 +785,7 @@ function updateScore() {
     petSeconds.textContent =
 
         (
-            time
-            /
+            time /
             1000
         )
         .toFixed(1);
@@ -1080,7 +817,6 @@ izunaArea.addEventListener(
         lastPointerX =
             event.clientX;
 
-
         lastPointerY =
             event.clientY;
 
@@ -1091,9 +827,7 @@ izunaArea.addEventListener(
                 event.pointerId
             );
 
-        } catch (error) {
-
-        }
+        } catch (error) {}
 
     }
 );
@@ -1122,28 +856,24 @@ izunaArea.addEventListener(
 
 
         const dx =
-            event.clientX
-            -
+            event.clientX -
             lastPointerX;
 
 
         const dy =
-            event.clientY
-            -
+            event.clientY -
             lastPointerY;
 
 
         const distance =
             Math.sqrt(
-                dx * dx
-                +
+                dx * dx +
                 dy * dy
             );
 
 
         lastPointerX =
             event.clientX;
-
 
         lastPointerY =
             event.clientY;
@@ -1204,9 +934,7 @@ izunaArea.addEventListener(
                 event.pointerId
             );
 
-        } catch (error) {
-
-        }
+        } catch (error) {}
 
     }
 );
@@ -1250,7 +978,6 @@ izunaArea.addEventListener(
             clearTimeout(
                 petIdleTimer
             );
-
 
             stopPetting();
 
