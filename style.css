@@ -1,89 +1,101 @@
-/* =====================================================
+/* =========================================================
+   HYAKKIYAKO CLUB
+   Main Style
+========================================================= */
+
+
+/* =========================================================
    RESET
-===================================================== */
+========================================================= */
 
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
-
 }
 
 
 html,
 body {
-
     width: 100%;
-
     height: 100%;
 
     overflow: hidden;
 
     background: #000;
 
-}
-
-
-body {
-
     font-family:
         Arial,
         Helvetica,
         sans-serif;
+}
 
-    color: white;
+
+/* =========================================================
+   MAIN BODY
+========================================================= */
+
+body {
+
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at 50% 48%,
+            rgba(0, 110, 150, 0.045),
+            transparent 35%
+        ),
+        #000;
 
 }
 
 
-/* =====================================================
+/* =========================================================
    PARTICLE CANVAS
-===================================================== */
+========================================================= */
 
 #particleCanvas {
 
     position: fixed;
 
-    inset: 0;
+    top: 0;
+    left: 0;
 
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
 
-    height: 100%;
+    /*
+     * สำคัญ:
+     * อยู่เหนือพื้นหลัง
+     * แต่ต่ำกว่า Logo และ Button
+     */
 
-    z-index: 2;
+    z-index: 6;
 
     pointer-events: none;
 
 }
 
 
-/* =====================================================
-   SCREEN
-===================================================== */
+/* =========================================================
+   MENU SCREEN
+========================================================= */
 
-.screen {
+.menu-screen {
 
     position: fixed;
 
     inset: 0;
 
     width: 100%;
-
     height: 100%;
 
-}
+    /*
+     * ต้องโปร่งใส
+     * เพื่อให้เห็น Particle Canvas
+     */
 
-
-/* =====================================================
-   MENU
-===================================================== */
-
-.menu-screen {
-
-    z-index: 5;
+    background: transparent;
 
     display: flex;
 
@@ -93,18 +105,20 @@ body {
 
     align-items: center;
 
-    background: #000;
+    z-index: 5;
 
 }
 
 
-/* =====================================================
-   LOGO
-===================================================== */
+/* =========================================================
+   LOGO CONTAINER
+========================================================= */
 
 .logo-container {
 
     position: relative;
+
+    z-index: 7;
 
     width: min(70vw, 900px);
 
@@ -113,6 +127,18 @@ body {
     justify-content: center;
 
     align-items: center;
+
+    /*
+     * Animation ตอน Logo สลาย
+     */
+
+    opacity: 1;
+
+    transform:
+        scale(1);
+
+    filter:
+        blur(0);
 
     transition:
 
@@ -125,49 +151,50 @@ body {
 }
 
 
-.logo-container img {
+/* =========================================================
+   LOGO IMAGE
+========================================================= */
 
-    position: relative;
+#logo {
 
     display: block;
 
     width: 100%;
 
+    max-width: 760px;
+
     height: auto;
 
-    user-select: none;
-
-    pointer-events: none;
-
-    z-index: 1;
+    object-fit: contain;
 
     /*
-       VERY subtle blue glow
-       รอบ Logo เท่านั้น
-    */
+     * Glow บาง ๆ
+     */
 
     filter:
 
         drop-shadow(
-            0 0 7px
-            rgba(
-                0,
-                190,
-                255,
-                0.25
-            )
+            0 0 5px
+            rgba(255, 255, 255, 0.30)
+        )
+
+        drop-shadow(
+            0 0 16px
+            rgba(0, 180, 255, 0.18)
         );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    VIEW BUTTON
-===================================================== */
+========================================================= */
 
 .view-button {
 
     position: relative;
+
+    z-index: 7;
 
     margin-top: 42px;
 
@@ -175,75 +202,119 @@ body {
 
     height: 58px;
 
-    border:
-
-        1px solid
-        rgba(
-            70,
-            220,
-            255,
-            0.8
-        );
+    /*
+     * พื้นหลังโปร่งใส
+     */
 
     background:
+        rgba(0, 15, 25, 0.45);
 
-        rgba(
-            0,
-            20,
-            30,
-            0.65
-        );
+    /*
+     * เส้นขอบฟ้า
+     */
 
-    color: #e8fbff;
+    border:
+        1px solid
+        rgba(0, 210, 255, 0.75);
 
-    font-size: 17px;
+    /*
+     * ตัวหนังสือ
+     */
 
-    font-weight: 400;
+    color: #EFFFFF;
 
-    letter-spacing: 8px;
+    font-size: 13px;
 
-    padding-left: 8px;
+    font-weight: 500;
+
+    letter-spacing: 6px;
+
+    text-indent: 6px;
 
     cursor: pointer;
 
-    overflow: hidden;
-
-    outline: none;
-
-    transition:
-
-        transform 0.25s ease,
-
-        background 0.25s ease,
-
-        box-shadow 0.25s ease,
-
-        opacity 0.4s ease;
+    /*
+     * Glow
+     */
 
     box-shadow:
 
-        0 0 8px
-        rgba(
-            0,
-            200,
-            255,
-            0.35
-        ),
+        0 0 7px
+        rgba(0, 210, 255, 0.30),
 
-        inset 0 0 15px
-        rgba(
-            0,
-            170,
-            255,
-            0.08
-        );
+        inset 0 0 12px
+        rgba(0, 210, 255, 0.05);
+
+    /*
+     * Transition
+     */
+
+    opacity: 1;
+
+    transition:
+
+        opacity 0.35s ease,
+
+        transform 0.25s ease,
+
+        box-shadow 0.25s ease,
+
+        border-color 0.25s ease,
+
+        background 0.25s ease;
 
 }
 
 
-/* =====================================================
-   BUTTON LIGHT SWEEP
-===================================================== */
+/* =========================================================
+   BUTTON HOVER
+========================================================= */
+
+.view-button:hover {
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(40, 230, 255, 1);
+
+    background:
+        rgba(0, 80, 110, 0.20);
+
+    box-shadow:
+
+        0 0 10px
+        rgba(0, 220, 255, 0.55),
+
+        0 0 28px
+        rgba(0, 180, 255, 0.18),
+
+        inset 0 0 16px
+        rgba(0, 220, 255, 0.10);
+
+}
+
+
+/* =========================================================
+   BUTTON ACTIVE
+========================================================= */
+
+.view-button:active {
+
+    transform:
+        translateY(1px);
+
+    box-shadow:
+
+        0 0 8px
+        rgba(0, 220, 255, 0.35);
+
+}
+
+
+/* =========================================================
+   BUTTON DECORATION
+========================================================= */
 
 .view-button::before {
 
@@ -251,141 +322,71 @@ body {
 
     position: absolute;
 
-    top: 0;
-
-    left: -120%;
-
-    width: 70%;
-
-    height: 100%;
-
-    background:
-
-        linear-gradient(
-
-            90deg,
-
-            transparent,
-
-            rgba(
-                110,
-                240,
-                255,
-                0.4
-            ),
-
-            transparent
-
-        );
-
-    transform:
-        skewX(-20deg);
-
-    transition:
-
-        left 0.7s ease;
-
-}
-
-
-/* =====================================================
-   BUTTON UNDERLINE
-===================================================== */
-
-.view-button::after {
-
-    content: "";
-
-    position: absolute;
-
-    left: 15%;
-
-    right: 15%;
+    left: 18px;
+    right: 18px;
 
     bottom: 5px;
 
     height: 1px;
 
-    background: #38ddff;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(0, 220, 255, 0.90),
+            transparent
+        );
 
     box-shadow:
 
-        0 0 5px #00cfff,
-
-        0 0 12px #008cff;
+        0 0 6px
+        rgba(0, 220, 255, 0.75);
 
 }
 
 
-/* =====================================================
-   BUTTON HOVER
-===================================================== */
+/* =========================================================
+   LEADERBOARD SCREEN
+========================================================= */
 
-.view-button:hover {
+#leaderboardScreen {
 
-    transform:
-        translateY(-3px);
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    /*
+     * เริ่มต้นซ่อน
+     */
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    /*
+     * พื้นหลังหน้า Leaderboard
+     */
 
     background:
 
-        rgba(
-            0,
-            65,
-            90,
-            0.55
-        );
-
-    box-shadow:
-
-        0 0 15px
-        rgba(
-            0,
-            210,
-            255,
-            0.65
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(0, 100, 150, 0.10),
+            transparent 45%
         ),
 
-        0 0 35px
-        rgba(
-            0,
-            130,
-            255,
-            0.25
-        ),
+        #000;
 
-        inset 0 0 20px
-        rgba(
-            0,
-            200,
-            255,
-            0.1
-        );
+    /*
+     * อยู่เหนือ Menu
+     */
 
-}
-
-
-.view-button:hover::before {
-
-    left: 150%;
-
-}
-
-
-.view-button:active {
-
-    transform:
-        scale(0.96);
-
-}
-
-
-/* =====================================================
-   LEADERBOARD SCREEN
-===================================================== */
-
-.leaderboard-screen {
-
-    z-index: 10;
+    z-index: 20;
 
     display: flex;
 
@@ -393,52 +394,31 @@ body {
 
     align-items: center;
 
-    background:
-
-        radial-gradient(
-
-            circle at center,
-
-            rgba(
-                0,
-                45,
-                70,
-                0.22
-            ),
-
-            #000 72%
-
-        );
-
-    opacity: 0;
-
-    visibility: hidden;
-
     transform:
-        scale(1.08);
+        scale(1.03);
 
     transition:
 
-        opacity 0.8s ease,
+        opacity 0.65s ease,
 
-        transform 0.8s
-        cubic-bezier(
-            0.16,
-            1,
-            0.3,
-            1
-        ),
+        visibility 0.65s ease,
 
-        visibility 0.8s;
+        transform 0.65s ease;
 
 }
 
 
-.leaderboard-screen.active {
+/* =========================================================
+   LEADERBOARD ACTIVE
+========================================================= */
+
+#leaderboardScreen.active {
 
     opacity: 1;
 
     visibility: visible;
+
+    pointer-events: auto;
 
     transform:
         scale(1);
@@ -446,331 +426,122 @@ body {
 }
 
 
-/* =====================================================
-   LEADERBOARD WINDOW
-===================================================== */
+/* =========================================================
+   LEADERBOARD WIP BOX
+========================================================= */
 
-.leaderboard-window {
-
-    position: relative;
+.leaderboard-container {
 
     width: min(
         1100px,
-        86vw
+        90vw
     );
 
-    height: min(
-        700px,
-        82vh
-    );
+    min-height: 500px;
 
-    padding: 42px;
+    padding: 45px;
 
-    border:
-
-        1px solid
-        rgba(
-            0,
-            200,
-            255,
-            0.4
-        );
+    /*
+     * Glass / dark panel
+     */
 
     background:
 
         linear-gradient(
-
-            135deg,
-
-            rgba(
-                7,
-                22,
-                32,
-                0.96
-            ),
-
-            rgba(
-                0,
-                5,
-                10,
-                0.98
-            )
-
+            180deg,
+            rgba(10, 25, 32, 0.78),
+            rgba(2, 8, 12, 0.90)
         );
+
+    border:
+
+        1px solid
+        rgba(0, 200, 255, 0.40);
 
     box-shadow:
 
-        0 0 25px
-        rgba(
-            0,
-            170,
-            255,
-            0.15
-        ),
+        0 0 20px
+        rgba(0, 180, 255, 0.10),
 
-        inset 0 0 45px
-        rgba(
-            0,
-            130,
-            255,
-            0.05
-        );
+        inset 0 0 30px
+        rgba(0, 180, 255, 0.035);
 
 }
 
 
-/* =====================================================
-   HEADER
-===================================================== */
+/* =========================================================
+   LEADERBOARD TITLE
+========================================================= */
 
-.leaderboard-header {
+.leaderboard-title {
+
+    color: #EFFFFF;
 
     text-align: center;
 
-}
-
-
-.leaderboard-header h1 {
-
-    font-size: 30px;
+    font-size: 28px;
 
     font-weight: 400;
 
     letter-spacing: 8px;
 
-    color: #e7fbff;
-
     text-shadow:
 
-        0 0 8px #00cfff,
-
-        0 0 25px
-        rgba(
-            0,
-            150,
-            255,
-            0.45
-        );
+        0 0 8px
+        rgba(0, 220, 255, 0.40);
 
 }
 
 
-.leaderboard-header p {
+/* =========================================================
+   WIP TEXT
+========================================================= */
 
-    margin-top: 10px;
+.wip {
 
-    color: #40dfff;
+    margin-top: 80px;
 
-    font-size: 12px;
+    text-align: center;
+
+    color:
+        rgba(180, 235, 245, 0.60);
+
+    font-size: 14px;
 
     letter-spacing: 5px;
 
 }
 
 
-.header-line {
-
-    width: 100%;
-
-    height: 1px;
-
-    margin: 18px 0;
-
-    background:
-
-        linear-gradient(
-
-            90deg,
-
-            transparent,
-
-            rgba(
-                0,
-                210,
-                255,
-                0.6
-            ),
-
-            transparent
-
-        );
-
-}
-
-
-/* =====================================================
-   WIP
-===================================================== */
-
-.wip-area {
-
-    position: absolute;
-
-    top: 50%;
-
-    left: 50%;
-
-    transform:
-        translate(
-            -50%,
-            -50%
-        );
-
-    text-align: center;
-
-    width: 80%;
-
-}
-
-
-.wip-symbol {
-
-    font-size: 34px;
-
-    color: #28dfff;
-
-    text-shadow:
-
-        0 0 10px #00cfff,
-
-        0 0 30px
-        rgba(
-            0,
-            180,
-            255,
-            0.5
-        );
-
-    animation:
-
-        symbolPulse
-        2.5s
-        ease-in-out
-        infinite;
-
-}
-
-
-.wip-area h2 {
-
-    margin-top: 18px;
-
-    color: #dffaff;
-
-    font-size: 25px;
-
-    font-weight: 400;
-
-    letter-spacing: 7px;
-
-}
-
-
-.wip-text {
-
-    margin-top: 18px;
-
-    font-size: 44px;
-
-    letter-spacing: 12px;
-
-    color: #36ddff;
-
-    text-shadow:
-
-        0 0 10px #00cfff,
-
-        0 0 30px
-        rgba(
-            0,
-            160,
-            255,
-            0.45
-        );
-
-}
-
-
-.wip-area p {
-
-    margin-top: 18px;
-
-    color:
-        rgba(
-            220,
-            245,
-            255,
-            0.4
-        );
-
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-}
-
-
-/* =====================================================
-   WIP ANIMATION
-===================================================== */
-
-@keyframes symbolPulse {
-
-    0%,
-    100% {
-
-        opacity: 0.45;
-
-        transform:
-            scale(0.95);
-
-    }
-
-    50% {
-
-        opacity: 1;
-
-        transform:
-            scale(1.08);
-
-    }
-
-}
-
-
-/* =====================================================
+/* =========================================================
    BACK BUTTON
-===================================================== */
+========================================================= */
 
 .back-button {
 
     position: absolute;
 
-    bottom: 25px;
+    bottom: 45px;
 
     left: 50%;
 
     transform:
         translateX(-50%);
 
-    padding:
-        9px 35px;
+    width: 150px;
+
+    height: 45px;
+
+    background:
+        rgba(0, 20, 30, 0.55);
 
     border:
-
         1px solid
-        rgba(
-            0,
-            200,
-            255,
-            0.5
-        );
+        rgba(0, 200, 255, 0.55);
 
-    background: transparent;
+    color: #DFFFFF;
 
-    color: #8cecff;
-
-    font-size: 12px;
+    font-size: 11px;
 
     letter-spacing: 4px;
 
@@ -778,9 +549,11 @@ body {
 
     transition:
 
-        background 0.2s ease,
+        background 0.25s ease,
 
-        box-shadow 0.2s ease;
+        box-shadow 0.25s ease,
+
+        border-color 0.25s ease;
 
 }
 
@@ -788,31 +561,24 @@ body {
 .back-button:hover {
 
     background:
-        rgba(
-            0,
-            180,
-            255,
-            0.12
-        );
+        rgba(0, 100, 140, 0.18);
+
+    border-color:
+        rgba(0, 220, 255, 0.95);
 
     box-shadow:
 
         0 0 15px
-        rgba(
-            0,
-            200,
-            255,
-            0.3
-        );
+        rgba(0, 210, 255, 0.30);
 
 }
 
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
 
     .logo-container {
 
@@ -823,29 +589,27 @@ body {
 
     .view-button {
 
-        width: 160px;
-
-        height: 52px;
-
         margin-top: 30px;
 
-        font-size: 15px;
+        width: 170px;
+
+        height: 52px;
 
     }
 
 
-    .leaderboard-window {
+    .leaderboard-container {
 
         width: 92vw;
 
-        height: 78vh;
+        min-height: 400px;
 
         padding: 25px;
 
     }
 
 
-    .leaderboard-header h1 {
+    .leaderboard-title {
 
         font-size: 20px;
 
@@ -853,28 +617,24 @@ body {
 
     }
 
-
-    .leaderboard-header p {
-
-        font-size: 9px;
-
-        letter-spacing: 3px;
-
-    }
+}
 
 
-    .wip-area h2 {
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
 
-        font-size: 18px;
+@media (prefers-reduced-motion: reduce) {
 
-        letter-spacing: 4px;
+    * {
 
-    }
+        animation-duration: 0.01ms !important;
 
+        animation-iteration-count: 1 !important;
 
-    .wip-text {
+        transition-duration: 0.01ms !important;
 
-        font-size: 32px;
+        scroll-behavior: auto !important;
 
     }
 
