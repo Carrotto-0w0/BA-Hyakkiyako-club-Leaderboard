@@ -1,27 +1,17 @@
 /* =========================================================
-   HYAKKIYAKO CLUB
-   STYLE
-========================================================= */
-
-
-/* =========================================================
-   RESET
+   GLOBAL
 ========================================================= */
 
 * {
+
+    box-sizing: border-box;
 
     margin: 0;
 
     padding: 0;
 
-    box-sizing: border-box;
-
 }
 
-
-/* =========================================================
-   HTML / BODY
-========================================================= */
 
 html,
 body {
@@ -42,23 +32,45 @@ body {
 }
 
 
-/* =========================================================
-   BODY
-========================================================= */
-
 body {
 
-    position: relative;
+    color: white;
 
-    background:
+}
 
-        radial-gradient(
-            ellipse at center 48%,
-            rgba(0, 80, 110, 0.045),
-            transparent 42%
-        ),
 
-        #000;
+/* =========================================================
+   SCREEN
+========================================================= */
+
+.screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100vw;
+
+    height: 100vh;
+
+    background: #000;
+
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+.menu-screen {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
 
 }
 
@@ -73,87 +85,13 @@ body {
 
     inset: 0;
 
-    width: 100vw;
-
-    height: 100vh;
-
-    /*
-       Particle อยู่ด้านหลัง Logo
-    */
-
-    z-index: 2;
-
-    pointer-events: none;
-
-}
-
-
-/* =========================================================
-   MENU SCREEN
-========================================================= */
-
-.menu-screen {
-
-    position: fixed;
-
-    inset: 0;
-
     width: 100%;
 
     height: 100%;
 
-    /*
-       สำคัญมาก:
-       ต้อง transparent
-       เพื่อให้เห็น Particle
-    */
+    pointer-events: none;
 
-    background: transparent;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    align-items: center;
-
-    z-index: 5;
-
-}
-
-
-/* =========================================================
-   LOGO CONTAINER
-========================================================= */
-
-.logo-container {
-
-    position: relative;
-
-    z-index: 7;
-
-    width: min(70vw, 760px);
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    opacity: 1;
-
-    transform: scale(1);
-
-    filter: blur(0);
-
-    transition:
-
-        opacity 0.55s ease,
-
-        transform 0.55s ease,
-
-        filter 0.55s ease;
+    z-index: 1;
 
 }
 
@@ -162,31 +100,109 @@ body {
    LOGO
 ========================================================= */
 
-#logo {
+.logo-container {
 
-    display: block;
+    position: relative;
+
+    z-index: 5;
+
+    width: min(
+        430px,
+        65vw
+    );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+.main-logo {
 
     width: 100%;
 
     height: auto;
 
-    object-fit: contain;
+    display: block;
 
-    /*
-       Glow เบา ๆ
-    */
+    user-select: none;
+
+    pointer-events: none;
 
     filter:
 
         drop-shadow(
             0 0 5px
-            rgba(255,255,255,0.28)
+            rgba(255,255,255,0.18)
         )
 
         drop-shadow(
-            0 0 12px
-            rgba(0,190,255,0.16)
+            0 0 14px
+            rgba(0,190,255,0.20)
         );
+
+    transition:
+
+        opacity 0.5s ease,
+
+        transform 0.7s ease,
+
+        filter 0.5s ease;
+
+}
+
+
+/* =========================================================
+   LOGO TRANSITION
+========================================================= */
+
+.logo-container.logo-disappear {
+
+    animation:
+        logoDisappear 0.9s
+        cubic-bezier(.55,.05,.68,.19)
+        forwards;
+
+}
+
+
+@keyframes logoDisappear {
+
+    0% {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            rotate(0deg);
+
+    }
+
+    35% {
+
+        opacity: 0.95;
+
+        transform:
+            scale(1.02)
+            rotate(-1deg);
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            scale(1.12)
+            rotate(2deg);
+
+        filter:
+            blur(8px);
+
+    }
 
 }
 
@@ -199,63 +215,93 @@ body {
 
     position: relative;
 
-    z-index: 8;
+    z-index: 10;
 
-    margin-top: 42px;
+    width: 148px;
 
-    width: 190px;
+    height: 46px;
 
-    height: 58px;
+    margin-top: 75px;
+
+    border: 1px solid
+        rgba(0,215,255,0.65);
 
     background:
 
-        rgba(0, 12, 18, 0.60);
+        linear-gradient(
+            180deg,
+            rgba(0,30,40,0.25),
+            rgba(0,5,10,0.45)
+        );
 
-    border:
+    color: #eaffff;
 
-        1px solid
-        rgba(0, 210, 255, 0.70);
-
-    color: #EFFFFF;
-
-    font-size: 13px;
-
-    font-weight: 500;
+    cursor: pointer;
 
     letter-spacing: 6px;
 
-    text-indent: 6px;
+    font-size: 12px;
 
-    cursor: pointer;
+    font-weight: 500;
+
+    transition:
+
+        transform 0.25s ease,
+
+        box-shadow 0.25s ease,
+
+        border-color 0.25s ease,
+
+        background 0.25s ease;
 
     box-shadow:
 
         0 0 7px
-        rgba(0, 210, 255, 0.25),
+        rgba(0,210,255,0.22),
 
         inset 0 0 10px
-        rgba(0, 210, 255, 0.04);
-
-    opacity: 1;
-
-    transition:
-
-        opacity 0.35s ease,
-
-        transform 0.25s ease,
-
-        border-color 0.25s ease,
-
-        box-shadow 0.25s ease,
-
-        background 0.25s ease;
+        rgba(0,180,255,0.06);
 
 }
 
 
-/* =========================================================
-   VIEW BUTTON HOVER
-========================================================= */
+.view-button span {
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+.button-line {
+
+    position: absolute;
+
+    left: 21px;
+
+    right: 21px;
+
+    bottom: 5px;
+
+    height: 1px;
+
+    background: #13dfff;
+
+    box-shadow:
+
+        0 0 6px
+        rgba(0,220,255,0.9),
+
+        0 0 12px
+        rgba(0,180,255,0.45);
+
+    transition:
+        left 0.25s ease,
+        right 0.25s ease;
+
+}
+
 
 .view-button:hover {
 
@@ -263,58 +309,36 @@ body {
         translateY(-2px);
 
     border-color:
-
-        rgba(40,230,255,1);
-
-    background:
-
-        rgba(0,70,95,0.22);
+        rgba(0,235,255,0.95);
 
     box-shadow:
 
         0 0 10px
-        rgba(0,220,255,0.45),
+        rgba(0,210,255,0.35),
 
-        0 0 22px
-        rgba(0,180,255,0.15),
+        0 0 25px
+        rgba(0,150,255,0.12),
 
         inset 0 0 14px
-        rgba(0,220,255,0.08);
+        rgba(0,200,255,0.08);
 
 }
 
 
-/* =========================================================
-   BUTTON UNDERLINE
-========================================================= */
+.view-button:hover .button-line {
 
-.view-button::after {
+    left: 14px;
 
-    content: "";
+    right: 14px;
 
-    position: absolute;
+}
 
-    left: 20px;
 
-    right: 20px;
+.view-button:active {
 
-    bottom: 5px;
-
-    height: 1px;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(0,220,255,0.85),
-            transparent
-        );
-
-    box-shadow:
-
-        0 0 5px
-        rgba(0,220,255,0.65);
+    transform:
+        translateY(1px)
+        scale(0.98);
 
 }
 
@@ -325,62 +349,29 @@ body {
 
 .leaderboard-screen {
 
-    position: fixed;
-
-    inset: 0;
-
-    width: 100%;
-
-    height: 100%;
-
     display: flex;
 
     justify-content: center;
 
     align-items: center;
 
-    /*
-       ซ่อนตอนเริ่มต้น
-    */
-
     opacity: 0;
 
     visibility: hidden;
 
-    pointer-events: none;
-
-    transform: scale(1.03);
-
-    /*
-       พื้นหลังของ Leaderboard
-    */
-
-    background:
-
-        radial-gradient(
-            ellipse at center,
-            rgba(0,100,140,0.10),
-            transparent 50%
-        ),
-
-        #000;
-
-    z-index: 20;
+    transform:
+        translateY(20px);
 
     transition:
 
-        opacity 0.65s ease,
+        opacity 0.8s ease,
 
-        transform 0.65s ease,
+        transform 0.8s ease,
 
-        visibility 0.65s ease;
+        visibility 0.8s;
 
 }
 
-
-/* =========================================================
-   LEADERBOARD ACTIVE
-========================================================= */
 
 .leaderboard-screen.active {
 
@@ -388,9 +379,8 @@ body {
 
     visibility: visible;
 
-    pointer-events: auto;
-
-    transform: scale(1);
+    transform:
+        translateY(0);
 
 }
 
@@ -403,32 +393,20 @@ body {
 
     position: relative;
 
-    width: min(1100px, 88vw);
+    width: min(
+        900px,
+        90vw
+    );
 
-    min-height: 540px;
+    min-height: 620px;
 
-    padding: 45px;
+    display: flex;
 
-    background:
+    flex-direction: column;
 
-        linear-gradient(
-            180deg,
-            rgba(8,25,34,0.86),
-            rgba(2,8,12,0.94)
-        );
+    align-items: center;
 
-    border:
-
-        1px solid
-        rgba(0,200,255,0.38);
-
-    box-shadow:
-
-        0 0 20px
-        rgba(0,180,255,0.10),
-
-        inset 0 0 30px
-        rgba(0,180,255,0.035);
+    padding-top: 35px;
 
 }
 
@@ -439,41 +417,30 @@ body {
 
 .leaderboard-title {
 
-    text-align: center;
+    color: #eafcff;
 
-    color: #EFFFFF;
-
-    font-size: 28px;
-
-    font-weight: 400;
+    font-size: 24px;
 
     letter-spacing: 8px;
 
     text-shadow:
 
-        0 0 8px
-        rgba(0,220,255,0.35);
+        0 0 10px
+        rgba(0,210,255,0.30);
 
 }
 
 
-/* =========================================================
-   SUBTITLE
-========================================================= */
-
 .leaderboard-subtitle {
 
-    margin-top: 12px;
-
-    text-align: center;
+    margin-top: 8px;
 
     color:
+        rgba(150,225,235,0.55);
 
-        rgba(130,220,240,0.60);
+    font-size: 10px;
 
-    font-size: 12px;
-
-    letter-spacing: 5px;
+    letter-spacing: 4px;
 
 }
 
@@ -486,105 +453,454 @@ body {
 
     position: absolute;
 
+    top: 120px;
+
     left: 50%;
 
-    top: 52%;
-
     transform:
-        translate(-50%, -50%);
+        translateX(-50%);
 
-    width: 70%;
+    width: min(
+        720px,
+        80vw
+    );
 
-    padding: 55px 30px;
+    height: 110px;
 
-    text-align: center;
-
-    border:
-
-        1px dashed
-        rgba(0,200,255,0.28);
+    border: 1px solid
+        rgba(0,180,220,0.16);
 
     background:
+        rgba(0,20,28,0.12);
 
-        rgba(0,30,40,0.20);
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    opacity: 0.65;
+
+}
+
+
+.wip-title {
+
+    color:
+        rgba(130,220,235,0.7);
+
+    font-size: 12px;
+
+    letter-spacing: 5px;
+
+}
+
+
+.wip-text {
+
+    margin-top: 5px;
+
+    color:
+        rgba(0,210,255,0.45);
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+}
+
+
+.wip-description {
+
+    margin-top: 8px;
+
+    color:
+        rgba(150,190,200,0.30);
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
 
 }
 
 
 /* =========================================================
-   PLACEHOLDER ICON
+   IZUNA GAME
 ========================================================= */
 
-.placeholder-icon {
+.izuna-game {
 
-    font-size: 25px;
+    position: absolute;
 
-    color: #21DFFF;
+    left: 50%;
 
-    text-shadow:
+    top: 355px;
 
-        0 0 10px
-        rgba(0,210,255,0.65);
+    transform:
+        translateX(-50%);
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
 
 }
 
 
 /* =========================================================
-   PLACEHOLDER TITLE
+   SCORE
 ========================================================= */
 
-.placeholder-title {
+.pet-score {
 
-    margin-top: 18px;
+    color:
+        rgba(235,255,255,0.82);
 
-    color: #EFFFFF;
+    font-size: 13px;
 
-    font-size: 18px;
-
-    letter-spacing: 6px;
-
-}
-
-
-/* =========================================================
-   WIP
-========================================================= */
-
-.placeholder-text {
-
-    margin-top: 15px;
-
-    color: #20DFFF;
-
-    font-size: 14px;
-
-    letter-spacing: 7px;
+    letter-spacing: 1.5px;
 
     text-shadow:
 
         0 0 8px
-        rgba(0,220,255,0.50);
+        rgba(0,190,255,0.25);
+
+}
+
+
+#petSeconds {
+
+    display: inline-block;
+
+    min-width: 38px;
+
+    color: #1bdfff;
+
+    font-size: 18px;
+
+    font-weight: 500;
+
+    text-align: center;
+
+    text-shadow:
+
+        0 0 8px
+        rgba(0,220,255,0.65),
+
+        0 0 18px
+        rgba(0,180,255,0.25);
 
 }
 
 
 /* =========================================================
-   PLACEHOLDER DESCRIPTION
+   IZUNA AREA
 ========================================================= */
 
-.placeholder-description {
+.izuna-area {
 
-    margin-top: 18px;
+    position: relative;
+
+    width: min(
+        360px,
+        60vw
+    );
+
+    height: 220px;
+
+    margin-top: 8px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    cursor: pointer;
+
+    touch-action: none;
+
+    user-select: none;
+
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.izuna-image {
+
+    position: absolute;
+
+    max-width: 100%;
+
+    max-height: 100%;
+
+    width: auto;
+
+    height: auto;
+
+    object-fit: contain;
+
+    pointer-events: none;
+
+    user-select: none;
+
+}
+
+
+/* =========================================================
+   STATIC IZUNA
+========================================================= */
+
+#izunaStatic {
+
+    opacity: 1;
+
+    transform:
+        scale(1);
+
+    filter:
+
+        drop-shadow(
+            0 0 7px
+            rgba(0,190,255,0.12)
+        );
+
+    transition:
+
+        opacity 0.2s ease,
+
+        transform 0.25s ease;
+
+}
+
+
+/* =========================================================
+   PET IZUNA
+========================================================= */
+
+.izuna-pet {
+
+    opacity: 0;
+
+    transform:
+        scale(0.98);
+
+    filter:
+
+        drop-shadow(
+            0 0 9px
+            rgba(0,205,255,0.20)
+        );
+
+    transition:
+
+        opacity 0.18s ease;
+
+}
+
+
+/* =========================================================
+   WHEN PETTING
+========================================================= */
+
+.izuna-area.petting
+#izunaStatic {
+
+    opacity: 0;
+
+}
+
+
+.izuna-area.petting
+#izunaPet {
+
+    opacity: 1;
+
+    animation:
+        izunaPetMotion
+        1.8s
+        ease-in-out
+        infinite;
+
+}
+
+
+/* =========================================================
+   CUTE SLOW PET MOTION
+========================================================= */
+
+@keyframes izunaPetMotion {
+
+    0% {
+
+        transform:
+            translateY(0px)
+            rotate(0deg)
+            scale(1);
+
+    }
+
+    20% {
+
+        transform:
+            translateY(1px)
+            rotate(-0.8deg)
+            scale(1.005);
+
+    }
+
+    45% {
+
+        transform:
+            translateY(-2px)
+            rotate(0.7deg)
+            scale(1.01);
+
+    }
+
+    70% {
+
+        transform:
+            translateY(1px)
+            rotate(-0.5deg)
+            scale(1.005);
+
+    }
+
+    100% {
+
+        transform:
+            translateY(0px)
+            rotate(0deg)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   PET GLOW
+========================================================= */
+
+.pet-glow {
+
+    position: absolute;
+
+    width: 170px;
+
+    height: 100px;
+
+    left: 50%;
+
+    top: 40%;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            ellipse,
+            rgba(0,210,255,0.09),
+            transparent 70%
+        );
+
+    filter:
+        blur(13px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.35s ease;
+
+}
+
+
+.izuna-area.petting
+.pet-glow {
+
+    opacity: 1;
+
+    animation:
+        petGlowPulse
+        2.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes petGlowPulse {
+
+    0% {
+
+        transform:
+            translate(-50%, -50%)
+            scale(0.9);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-50%, -50%)
+            scale(1.05);
+
+    }
+
+    100% {
+
+        transform:
+            translate(-50%, -50%)
+            scale(0.9);
+
+    }
+
+}
+
+
+/* =========================================================
+   INSTRUCTION
+========================================================= */
+
+.pet-instruction {
+
+    margin-top: -3px;
 
     color:
+        rgba(150,220,230,0.38);
 
-        rgba(180,230,240,0.45);
+    font-size: 9px;
 
-    font-size: 11px;
+    letter-spacing: 4px;
 
-    line-height: 2;
+    transition:
 
-    letter-spacing: 3px;
+        color 0.25s ease,
+
+        opacity 0.25s ease;
+
+}
+
+
+.izuna-area.petting
+~ .pet-instruction {
+
+    color:
+        rgba(30,220,255,0.72);
 
 }
 
@@ -595,33 +911,29 @@ body {
 
 .back-button {
 
-    position: absolute;
+    position: fixed;
 
-    z-index: 25;
-
-    bottom: 40px;
+    bottom: 30px;
 
     left: 50%;
 
     transform:
         translateX(-50%);
 
-    width: 150px;
+    width: 110px;
 
-    height: 45px;
+    height: 34px;
 
     background:
+        transparent;
 
-        rgba(0,20,30,0.60);
+    border: 1px solid
+        rgba(0,190,230,0.30);
 
-    border:
+    color:
+        rgba(180,240,245,0.55);
 
-        1px solid
-        rgba(0,200,255,0.55);
-
-    color: #DFFFFF;
-
-    font-size: 11px;
+    font-size: 9px;
 
     letter-spacing: 4px;
 
@@ -629,29 +941,26 @@ body {
 
     transition:
 
-        background 0.25s ease,
+        border-color 0.25s ease,
 
-        box-shadow 0.25s ease,
+        color 0.25s ease,
 
-        border-color 0.25s ease;
+        box-shadow 0.25s ease;
 
 }
 
 
 .back-button:hover {
 
-    background:
-
-        rgba(0,90,120,0.18);
+    color: #eaffff;
 
     border-color:
-
-        rgba(0,220,255,0.90);
+        rgba(0,220,255,0.75);
 
     box-shadow:
 
-        0 0 14px
-        rgba(0,210,255,0.28);
+        0 0 10px
+        rgba(0,200,255,0.18);
 
 }
 
@@ -663,38 +972,30 @@ body {
 @media (max-width: 768px) {
 
 
-    .logo-container {
+    .main-logo {
 
-        width: 82vw;
+        width: 75vw;
 
     }
 
 
     .view-button {
 
-        width: 170px;
-
-        height: 52px;
-
-        margin-top: 30px;
+        margin-top: 55px;
 
     }
 
 
     .leaderboard-container {
 
-        width: 90vw;
-
-        min-height: 430px;
-
-        padding: 30px 20px;
+        min-height: 600px;
 
     }
 
 
     .leaderboard-title {
 
-        font-size: 19px;
+        font-size: 17px;
 
         letter-spacing: 5px;
 
@@ -703,20 +1004,58 @@ body {
 
     .leaderboard-subtitle {
 
-        font-size: 9px;
-
-        letter-spacing: 3px;
+        font-size: 8px;
 
     }
 
 
     .leaderboard-placeholder {
 
-        width: 85%;
+        top: 105px;
 
-        padding: 40px 15px;
+        width: 85vw;
+
+        height: 85px;
 
     }
 
+
+    .izuna-game {
+
+        top: 285px;
+
+    }
+
+
+    .izuna-area {
+
+        width: 75vw;
+
+        height: 210px;
+
+    }
+
+
+    .pet-score {
+
+        font-size: 11px;
+
+    }
+
+
+    .pet-instruction {
+
+        font-size: 8px;
+
+        letter-spacing: 3px;
+
+    }
+
+
+    .back-button {
+
+        bottom: 20px;
+
+    }
 
 }
