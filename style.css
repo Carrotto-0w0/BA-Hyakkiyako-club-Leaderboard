@@ -1,6 +1,6 @@
 /* =========================================================
    HYAKKIYAKO CLUB
-   Main Style
+   STYLE
 ========================================================= */
 
 
@@ -9,15 +9,25 @@
 ========================================================= */
 
 * {
+
     margin: 0;
+
     padding: 0;
+
     box-sizing: border-box;
+
 }
 
 
+/* =========================================================
+   HTML / BODY
+========================================================= */
+
 html,
 body {
+
     width: 100%;
+
     height: 100%;
 
     overflow: hidden;
@@ -28,11 +38,12 @@ body {
         Arial,
         Helvetica,
         sans-serif;
+
 }
 
 
 /* =========================================================
-   MAIN BODY
+   BODY
 ========================================================= */
 
 body {
@@ -40,11 +51,13 @@ body {
     position: relative;
 
     background:
+
         radial-gradient(
-            circle at 50% 48%,
-            rgba(0, 110, 150, 0.045),
-            transparent 35%
+            ellipse at center 48%,
+            rgba(0, 80, 110, 0.045),
+            transparent 42%
         ),
+
         #000;
 
 }
@@ -58,19 +71,17 @@ body {
 
     position: fixed;
 
-    top: 0;
-    left: 0;
+    inset: 0;
 
     width: 100vw;
+
     height: 100vh;
 
     /*
-     * สำคัญ:
-     * อยู่เหนือพื้นหลัง
-     * แต่ต่ำกว่า Logo และ Button
-     */
+       Particle อยู่ด้านหลัง Logo
+    */
 
-    z-index: 6;
+    z-index: 2;
 
     pointer-events: none;
 
@@ -88,12 +99,14 @@ body {
     inset: 0;
 
     width: 100%;
+
     height: 100%;
 
     /*
-     * ต้องโปร่งใส
-     * เพื่อให้เห็น Particle Canvas
-     */
+       สำคัญมาก:
+       ต้อง transparent
+       เพื่อให้เห็น Particle
+    */
 
     background: transparent;
 
@@ -120,7 +133,7 @@ body {
 
     z-index: 7;
 
-    width: min(70vw, 900px);
+    width: min(70vw, 760px);
 
     display: flex;
 
@@ -128,17 +141,11 @@ body {
 
     align-items: center;
 
-    /*
-     * Animation ตอน Logo สลาย
-     */
-
     opacity: 1;
 
-    transform:
-        scale(1);
+    transform: scale(1);
 
-    filter:
-        blur(0);
+    filter: blur(0);
 
     transition:
 
@@ -152,7 +159,7 @@ body {
 
 
 /* =========================================================
-   LOGO IMAGE
+   LOGO
 ========================================================= */
 
 #logo {
@@ -161,26 +168,24 @@ body {
 
     width: 100%;
 
-    max-width: 760px;
-
     height: auto;
 
     object-fit: contain;
 
     /*
-     * Glow บาง ๆ
-     */
+       Glow เบา ๆ
+    */
 
     filter:
 
         drop-shadow(
             0 0 5px
-            rgba(255, 255, 255, 0.30)
+            rgba(255,255,255,0.28)
         )
 
         drop-shadow(
-            0 0 16px
-            rgba(0, 180, 255, 0.18)
+            0 0 12px
+            rgba(0,190,255,0.16)
         );
 
 }
@@ -194,7 +199,7 @@ body {
 
     position: relative;
 
-    z-index: 7;
+    z-index: 8;
 
     margin-top: 42px;
 
@@ -202,24 +207,14 @@ body {
 
     height: 58px;
 
-    /*
-     * พื้นหลังโปร่งใส
-     */
-
     background:
-        rgba(0, 15, 25, 0.45);
 
-    /*
-     * เส้นขอบฟ้า
-     */
+        rgba(0, 12, 18, 0.60);
 
     border:
-        1px solid
-        rgba(0, 210, 255, 0.75);
 
-    /*
-     * ตัวหนังสือ
-     */
+        1px solid
+        rgba(0, 210, 255, 0.70);
 
     color: #EFFFFF;
 
@@ -233,21 +228,13 @@ body {
 
     cursor: pointer;
 
-    /*
-     * Glow
-     */
-
     box-shadow:
 
         0 0 7px
-        rgba(0, 210, 255, 0.30),
+        rgba(0, 210, 255, 0.25),
 
-        inset 0 0 12px
-        rgba(0, 210, 255, 0.05);
-
-    /*
-     * Transition
-     */
+        inset 0 0 10px
+        rgba(0, 210, 255, 0.04);
 
     opacity: 1;
 
@@ -257,9 +244,9 @@ body {
 
         transform 0.25s ease,
 
-        box-shadow 0.25s ease,
-
         border-color 0.25s ease,
+
+        box-shadow 0.25s ease,
 
         background 0.25s ease;
 
@@ -267,7 +254,7 @@ body {
 
 
 /* =========================================================
-   BUTTON HOVER
+   VIEW BUTTON HOVER
 ========================================================= */
 
 .view-button:hover {
@@ -276,71 +263,58 @@ body {
         translateY(-2px);
 
     border-color:
-        rgba(40, 230, 255, 1);
+
+        rgba(40,230,255,1);
 
     background:
-        rgba(0, 80, 110, 0.20);
+
+        rgba(0,70,95,0.22);
 
     box-shadow:
 
         0 0 10px
-        rgba(0, 220, 255, 0.55),
+        rgba(0,220,255,0.45),
 
-        0 0 28px
-        rgba(0, 180, 255, 0.18),
+        0 0 22px
+        rgba(0,180,255,0.15),
 
-        inset 0 0 16px
-        rgba(0, 220, 255, 0.10);
-
-}
-
-
-/* =========================================================
-   BUTTON ACTIVE
-========================================================= */
-
-.view-button:active {
-
-    transform:
-        translateY(1px);
-
-    box-shadow:
-
-        0 0 8px
-        rgba(0, 220, 255, 0.35);
+        inset 0 0 14px
+        rgba(0,220,255,0.08);
 
 }
 
 
 /* =========================================================
-   BUTTON DECORATION
+   BUTTON UNDERLINE
 ========================================================= */
 
-.view-button::before {
+.view-button::after {
 
     content: "";
 
     position: absolute;
 
-    left: 18px;
-    right: 18px;
+    left: 20px;
+
+    right: 20px;
 
     bottom: 5px;
 
     height: 1px;
 
     background:
+
         linear-gradient(
             90deg,
             transparent,
-            rgba(0, 220, 255, 0.90),
+            rgba(0,220,255,0.85),
             transparent
         );
 
     box-shadow:
 
-        0 0 6px
-        rgba(0, 220, 255, 0.75);
+        0 0 5px
+        rgba(0,220,255,0.65);
 
 }
 
@@ -349,44 +323,15 @@ body {
    LEADERBOARD SCREEN
 ========================================================= */
 
-#leaderboardScreen {
+.leaderboard-screen {
 
     position: fixed;
 
     inset: 0;
 
     width: 100%;
+
     height: 100%;
-
-    /*
-     * เริ่มต้นซ่อน
-     */
-
-    opacity: 0;
-
-    visibility: hidden;
-
-    pointer-events: none;
-
-    /*
-     * พื้นหลังหน้า Leaderboard
-     */
-
-    background:
-
-        radial-gradient(
-            circle at 50% 45%,
-            rgba(0, 100, 150, 0.10),
-            transparent 45%
-        ),
-
-        #000;
-
-    /*
-     * อยู่เหนือ Menu
-     */
-
-    z-index: 20;
 
     display: flex;
 
@@ -394,16 +339,41 @@ body {
 
     align-items: center;
 
-    transform:
-        scale(1.03);
+    /*
+       ซ่อนตอนเริ่มต้น
+    */
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transform: scale(1.03);
+
+    /*
+       พื้นหลังของ Leaderboard
+    */
+
+    background:
+
+        radial-gradient(
+            ellipse at center,
+            rgba(0,100,140,0.10),
+            transparent 50%
+        ),
+
+        #000;
+
+    z-index: 20;
 
     transition:
 
         opacity 0.65s ease,
 
-        visibility 0.65s ease,
+        transform 0.65s ease,
 
-        transform 0.65s ease;
+        visibility 0.65s ease;
 
 }
 
@@ -412,7 +382,7 @@ body {
    LEADERBOARD ACTIVE
 ========================================================= */
 
-#leaderboardScreen.active {
+.leaderboard-screen.active {
 
     opacity: 1;
 
@@ -420,64 +390,58 @@ body {
 
     pointer-events: auto;
 
-    transform:
-        scale(1);
+    transform: scale(1);
 
 }
 
 
 /* =========================================================
-   LEADERBOARD WIP BOX
+   LEADERBOARD CONTAINER
 ========================================================= */
 
 .leaderboard-container {
 
-    width: min(
-        1100px,
-        90vw
-    );
+    position: relative;
 
-    min-height: 500px;
+    width: min(1100px, 88vw);
+
+    min-height: 540px;
 
     padding: 45px;
-
-    /*
-     * Glass / dark panel
-     */
 
     background:
 
         linear-gradient(
             180deg,
-            rgba(10, 25, 32, 0.78),
-            rgba(2, 8, 12, 0.90)
+            rgba(8,25,34,0.86),
+            rgba(2,8,12,0.94)
         );
 
     border:
 
         1px solid
-        rgba(0, 200, 255, 0.40);
+        rgba(0,200,255,0.38);
 
     box-shadow:
 
         0 0 20px
-        rgba(0, 180, 255, 0.10),
+        rgba(0,180,255,0.10),
 
         inset 0 0 30px
-        rgba(0, 180, 255, 0.035);
+        rgba(0,180,255,0.035);
 
 }
 
 
 /* =========================================================
-   LEADERBOARD TITLE
+   TITLE
 ========================================================= */
 
 .leaderboard-title {
 
-    color: #EFFFFF;
-
     text-align: center;
+
+    color: #EFFFFF;
 
     font-size: 28px;
 
@@ -488,27 +452,139 @@ body {
     text-shadow:
 
         0 0 8px
-        rgba(0, 220, 255, 0.40);
+        rgba(0,220,255,0.35);
 
 }
 
 
 /* =========================================================
-   WIP TEXT
+   SUBTITLE
 ========================================================= */
 
-.wip {
+.leaderboard-subtitle {
 
-    margin-top: 80px;
+    margin-top: 12px;
 
     text-align: center;
 
     color:
-        rgba(180, 235, 245, 0.60);
+
+        rgba(130,220,240,0.60);
+
+    font-size: 12px;
+
+    letter-spacing: 5px;
+
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+.leaderboard-placeholder {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 52%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 70%;
+
+    padding: 55px 30px;
+
+    text-align: center;
+
+    border:
+
+        1px dashed
+        rgba(0,200,255,0.28);
+
+    background:
+
+        rgba(0,30,40,0.20);
+
+}
+
+
+/* =========================================================
+   PLACEHOLDER ICON
+========================================================= */
+
+.placeholder-icon {
+
+    font-size: 25px;
+
+    color: #21DFFF;
+
+    text-shadow:
+
+        0 0 10px
+        rgba(0,210,255,0.65);
+
+}
+
+
+/* =========================================================
+   PLACEHOLDER TITLE
+========================================================= */
+
+.placeholder-title {
+
+    margin-top: 18px;
+
+    color: #EFFFFF;
+
+    font-size: 18px;
+
+    letter-spacing: 6px;
+
+}
+
+
+/* =========================================================
+   WIP
+========================================================= */
+
+.placeholder-text {
+
+    margin-top: 15px;
+
+    color: #20DFFF;
 
     font-size: 14px;
 
-    letter-spacing: 5px;
+    letter-spacing: 7px;
+
+    text-shadow:
+
+        0 0 8px
+        rgba(0,220,255,0.50);
+
+}
+
+
+/* =========================================================
+   PLACEHOLDER DESCRIPTION
+========================================================= */
+
+.placeholder-description {
+
+    margin-top: 18px;
+
+    color:
+
+        rgba(180,230,240,0.45);
+
+    font-size: 11px;
+
+    line-height: 2;
+
+    letter-spacing: 3px;
 
 }
 
@@ -521,7 +597,9 @@ body {
 
     position: absolute;
 
-    bottom: 45px;
+    z-index: 25;
+
+    bottom: 40px;
 
     left: 50%;
 
@@ -533,11 +611,13 @@ body {
     height: 45px;
 
     background:
-        rgba(0, 20, 30, 0.55);
+
+        rgba(0,20,30,0.60);
 
     border:
+
         1px solid
-        rgba(0, 200, 255, 0.55);
+        rgba(0,200,255,0.55);
 
     color: #DFFFFF;
 
@@ -561,24 +641,27 @@ body {
 .back-button:hover {
 
     background:
-        rgba(0, 100, 140, 0.18);
+
+        rgba(0,90,120,0.18);
 
     border-color:
-        rgba(0, 220, 255, 0.95);
+
+        rgba(0,220,255,0.90);
 
     box-shadow:
 
-        0 0 15px
-        rgba(0, 210, 255, 0.30);
+        0 0 14px
+        rgba(0,210,255,0.28);
 
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   MOBILE
 ========================================================= */
 
 @media (max-width: 768px) {
+
 
     .logo-container {
 
@@ -589,53 +672,51 @@ body {
 
     .view-button {
 
-        margin-top: 30px;
-
         width: 170px;
 
         height: 52px;
+
+        margin-top: 30px;
 
     }
 
 
     .leaderboard-container {
 
-        width: 92vw;
+        width: 90vw;
 
-        min-height: 400px;
+        min-height: 430px;
 
-        padding: 25px;
+        padding: 30px 20px;
 
     }
 
 
     .leaderboard-title {
 
-        font-size: 20px;
+        font-size: 19px;
 
         letter-spacing: 5px;
 
     }
 
-}
 
+    .leaderboard-subtitle {
 
-/* =========================================================
-   REDUCE MOTION
-========================================================= */
+        font-size: 9px;
 
-@media (prefers-reduced-motion: reduce) {
-
-    * {
-
-        animation-duration: 0.01ms !important;
-
-        animation-iteration-count: 1 !important;
-
-        transition-duration: 0.01ms !important;
-
-        scroll-behavior: auto !important;
+        letter-spacing: 3px;
 
     }
+
+
+    .leaderboard-placeholder {
+
+        width: 85%;
+
+        padding: 40px 15px;
+
+    }
+
 
 }
