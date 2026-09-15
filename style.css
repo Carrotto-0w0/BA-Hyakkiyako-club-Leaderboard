@@ -1,76 +1,45 @@
 /* =========================================================
-   GLOBAL
+   HYAKKIYAKO CLUB
+   COMPLETE STYLE
+========================================================= */
+
+
+/* =========================================================
+   RESET
 ========================================================= */
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
-
 
 html,
 body {
-
     width: 100%;
     height: 100%;
-
     overflow: hidden;
-
-    background: #000;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
 }
 
-
 body {
-
+    background: #000;
     color: #fff;
-
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
 }
 
 
 /* =========================================================
-   SCREEN
+   COMMON SCREEN
 ========================================================= */
 
 .screen {
-
     position: fixed;
-
     inset: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-    background: #000;
-
-}
-
-
-/* =========================================================
-   MENU
-========================================================= */
-
-.menu-screen {
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    align-items: center;
-
-    opacity: 1;
-
-    transition:
-        opacity 0.7s ease;
-
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -79,9 +48,7 @@ body {
 ========================================================= */
 
 #particleCanvas {
-
     position: fixed;
-
     inset: 0;
 
     width: 100%;
@@ -89,8 +56,37 @@ body {
 
     pointer-events: none;
 
-    z-index: 20;
+    z-index: 50;
+}
 
+
+/* =========================================================
+   MENU SCREEN
+========================================================= */
+
+.menu-screen {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 42px;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(0, 160, 220, 0.055),
+            transparent 45%
+        ),
+        #000;
+
+    z-index: 10;
+
+    transition:
+        opacity 0.7s ease,
+        visibility 0.7s ease;
 }
 
 
@@ -99,131 +95,48 @@ body {
 ========================================================= */
 
 .logo-container {
-
     position: relative;
 
-    z-index: 5;
-
-    width:
-        min(
-            430px,
-            65vw
-        );
+    width: min(72vw, 760px);
 
     display: flex;
-
     justify-content: center;
-
     align-items: center;
 
-}
+    opacity: 1;
 
-
-.main-logo {
-
-    width: 100%;
-
-    height: auto;
-
-    display: block;
-
-    user-select: none;
-
-    pointer-events: none;
+    transform:
+        translateY(0)
+        scale(1);
 
     filter:
+        blur(0)
+        drop-shadow(0 0 12px rgba(0, 200, 255, 0.45))
+        drop-shadow(0 0 28px rgba(0, 150, 255, 0.22));
 
-        drop-shadow(
-            0 0 5px
-            rgba(
-                255,
-                255,
-                255,
-                0.18
-            )
-        )
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease,
+        filter 0.7s ease;
 
-        drop-shadow(
-            0 0 16px
-            rgba(
-                0,
-                190,
-                255,
-                0.25
-            )
-        );
-
+    z-index: 20;
 }
 
+.logo-container img,
+#logo {
+    display: block;
 
-/* =========================================================
-   LOGO FADE
-========================================================= */
+    width: 100%;
+    height: auto;
 
-.logo-container.logo-disappear {
+    object-fit: contain;
 
-    animation:
-        logoDisappear
-        0.70s
-        ease-in
-        forwards;
+    user-select: none;
+    -webkit-user-drag: none;
 
-}
-
-
-@keyframes logoDisappear {
-
-    0% {
-
-        opacity: 1;
-
-        transform:
-            scale(1);
-
-        filter:
-            blur(0px);
-
-    }
-
-
-    45% {
-
-        opacity: 0.65;
-
-        transform:
-            scale(1.015);
-
-        filter:
-            blur(1px);
-
-    }
-
-
-    75% {
-
-        opacity: 0.20;
-
-        transform:
-            scale(1.025);
-
-        filter:
-            blur(3px);
-
-    }
-
-
-    100% {
-
-        opacity: 0;
-
-        transform:
-            scale(1.04);
-
-        filter:
-            blur(6px);
-
-    }
-
+    filter:
+        drop-shadow(0 0 8px rgba(80, 220, 255, 0.65))
+        drop-shadow(0 0 22px rgba(0, 150, 255, 0.25));
 }
 
 
@@ -232,167 +145,75 @@ body {
 ========================================================= */
 
 .view-button {
-
     position: relative;
 
-    z-index: 30;
+    width: 190px;
+    height: 58px;
 
-    width: 148px;
+    background: rgba(0, 10, 16, 0.65);
 
-    height: 46px;
+    border: 1px solid rgba(0, 210, 255, 0.65);
 
-    margin-top: 75px;
+    color: #c9f8ff;
 
-    border:
-        1px solid
-        rgba(
-            0,
-            215,
-            255,
-            0.65
-        );
+    font-size: 15px;
 
-    background:
-
-        linear-gradient(
-            180deg,
-            rgba(
-                0,
-                30,
-                40,
-                0.25
-            ),
-            rgba(
-                0,
-                5,
-                10,
-                0.45
-            )
-        );
-
-    color: #eaffff;
+    letter-spacing: 8px;
 
     cursor: pointer;
 
-    letter-spacing: 6px;
-
-    font-size: 12px;
-
-    font-weight: 500;
+    outline: none;
 
     transition:
-
         transform 0.25s ease,
-
+        background 0.25s ease,
         box-shadow 0.25s ease,
+        border-color 0.25s ease;
 
-        border-color 0.25s ease,
-
-        opacity 0.4s ease;
-
+    z-index: 60;
 }
-
 
 .view-button span {
-
     position: relative;
-
     z-index: 2;
-
 }
 
+.view-button:hover {
+    transform: translateY(-2px);
+
+    background: rgba(0, 170, 220, 0.08);
+
+    border-color: #63eaff;
+
+    box-shadow:
+        0 0 12px rgba(0, 210, 255, 0.45),
+        0 0 35px rgba(0, 140, 255, 0.15);
+}
+
+.view-button:active {
+    transform: scale(0.97);
+}
 
 .button-line {
-
     position: absolute;
 
-    left: 21px;
-
-    right: 21px;
-
-    bottom: 5px;
+    left: 18%;
+    right: 18%;
+    bottom: 10px;
 
     height: 1px;
 
-    background: #13dfff;
+    background: rgba(80, 220, 255, 0.6);
 
     box-shadow:
+        0 0 6px rgba(0, 210, 255, 0.55);
 
-        0 0 6px
-        rgba(
-            0,
-            220,
-            255,
-            0.9
-        ),
-
-        0 0 12px
-        rgba(
-            0,
-            180,
-            255,
-            0.45
-        );
-
-    transition:
-
-        left 0.25s ease,
-
-        right 0.25s ease;
-
+    transition: left 0.25s ease, right 0.25s ease;
 }
 
-
-.view-button:hover {
-
-    transform:
-        translateY(-2px);
-
-    border-color:
-        rgba(
-            0,
-            235,
-            255,
-            0.95
-        );
-
-    box-shadow:
-
-        0 0 10px
-        rgba(
-            0,
-            210,
-            255,
-            0.35
-        ),
-
-        0 0 25px
-        rgba(
-            0,
-            150,
-            255,
-            0.12
-        );
-
-}
-
-
-.view-button:hover
-.button-line {
-
-    left: 14px;
-
-    right: 14px;
-
-}
-
-
-.view-button:active {
-
-    transform:
-        translateY(1px)
-        scale(0.98);
-
+.view-button:hover .button-line {
+    left: 10%;
+    right: 10%;
 }
 
 
@@ -401,40 +222,42 @@ body {
 ========================================================= */
 
 .leaderboard-screen {
-
     display: flex;
 
     justify-content: center;
-
     align-items: center;
 
-    opacity: 0;
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(0, 150, 210, 0.055),
+            transparent 50%
+        ),
+        #000;
 
+    opacity: 0;
     visibility: hidden;
 
-    transform:
-        translateY(20px);
+    pointer-events: none;
+
+    transform: scale(1.025);
 
     transition:
+        opacity 0.7s ease,
+        visibility 0.7s ease,
+        transform 0.7s ease;
 
-        opacity 0.8s ease,
-
-        transform 0.8s ease,
-
-        visibility 0.8s;
-
+    z-index: 5;
 }
 
-
 .leaderboard-screen.active {
-
     opacity: 1;
 
     visibility: visible;
 
-    transform:
-        translateY(0);
+    pointer-events: auto;
 
+    transform: scale(1);
 }
 
 
@@ -443,17 +266,57 @@ body {
 ========================================================= */
 
 .leaderboard-container {
-
     position: relative;
 
-    width:
-        min(
-            1100px,
-            92vw
+    width: min(1250px, 88vw);
+
+    height: min(720px, 84vh);
+
+    min-height: 560px;
+
+    padding: 38px 40px;
+
+    background:
+        linear-gradient(
+            rgba(0, 20, 28, 0.35),
+            rgba(0, 7, 12, 0.5)
         );
 
-    height: 92vh;
+    border: 1px solid rgba(0, 215, 255, 0.65);
 
+    box-shadow:
+        0 0 18px rgba(0, 190, 255, 0.12),
+        inset 0 0 35px rgba(0, 150, 210, 0.035);
+
+    overflow: visible;
+}
+
+
+/* GRID BACKGROUND */
+
+.leaderboard-container::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 190, 230, 0.045) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0, 190, 230, 0.045) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+
+    z-index: 0;
 }
 
 
@@ -462,138 +325,76 @@ body {
 ========================================================= */
 
 .leaderboard-header {
+    position: relative;
 
-    position: absolute;
-
-    top: 28px;
-
-    left: 0;
-
-    width: 100%;
+    z-index: 2;
 
     text-align: center;
 
+    margin-bottom: 26px;
 }
 
-
 .leaderboard-title {
+    font-size: clamp(25px, 2.4vw, 36px);
+
+    font-weight: 300;
+
+    letter-spacing: 11px;
 
     color: #eafcff;
 
-    font-size: 28px;
-
-    letter-spacing: 10px;
-
     text-shadow:
-
-        0 0 10px
-        rgba(
-            0,
-            210,
-            255,
-            0.35
-        );
-
+        0 0 8px rgba(90, 220, 255, 0.65),
+        0 0 20px rgba(0, 150, 255, 0.25);
 }
 
-
 .leaderboard-subtitle {
+    margin-top: 10px;
 
-    margin-top: 9px;
+    font-size: 12px;
 
-    color:
-        rgba(
-            150,
-            225,
-            235,
-            0.60
-        );
+    letter-spacing: 7px;
 
-    font-size: 11px;
-
-    letter-spacing: 5px;
-
+    color: rgba(90, 210, 245, 0.75);
 }
 
 
 /* =========================================================
-   LARGE PLACEHOLDER
+   BIG PLACEHOLDER
 ========================================================= */
 
 .leaderboard-placeholder {
-
     position: absolute;
-
-    top: 105px;
 
     left: 50%;
 
-    transform:
-        translateX(-50%);
+    top: 145px;
 
-    width:
-        min(
-            1000px,
-            88vw
-        );
+    transform: translateX(-50%);
 
-    height: 270px;
+    width: 90%;
 
-    border:
-        1px solid
-        rgba(
-            0,
-            205,
-            240,
-            0.45
-        );
-
-    background:
-
-        linear-gradient(
-            135deg,
-            rgba(
-                0,
-                35,
-                48,
-                0.40
-            ),
-            rgba(
-                0,
-                10,
-                18,
-                0.70
-            )
-        );
-
-    box-shadow:
-
-        0 0 20px
-        rgba(
-            0,
-            180,
-            255,
-            0.08
-        ),
-
-        inset 0 0 35px
-        rgba(
-            0,
-            180,
-            255,
-            0.05
-        );
+    height: 285px;
 
     display: flex;
 
     flex-direction: column;
 
-    justify-content: center;
-
     align-items: center;
 
-    overflow: hidden;
+    justify-content: center;
 
+    border: 1px solid rgba(0, 205, 245, 0.48);
+
+    background:
+        rgba(0, 15, 21, 0.42);
+
+    box-shadow:
+        inset 0 0 25px rgba(0, 150, 220, 0.035);
+
+    z-index: 2;
+
+    overflow: hidden;
 }
 
 
@@ -602,161 +403,72 @@ body {
 ========================================================= */
 
 .leaderboard-placeholder::before {
-
     content: "";
 
     position: absolute;
 
     inset: 0;
 
-    background:
-
+    background-image:
         linear-gradient(
-            rgba(
-                0,
-                210,
-                255,
-                0.035
-            ) 1px,
+            rgba(0, 190, 230, 0.04) 1px,
             transparent 1px
         ),
-
         linear-gradient(
             90deg,
-            rgba(
-                0,
-                210,
-                255,
-                0.035
-            ) 1px,
+            rgba(0, 190, 230, 0.04) 1px,
             transparent 1px
         );
 
-    background-size:
-        40px 40px;
+    background-size: 50px 50px;
 
     pointer-events: none;
-
 }
 
 
 /* =========================================================
-   PLACEHOLDER BOTTOM GLOW
-========================================================= */
-
-.leaderboard-placeholder::after {
-
-    content: "";
-
-    position: absolute;
-
-    left: 10%;
-
-    right: 10%;
-
-    bottom: 0;
-
-    height: 1px;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(
-                0,
-                220,
-                255,
-                0.8
-            ),
-            transparent
-        );
-
-    box-shadow:
-
-        0 0 12px
-        rgba(
-            0,
-            220,
-            255,
-            0.65
-        );
-
-}
-
-
-/* =========================================================
-   CORNERS
+   CORNER DECORATIONS
 ========================================================= */
 
 .corner {
-
     position: absolute;
 
-    width: 25px;
+    width: 30px;
+    height: 30px;
 
-    height: 25px;
-
+    z-index: 3;
 }
-
 
 .corner-tl {
-
     top: -1px;
-
     left: -1px;
 
-    border-top:
-        2px solid #15dfff;
-
-    border-left:
-        2px solid #15dfff;
-
+    border-top: 2px solid #39ddff;
+    border-left: 2px solid #39ddff;
 }
-
 
 .corner-tr {
-
     top: -1px;
-
     right: -1px;
 
-    border-top:
-        2px solid #15dfff;
-
-    border-right:
-        2px solid #15dfff;
-
+    border-top: 2px solid #39ddff;
+    border-right: 2px solid #39ddff;
 }
-
 
 .corner-bl {
-
     bottom: -1px;
-
     left: -1px;
 
-    border-bottom:
-        2px solid #15dfff;
-
-    border-left:
-        2px solid #15dfff;
-
+    border-bottom: 2px solid #39ddff;
+    border-left: 2px solid #39ddff;
 }
 
-
 .corner-br {
-
     bottom: -1px;
-
     right: -1px;
 
-    border-bottom:
-        2px solid #15dfff;
-
-    border-right:
-        2px solid #15dfff;
-
+    border-bottom: 2px solid #39ddff;
+    border-right: 2px solid #39ddff;
 }
 
 
@@ -764,175 +476,83 @@ body {
    PLACEHOLDER TEXT
 ========================================================= */
 
-.placeholder-label {
-
+.placeholder-title {
     position: relative;
 
-    z-index: 2;
+    z-index: 4;
 
-    color:
-        rgba(
-            120,
-            220,
-            235,
-            0.65
-        );
+    font-size: 21px;
 
-    font-size: 12px;
+    color: #f4fbff;
 
-    letter-spacing: 7px;
-
-}
-
-
-.placeholder-main {
-
-    position: relative;
-
-    z-index: 2;
-
-    margin-top: 8px;
-
-    color: #eaffff;
-
-    font-size: 38px;
-
-    font-weight: 500;
-
-    letter-spacing: 12px;
+    margin-bottom: 10px;
 
     text-shadow:
-
-        0 0 10px
-        rgba(
-            0,
-            220,
-            255,
-            0.50
-        ),
-
-        0 0 30px
-        rgba(
-            0,
-            180,
-            255,
-            0.20
-        );
-
+        0 0 8px rgba(100, 225, 255, 0.35);
 }
 
-
-/* =========================================================
-   LINE
-========================================================= */
-
-.placeholder-line {
-
+.placeholder-main {
     position: relative;
 
-    z-index: 2;
+    z-index: 4;
 
-    width: 230px;
+    font-size: clamp(38px, 4vw, 54px);
 
-    height: 1px;
+    font-weight: 300;
 
-    margin-top: 14px;
+    letter-spacing: 8px;
 
-    background: #14dcff;
+    color: #f3fdff;
 
-    box-shadow:
-
-        0 0 8px
-        rgba(
-            0,
-            220,
-            255,
-            0.75
-        );
-
+    text-shadow:
+        0 0 8px rgba(90, 220, 255, 0.8),
+        0 0 24px rgba(0, 170, 255, 0.3);
 }
 
-
-/* =========================================================
-   WIP
-========================================================= */
-
-.placeholder-wip {
-
+.placeholder-text {
     position: relative;
 
-    z-index: 2;
+    z-index: 4;
 
-    margin-top: 15px;
+    margin-top: 4px;
 
-    color:
-        rgba(
-            0,
-            220,
-            255,
-            0.65
-        );
+    font-size: 19px;
+
+    color: #fff;
+
+    text-shadow:
+        0 0 8px rgba(90, 220, 255, 0.5);
+}
+
+.placeholder-description {
+    position: relative;
+
+    z-index: 4;
+
+    margin-top: 7px;
 
     font-size: 11px;
 
     letter-spacing: 5px;
 
-    text-shadow:
-
-        0 0 8px
-        rgba(
-            0,
-            220,
-            255,
-            0.30
-        );
-
+    color: rgba(100, 205, 235, 0.55);
 }
 
 
 /* =========================================================
-   MEMBER RANKING DESCRIPTION
-========================================================= */
-
-.placeholder-description {
-
-    position: relative;
-
-    z-index: 2;
-
-    margin-top: 7px;
-
-    color:
-        rgba(
-            180,
-            220,
-            230,
-            0.48
-        );
-
-    font-size: 10px;
-
-    letter-spacing: 4px;
-
-}
-
-
-/* =========================================================
-   IZUNA GAME
+   IZUNA MINI GAME
 ========================================================= */
 
 .izuna-game {
-
     position: absolute;
 
     left: 50%;
 
-    top: 405px;
+    top: 455px;
 
-    transform:
-        translateX(-50%);
+    transform: translateX(-50%);
 
-    width: 100%;
+    width: 320px;
 
     display: flex;
 
@@ -940,6 +560,9 @@ body {
 
     align-items: center;
 
+    z-index: 20;
+
+    user-select: none;
 }
 
 
@@ -948,93 +571,65 @@ body {
 ========================================================= */
 
 .pet-score {
+    position: relative;
 
-    color:
-        rgba(
-            235,
-            255,
-            255,
-            0.85
-        );
+    z-index: 30;
 
-    font-size: 14px;
+    font-size: 18px;
 
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
 
-    text-shadow:
+    color: #d9faff;
 
-        0 0 8px
-        rgba(
-            0,
-            190,
-            255,
-            0.25
-        );
-
-}
-
-
-#petSeconds {
-
-    display: inline-block;
-
-    min-width: 42px;
-
-    color: #1bdfff;
-
-    font-size: 19px;
+    white-space: nowrap;
 
     text-align: center;
 
     text-shadow:
+        0 0 7px rgba(0, 200, 255, 0.45);
+}
 
-        0 0 8px
-        rgba(
-            0,
-            220,
-            255,
-            0.65
-        ),
+#petSeconds {
+    color: #52eaff;
 
-        0 0 18px
-        rgba(
-            0,
-            180,
-            255,
-            0.25
-        );
+    font-size: 23px;
 
+    text-shadow:
+        0 0 8px rgba(0, 220, 255, 0.75),
+        0 0 20px rgba(0, 150, 255, 0.35);
 }
 
 
 /* =========================================================
-   IZUNA AREA
+   IZUNA CONTAINER
 ========================================================= */
 
-.izuna-area {
-
+.izuna-container {
     position: relative;
 
-    width:
-        min(
-            360px,
-            55vw
-        );
+    width: 180px;
+    height: 180px;
 
-    height: 190px;
-
-    margin-top: 5px;
+    margin-top: 4px;
 
     display: flex;
 
     justify-content: center;
-
     align-items: center;
+
+    cursor: grab;
 
     touch-action: none;
 
     user-select: none;
 
+    -webkit-user-select: none;
+
+    z-index: 25;
+}
+
+.izuna-container:active {
+    cursor: grabbing;
 }
 
 
@@ -1043,162 +638,109 @@ body {
 ========================================================= */
 
 .izuna-image {
-
     position: absolute;
 
-    max-width: 100%;
+    left: 50%;
+    top: 50%;
 
-    max-height: 100%;
+    width: 180px !important;
+    height: 180px !important;
 
-    width: auto;
-
-    height: auto;
+    max-width: none !important;
+    max-height: none !important;
 
     object-fit: contain;
 
-    pointer-events: none;
+    transform:
+        translate(-50%, -50%)
+        scale(1);
 
     user-select: none;
 
-}
+    -webkit-user-drag: none;
 
-
-/* =========================================================
-   STATIC IZUNA
-========================================================= */
-
-#izunaStatic {
-
-    opacity: 1;
-
-    transform:
-        scale(1);
-
-    filter:
-
-        drop-shadow(
-            0 0 7px
-            rgba(
-                0,
-                190,
-                255,
-                0.12
-            )
-        );
+    pointer-events: none;
 
     transition:
-        opacity 0.2s ease;
-
+        opacity 0.16s ease,
+        transform 0.18s ease;
 }
 
 
-/* =========================================================
-   PET IZUNA
-========================================================= */
+/* STATIC */
+
+.izuna-static {
+    opacity: 1;
+}
+
+
+/* PET IMAGE */
 
 .izuna-pet {
-
     opacity: 0;
-
-    transform:
-        scale(0.98);
-
-    filter:
-
-        drop-shadow(
-            0 0 9px
-            rgba(
-                0,
-                205,
-                255,
-                0.20
-            )
-        );
-
-    transition:
-        opacity 0.18s ease;
-
 }
 
 
-/* =========================================================
-   PETTING
-========================================================= */
+/* WHEN PETTING */
 
-.izuna-area.petting
-#izunaStatic {
-
+.izuna-container.petting .izuna-static {
     opacity: 0;
-
 }
 
-
-.izuna-area.petting
-#izunaPet {
-
+.izuna-container.petting .izuna-pet {
     opacity: 1;
 
-    animation:
-
-        izunaPetMotion
-        1.8s
-        ease-in-out
-        infinite;
-
+    transform:
+        translate(-50%, -50%)
+        scale(1.035);
 }
 
 
 /* =========================================================
-   IZUNA MOTION
+   IZUNA IDLE ANIMATION
 ========================================================= */
 
-@keyframes izunaPetMotion {
+@keyframes izunaIdle {
 
     0% {
-
         transform:
+            translate(-50%, -50%)
             translateY(0)
-            rotate(0deg)
-            scale(1);
-
+            rotate(0deg);
     }
 
-    20% {
-
+    25% {
         transform:
-            translateY(1px)
-            rotate(-0.8deg)
-            scale(1.005);
-
+            translate(-50%, -50%)
+            translateY(-3px)
+            rotate(-0.7deg);
     }
 
-    45% {
-
+    50% {
         transform:
-            translateY(-2px)
-            rotate(0.7deg)
-            scale(1.01);
-
+            translate(-50%, -50%)
+            translateY(0)
+            rotate(0.7deg);
     }
 
-    70% {
-
+    75% {
         transform:
-            translateY(1px)
-            rotate(-0.5deg)
-            scale(1.005);
-
+            translate(-50%, -50%)
+            translateY(3px)
+            rotate(-0.5deg);
     }
 
     100% {
-
         transform:
+            translate(-50%, -50%)
             translateY(0)
-            rotate(0deg)
-            scale(1);
-
+            rotate(0deg);
     }
+}
 
+.izuna-static,
+.izuna-pet {
+    animation: izunaIdle 3.8s ease-in-out infinite;
 }
 
 
@@ -1207,138 +749,64 @@ body {
 ========================================================= */
 
 .pet-glow {
-
     position: absolute;
 
-    width: 170px;
-
-    height: 100px;
-
     left: 50%;
+    top: 52%;
 
-    top: 40%;
+    width: 145px;
+    height: 145px;
 
-    transform:
-        translate(
-            -50%,
-            -50%
-        );
+    transform: translate(-50%, -50%);
 
     border-radius: 50%;
 
     background:
-
         radial-gradient(
-            ellipse,
-            rgba(
-                0,
-                210,
-                255,
-                0.09
-            ),
+            circle,
+            rgba(0, 210, 255, 0.10),
             transparent 70%
         );
 
-    filter:
-        blur(13px);
+    filter: blur(10px);
 
     opacity: 0;
 
     pointer-events: none;
 
     transition:
-        opacity 0.35s ease;
+        opacity 0.2s ease,
+        transform 0.2s ease;
 
+    z-index: -1;
 }
 
-
-.izuna-area.petting
-.pet-glow {
-
+.izuna-container.petting .pet-glow {
     opacity: 1;
 
-    animation:
-
-        petGlowPulse
-        2.5s
-        ease-in-out
-        infinite;
-
-}
-
-
-@keyframes petGlowPulse {
-
-    0% {
-
-        transform:
-            translate(
-                -50%,
-                -50%
-            )
-            scale(0.9);
-
-    }
-
-    50% {
-
-        transform:
-            translate(
-                -50%,
-                -50%
-            )
-            scale(1.05);
-
-    }
-
-    100% {
-
-        transform:
-            translate(
-                -50%,
-                -50%
-            )
-            scale(0.9);
-
-    }
-
+    transform:
+        translate(-50%, -50%)
+        scale(1.15);
 }
 
 
 /* =========================================================
-   INSTRUCTION
+   PET INSTRUCTION
 ========================================================= */
 
 .pet-instruction {
+    margin-top: -3px;
 
-    margin-top: -2px;
+    font-size: 10px;
 
-    color:
-        rgba(
-            150,
-            220,
-            230,
-            0.38
-        );
+    letter-spacing: 5px;
 
-    font-size: 9px;
+    color: rgba(70, 200, 235, 0.6);
 
-    letter-spacing: 4px;
+    text-align: center;
 
-}
-
-
-.izuna-area.petting
-~ .pet-instruction {
-
-    color:
-        rgba(
-            30,
-            220,
-            255,
-            0.72
-        );
-
+    text-shadow:
+        0 0 8px rgba(0, 180, 255, 0.25);
 }
 
 
@@ -1347,70 +815,46 @@ body {
 ========================================================= */
 
 .back-button {
-
     position: fixed;
 
-    bottom: 28px;
-
     left: 50%;
+    bottom: 24px;
 
-    transform:
-        translateX(-50%);
+    transform: translateX(-50%);
 
-    width: 110px;
+    width: 138px;
+    height: 42px;
 
-    height: 34px;
+    background:
+        rgba(0, 10, 15, 0.7);
 
-    background: transparent;
+    border: 1px solid rgba(0, 180, 220, 0.5);
 
-    border:
-        1px solid
-        rgba(
-            0,
-            190,
-            230,
-            0.30
-        );
+    color: rgba(90, 215, 245, 0.85);
 
-    color:
-        rgba(
-            180,
-            240,
-            245,
-            0.55
-        );
+    font-size: 11px;
 
-    font-size: 9px;
-
-    letter-spacing: 4px;
+    letter-spacing: 6px;
 
     cursor: pointer;
 
+    z-index: 100;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-
 .back-button:hover {
-
-    color: #eaffff;
+    background:
+        rgba(0, 180, 220, 0.08);
 
     border-color:
-        rgba(
-            0,
-            220,
-            255,
-            0.75
-        );
+        rgba(70, 220, 255, 0.9);
 
     box-shadow:
-
-        0 0 10px
-        rgba(
-            0,
-            200,
-            255,
-            0.18
-        );
-
+        0 0 14px rgba(0, 190, 255, 0.22);
 }
 
 
@@ -1418,149 +862,128 @@ body {
    MOBILE
 ========================================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
 
-
-    .main-logo {
-
-        width: 75vw;
-
+    .logo-container {
+        width: 82vw;
     }
 
+    .menu-screen {
+        gap: 30px;
+    }
 
     .view-button {
-
-        margin-top: 55px;
-
+        width: 160px;
+        height: 52px;
     }
-
 
     .leaderboard-container {
+        width: 92vw;
 
-        width: 94vw;
+        height: 82vh;
 
-        height: 94vh;
+        min-height: 500px;
 
+        padding: 25px 20px;
     }
-
-
-    .leaderboard-header {
-
-        top: 20px;
-
-    }
-
 
     .leaderboard-title {
-
-        font-size: 17px;
-
-        letter-spacing: 5px;
-
-    }
-
-
-    .leaderboard-subtitle {
-
-        font-size: 8px;
-
-        letter-spacing: 3px;
-
-    }
-
-
-    .leaderboard-placeholder {
-
-        top: 90px;
-
-        width: 90vw;
-
-        height: 210px;
-
-    }
-
-
-    .placeholder-label {
-
-        font-size: 9px;
-
-        letter-spacing: 5px;
-
-    }
-
-
-    .placeholder-main {
-
-        font-size: 25px;
+        font-size: 22px;
 
         letter-spacing: 7px;
-
     }
 
-
-    .placeholder-wip {
-
+    .leaderboard-subtitle {
         font-size: 9px;
 
         letter-spacing: 4px;
-
     }
 
+    .leaderboard-placeholder {
+        top: 115px;
+
+        width: 90%;
+
+        height: 220px;
+    }
+
+    .placeholder-title {
+        font-size: 15px;
+    }
+
+    .placeholder-main {
+        font-size: 30px;
+
+        letter-spacing: 5px;
+    }
+
+    .placeholder-text {
+        font-size: 16px;
+    }
 
     .placeholder-description {
-
-        font-size: 7px;
-
-        letter-spacing: 2px;
-
-        text-align: center;
-
-    }
-
-
-    .izuna-game {
-
-        top: 330px;
-
-    }
-
-
-    .izuna-area {
-
-        width: 75vw;
-
-        height: 180px;
-
-    }
-
-
-    .pet-score {
-
-        font-size: 10px;
-
-    }
-
-
-    #petSeconds {
-
-        font-size: 16px;
-
-    }
-
-
-    .pet-instruction {
-
-        font-size: 7px;
+        font-size: 8px;
 
         letter-spacing: 3px;
-
     }
 
+    .izuna-game {
+        top: 365px;
+    }
+
+    .izuna-container {
+        width: 145px;
+        height: 145px;
+    }
+
+    .izuna-image {
+        width: 145px !important;
+        height: 145px !important;
+    }
+
+    .pet-score {
+        font-size: 14px;
+    }
+
+    #petSeconds {
+        font-size: 19px;
+    }
+
+    .pet-instruction {
+        font-size: 8px;
+
+        letter-spacing: 3px;
+    }
 
     .back-button {
+        bottom: 12px;
+    }
+}
 
-        bottom: 18px;
 
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 450px) {
+
+    .leaderboard-placeholder {
+        top: 105px;
+
+        height: 200px;
     }
 
+    .izuna-game {
+        top: 335px;
+    }
+
+    .izuna-container {
+        width: 125px;
+        height: 125px;
+    }
+
+    .izuna-image {
+        width: 125px !important;
+        height: 125px !important;
+    }
 }
