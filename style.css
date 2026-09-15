@@ -1,6 +1,7 @@
 /* =========================================================
    HYAKKIYAKO CLUB
-   COMPLETE STYLE
+   STYLE
+   Placeholder adjusted to avoid Izuna overlap
 ========================================================= */
 
 
@@ -208,7 +209,9 @@ body {
     box-shadow:
         0 0 6px rgba(0, 210, 255, 0.55);
 
-    transition: left 0.25s ease, right 0.25s ease;
+    transition:
+        left 0.25s ease,
+        right 0.25s ease;
 }
 
 .view-button:hover .button-line {
@@ -292,7 +295,9 @@ body {
 }
 
 
-/* GRID BACKGROUND */
+/* =========================================================
+   GRID BACKGROUND
+========================================================= */
 
 .leaderboard-container::before {
     content: "";
@@ -361,6 +366,7 @@ body {
 
 /* =========================================================
    BIG PLACEHOLDER
+   ↓ ONLY THIS AREA WAS REDUCED
 ========================================================= */
 
 .leaderboard-placeholder {
@@ -368,13 +374,23 @@ body {
 
     left: 50%;
 
+    /*
+       Keep the same horizontal position.
+    */
     top: 145px;
 
     transform: translateX(-50%);
 
     width: 90%;
 
-    height: 285px;
+    /*
+       OLD:
+       height: 285px;
+
+       NEW:
+       smaller so it does not overlap Izuna.
+    */
+    height: 220px;
 
     display: flex;
 
@@ -548,6 +564,9 @@ body {
 
     left: 50%;
 
+    /*
+       Keep Izuna position the same.
+    */
     top: 455px;
 
     transform: translateX(-50%);
@@ -740,7 +759,8 @@ body {
 
 .izuna-static,
 .izuna-pet {
-    animation: izunaIdle 3.8s ease-in-out infinite;
+    animation:
+        izunaIdle 3.8s ease-in-out infinite;
 }
 
 
@@ -757,7 +777,8 @@ body {
     width: 145px;
     height: 145px;
 
-    transform: translate(-50%, -50%);
+    transform:
+        translate(-50%, -50%);
 
     border-radius: 50%;
 
@@ -899,12 +920,15 @@ body {
         letter-spacing: 4px;
     }
 
+
+    /* SMALLER MOBILE PLACEHOLDER */
+
     .leaderboard-placeholder {
         top: 115px;
 
         width: 90%;
 
-        height: 220px;
+        height: 185px;
     }
 
     .placeholder-title {
@@ -926,6 +950,7 @@ body {
 
         letter-spacing: 3px;
     }
+
 
     .izuna-game {
         top: 365px;
@@ -970,7 +995,7 @@ body {
     .leaderboard-placeholder {
         top: 105px;
 
-        height: 200px;
+        height: 170px;
     }
 
     .izuna-game {
