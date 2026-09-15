@@ -1,23 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Hyakkiyako</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+    <title>Hyakkiyako Club Leaderboard</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
 </head>
+
 
 <body>
 
+    <!-- Particle Background -->
     <canvas id="particleCanvas"></canvas>
 
-    <div class="logo-container">
-        <img src="hyakkiyako.png" alt="Hyakkiyako">
-    </div>
+
+    <!-- ================= MENU ================= -->
+
+    <main id="menu">
+
+        <div class="logo-container" id="logoContainer">
+
+            <img
+                id="logo"
+                src="hyakkiyako.png"
+                alt="Hyakkiyako">
+
+        </div>
+
+
+        <!-- VIEW BUTTON -->
+
+        <button
+            id="viewButton"
+            class="view-button">
+
+            <span>VIEW</span>
+
+        </button>
+
+    </main>
+
+
+    <!-- ================= LEADERBOARD ================= -->
+
+    <section
+        id="leaderboard"
+        class="leaderboard-screen">
+
+        <div class="leaderboard-panel">
+
+            <div class="leaderboard-title">
+                HYAKKIYAKO CLUB
+            </div>
+
+            <div class="leaderboard-subtitle">
+                5TH CLUB LEADERBOARD
+            </div>
+
+
+            <!--
+                Placeholder
+
+                ตรงนี้เราจะใส่ไฟล์
+                Leaderboard ของคุณภายหลัง
+            -->
+
+            <div class="leaderboard-placeholder">
+
+                <div>LEADERBOARD</div>
+
+                <span>
+                    DATA WILL BE LOADED HERE
+                </span>
+
+            </div>
+
+
+            <button
+                id="backButton"
+                class="back-button">
+
+                BACK
+
+            </button>
+
+        </div>
+
+    </section>
+
 
     <script src="script.js"></script>
 
 </body>
+
 </html>
