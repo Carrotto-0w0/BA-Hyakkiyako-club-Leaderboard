@@ -99,7 +99,7 @@ let transitionParticles = [];
 
 
 /* =========================================================
-   TRANSITION STATE
+   STATE
 ========================================================= */
 
 let transitionActive =
@@ -147,7 +147,8 @@ function createBackgroundParticle() {
 
         x:
             Math.random()
-            * canvasWidth,
+            *
+            canvasWidth,
 
         y:
             canvasHeight
@@ -155,7 +156,7 @@ function createBackgroundParticle() {
             Math.random() * 50,
 
         size:
-            Math.random() * 2
+            Math.random() * 1.8
             + 0.5,
 
         speed:
@@ -170,12 +171,12 @@ function createBackgroundParticle() {
             * 0.20,
 
         alpha:
-            Math.random() * 0.40
-            + 0.25,
+            Math.random() * 0.35
+            + 0.20,
 
         glow:
-            Math.random() * 5
-            + 4
+            Math.random() * 4
+            + 3
 
     };
 
@@ -188,7 +189,7 @@ function createBackgroundParticle() {
 
 for (
     let i = 0;
-    i < 55;
+    i < 50;
     i++
 ) {
 
@@ -198,7 +199,8 @@ for (
 
     p.y =
         Math.random()
-        * canvasHeight;
+        *
+        canvasHeight;
 
 
     backgroundParticles.push(
@@ -214,20 +216,24 @@ for (
 
 function createLogoParticles() {
 
+    /*
+     * Get current logo position.
+     * This happens BEFORE the logo disappears.
+     */
+
     const rect =
         mainLogo.getBoundingClientRect();
 
 
     /*
-     * More particles for
-     * stronger logo dissolution.
+     * Smaller particle count.
      */
 
     const particleCount =
         Math.min(
-            420,
+            150,
             Math.max(
-                220,
+                90,
                 Math.floor(
                     (
                         rect.width
@@ -235,10 +241,53 @@ function createLogoParticles() {
                         rect.height
                     )
                     /
-                    3000
+                    8500
                 )
             )
         );
+
+
+    /*
+     * Smaller emission area.
+     *
+     * Instead of the entire logo rectangle,
+     * keep particles closer to the center.
+     */
+
+    const areaWidth =
+        rect.width
+        *
+        0.78;
+
+
+    const areaHeight =
+        rect.height
+        *
+        0.72;
+
+
+    const areaLeft =
+        rect.left
+        +
+        (
+            rect.width
+            -
+            areaWidth
+        )
+        /
+        2;
+
+
+    const areaTop =
+        rect.top
+        +
+        (
+            rect.height
+            -
+            areaHeight
+        )
+        /
+        2;
 
 
     for (
@@ -249,47 +298,46 @@ function createLogoParticles() {
 
 
         /*
-         * Start from logo area.
+         * Position.
          */
 
         const x =
-            rect.left
+            areaLeft
             +
             Math.random()
             *
-            rect.width;
+            areaWidth;
 
 
         const y =
-            rect.top
+            areaTop
             +
             Math.random()
             *
-            rect.height;
+            areaHeight;
 
 
         /*
-         * Particle direction.
-         *
-         * Bias movement upward.
+         * Mostly upward movement.
          */
 
-        const angle =
+        const vx =
             (
                 Math.random()
-                *
-                Math.PI
-                *
-                2
-            );
-
-
-        const force =
-            Math.random()
+                - 0.5
+            )
             *
-            2.8
-            +
-            0.7;
+            1.4;
+
+
+        const vy =
+            -(
+                Math.random()
+                *
+                1.6
+                +
+                0.35
+            );
 
 
         transitionParticles.push({
@@ -298,47 +346,32 @@ function createLogoParticles() {
 
             y: y,
 
-            vx:
-                Math.cos(angle)
-                *
-                force,
+            vx: vx,
 
-            vy:
-                Math.sin(angle)
-                *
-                force
-                -
-                (
-                    Math.random()
-                    *
-                    1.8
-                ),
+            vy: vy,
 
             size:
                 Math.random()
                 *
-                2.6
+                1.8
                 +
                 0.5,
 
             alpha:
                 Math.random()
                 *
-                0.7
+                0.55
                 +
-                0.3,
+                0.35,
 
             life: 1,
 
             decay:
                 Math.random()
                 *
-                0.007
+                0.009
                 +
-                0.003,
-
-            gravity:
-                -0.012
+                0.005
 
         });
 
@@ -359,25 +392,13 @@ function drawBackgroundParticles() {
     ) {
 
 
-        /*
-         * Move upward.
-         */
-
         p.y -=
             p.speed;
 
 
-        /*
-         * Slight horizontal movement.
-         */
-
         p.x +=
             p.drift;
 
-
-        /*
-         * Respawn.
-         */
 
         if (
             p.y <
@@ -391,10 +412,6 @@ function drawBackgroundParticles() {
 
         }
 
-
-        /*
-         * Wrap horizontal.
-         */
 
         if (
             p.x < -10
@@ -417,10 +434,6 @@ function drawBackgroundParticles() {
         }
 
 
-        /*
-         * Draw.
-         */
-
         ctx.beginPath();
 
 
@@ -429,7 +442,7 @@ function drawBackgroundParticles() {
 
 
         ctx.shadowColor =
-            "rgba(0,220,255,0.8)";
+            "rgba(0,220,255,0.65)";
 
 
         ctx.fillStyle =
@@ -492,16 +505,8 @@ function drawTransitionParticles() {
          * Slight upward acceleration.
          */
 
-        p.vy +=
-            p.gravity;
-
-
-        /*
-         * Slight damping.
-         */
-
-        p.vx *=
-            0.995;
+        p.vy -=
+            0.006;
 
 
         /*
@@ -513,23 +518,23 @@ function drawTransitionParticles() {
 
 
         /*
-         * Draw particle.
+         * Draw.
          */
 
         ctx.beginPath();
 
 
         ctx.shadowBlur =
-            10;
+            7;
 
 
         ctx.shadowColor =
-            "rgba(0,225,255,0.95)";
+            "rgba(0,225,255,0.85)";
 
 
         ctx.fillStyle =
             `rgba(
-                20,
+                15,
                 220,
                 255,
                 ${p.alpha * p.life}
@@ -549,7 +554,7 @@ function drawTransitionParticles() {
 
 
         /*
-         * Remove dead particles.
+         * Remove particle.
          */
 
         if (
@@ -582,16 +587,8 @@ function drawParticles() {
     );
 
 
-    /*
-     * Background.
-     */
-
     drawBackgroundParticles();
 
-
-    /*
-     * Logo transition.
-     */
 
     drawTransitionParticles();
 
@@ -611,17 +608,13 @@ drawParticles();
 
 
 /* =========================================================
-   VIEW BUTTON
+   VIEW TRANSITION
 ========================================================= */
 
 viewButton.addEventListener(
     "click",
     () => {
 
-
-        /*
-         * Prevent double click.
-         */
 
         if (
             transitionActive
@@ -653,16 +646,12 @@ viewButton.addEventListener(
 
 
         /*
-         * IMPORTANT:
-         * Capture logo position BEFORE
-         * making it disappear.
-         */
-
-        createLogoParticles();
-
-
-        /*
-         * Start logo animation.
+         * -------------------------------------------------
+         * STEP 1
+         *
+         * Logo begins fading.
+         * NO transition particles yet.
+         * -------------------------------------------------
          */
 
         logoContainer.classList.add(
@@ -671,8 +660,34 @@ viewButton.addEventListener(
 
 
         /*
-         * Fade menu after
-         * logo transition.
+         * -------------------------------------------------
+         * STEP 2
+         *
+         * Wait until logo is almost completely gone.
+         *
+         * Logo animation = 700ms
+         * Particle starts = 760ms
+         * -------------------------------------------------
+         */
+
+        setTimeout(
+            () => {
+
+                createLogoParticles();
+
+            },
+
+            760
+        );
+
+
+        /*
+         * -------------------------------------------------
+         * STEP 3
+         *
+         * Show leaderboard after
+         * logo + particle transition.
+         * -------------------------------------------------
          */
 
         setTimeout(
@@ -692,12 +707,12 @@ viewButton.addEventListener(
 
             },
 
-            1050
+            1150
         );
 
 
         /*
-         * Transition finished.
+         * Transition state ends.
          */
 
         setTimeout(
@@ -708,7 +723,7 @@ viewButton.addEventListener(
 
             },
 
-            1600
+            1500
         );
 
     }
@@ -771,7 +786,7 @@ backButton.addEventListener(
 
 
                 /*
-                 * Clear old particles.
+                 * Remove old transition particles.
                  */
 
                 transitionParticles =
@@ -804,7 +819,7 @@ let totalPetTime =
 
 
 /* =========================================================
-   POINTER STATE
+   POINTER
 ========================================================= */
 
 let pointerDown =
@@ -824,7 +839,7 @@ let petIdleTimer =
 
 
 /* =========================================================
-   IZUNA HEAD AREA
+   HEAD ZONE
 ========================================================= */
 
 const HEAD_ZONE = {
@@ -982,7 +997,7 @@ function stopPetting() {
 
 
 /* =========================================================
-   PET IDLE TIMER
+   IDLE TIMER
 ========================================================= */
 
 function resetPetIdleTimer() {
@@ -1007,7 +1022,7 @@ function resetPetIdleTimer() {
 
 
 /* =========================================================
-   UPDATE SCORE
+   SCORE
 ========================================================= */
 
 function updateScore() {
@@ -1095,14 +1110,6 @@ izunaArea.addEventListener(
         event.preventDefault();
 
 
-        /*
-         * Touch / pen:
-         * must hold pointer.
-         *
-         * Mouse:
-         * movement itself is enough.
-         */
-
         if (
             event.pointerType !== "mouse"
             &&
@@ -1142,10 +1149,6 @@ izunaArea.addEventListener(
             event.clientY;
 
 
-        /*
-         * Ignore tiny movement.
-         */
-
         if (
             distance < 2
         ) {
@@ -1154,10 +1157,6 @@ izunaArea.addEventListener(
 
         }
 
-
-        /*
-         * Only head movement counts.
-         */
 
         if (
             isInsideHead(
