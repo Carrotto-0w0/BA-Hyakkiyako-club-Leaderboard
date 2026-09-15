@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -12,10 +11,9 @@
 
     <title>Hyakkiyako Club</title>
 
-
-    <!-- =====================================================
-         DISCORD / SOCIAL EMBED
-    ====================================================== -->
+    <!-- =========================================================
+         DISCORD / OPEN GRAPH
+         ========================================================= -->
 
     <meta
         property="og:title"
@@ -39,25 +37,32 @@
 
     <meta
         property="og:image"
-        content="https://carrotto-0w0.github.io/BA-Hyakkiyako-club-Leaderboard/Hyakkiyako_Intro.png"
+        content="https://carrotto-0w0.github.io/BA-Hyakkiyako-club-Leaderboard/Hyakkiyako_Intro.png?v=014"
     >
 
     <meta
+        property="og:image:type"
+        content="image/png"
+    >
+
+    <!--
+        เปลี่ยนเป็นขนาดของ Preview ที่ต้องการให้ Discord
+        ประมวลผลเป็นภาพขนาดเล็ก
+    -->
+    <meta
         property="og:image:width"
-        content="1280"
+        content="800"
     >
 
     <meta
         property="og:image:height"
-        content="720"
+        content="1000"
     >
 
-
-    <!-- TWITTER / OTHER SOCIAL PREVIEW -->
-
+    <!-- Twitter / Discord compatibility -->
     <meta
         name="twitter:card"
-        content="summary_large_image"
+        content="summary"
     >
 
     <meta
@@ -72,59 +77,57 @@
 
     <meta
         name="twitter:image"
-        content="https://carrotto-0w0.github.io/BA-Hyakkiyako-club-Leaderboard/Hyakkiyako_Intro.png"
+        content="https://carrotto-0w0.github.io/BA-Hyakkiyako-club-Leaderboard/Hyakkiyako_Intro.png?v=014"
     >
 
-
-    <!-- =====================================================
+    <!-- =========================================================
          CSS
-    ====================================================== -->
+         ========================================================= -->
 
     <link
         rel="stylesheet"
         href="./style.css"
     >
-
 </head>
 
 
 <body>
 
-
-    <!-- =====================================================
-         MENU SCREEN
-    ====================================================== -->
+    <!-- =========================================================
+         MAIN MENU
+         ========================================================= -->
 
     <section
         id="menuScreen"
         class="screen menu-screen"
     >
 
-        <canvas
-            id="particleCanvas"
-        ></canvas>
+        <!-- Particle canvas -->
+        <canvas id="particleCanvas"></canvas>
 
 
-        <!-- LOGO -->
-
+        <!-- Logo -->
         <div
             id="logoContainer"
             class="logo-container"
         >
 
+            <!--
+                เพิ่ม id="logo"
+                เพื่อให้ script.js รุ่นเดิมสามารถหา Logo ได้
+            -->
             <img
                 id="logo"
-                class="hyakkiyako-logo"
                 src="./hyakkiyako.png"
-                alt="Hyakkiyako Club"
+                alt="Hyakkiyako"
+                class="main-logo"
                 draggable="false"
             >
 
         </div>
 
 
-        <!-- VIEW BUTTON -->
-
+        <!-- VIEW button -->
         <button
             id="viewButton"
             class="view-button"
@@ -141,41 +144,30 @@
 
 
 
-    <!-- =====================================================
+    <!-- =========================================================
          LEADERBOARD SCREEN
-    ====================================================== -->
+         ========================================================= -->
 
     <section
         id="leaderboardScreen"
         class="screen leaderboard-screen"
     >
 
-        <div
-            class="leaderboard-container"
-        >
+        <div class="leaderboard-container">
 
 
-            <!-- HEADER -->
+            <!-- =================================================
+                 HEADER
+                 ================================================= -->
 
-            <div
-                class="leaderboard-header"
-            >
+            <div class="leaderboard-header">
 
-                <div
-                    class="leaderboard-title"
-                >
-
+                <div class="leaderboard-title">
                     HYAKKIYAKO CLUB
-
                 </div>
 
-
-                <div
-                    class="leaderboard-subtitle"
-                >
-
+                <div class="leaderboard-subtitle">
                     5TH CLUB LEADERBOARD
-
                 </div>
 
             </div>
@@ -183,17 +175,12 @@
 
 
             <!-- =================================================
-                 BIG PLACEHOLDER
-            ================================================== -->
+                 LEADERBOARD PLACEHOLDER
+                 ================================================= -->
 
-            <div
-                id="leaderboardPlaceholder"
-                class="leaderboard-placeholder"
-            >
+            <div class="leaderboard-placeholder">
 
-
-                <!-- Corner decorations -->
-
+                <!-- Corners -->
                 <div
                     class="corner corner-tl"
                 ></div>
@@ -211,41 +198,31 @@
                 ></div>
 
 
-                <!-- Placeholder content -->
-
-                <div
-                    class="placeholder-title"
-                >
-
+                <!-- Label -->
+                <div class="placeholder-label">
                     CLUB RANKING
-
                 </div>
 
 
-                <div
-                    class="placeholder-main"
-                >
-
+                <!-- Main title -->
+                <div class="placeholder-main">
                     LEADERBOARD
-
                 </div>
 
 
-                <div
-                    class="placeholder-text"
-                >
+                <!-- Divider -->
+                <div class="placeholder-line"></div>
 
+
+                <!-- WIP -->
+                <div class="placeholder-wip">
                     WIP
-
                 </div>
 
 
-                <div
-                    class="placeholder-description"
-                >
-
+                <!-- Description -->
+                <div class="placeholder-description">
                     MEMBER RANKING WILL APPEAR HERE
-
                 </div>
 
             </div>
@@ -254,7 +231,7 @@
 
             <!-- =================================================
                  IZUNA PET GAME
-            ================================================== -->
+                 ================================================= -->
 
             <div
                 id="izunaGame"
@@ -262,18 +239,14 @@
             >
 
 
-                <!-- SCORE -->
-
-                <div
-                    id="petScore"
-                    class="pet-score"
-                >
+                <!-- Score -->
+                <div class="pet-score">
 
                     You have pet Izuna for
 
-                    <span
-                        id="petSeconds"
-                    >0.0</span>
+                    <span id="petSeconds">
+                        0.0
+                    </span>
 
                     second
 
@@ -281,28 +254,24 @@
 
 
 
-                <!-- IZUNA -->
-
+                <!-- Izuna area -->
                 <div
-                    id="izunaContainer"
-                    class="izuna-container"
+                    id="izunaArea"
+                    class="izuna-area"
                 >
 
-                    <div
-                        id="petGlow"
-                        class="pet-glow"
-                    ></div>
 
-
+                    <!-- Static Izuna -->
                     <img
                         id="izunaStatic"
-                        class="izuna-image izuna-static"
+                        class="izuna-image"
                         src="./izuna-static.png"
                         alt="Izuna"
                         draggable="false"
                     >
 
 
+                    <!-- Petting Izuna -->
                     <img
                         id="izunaPet"
                         class="izuna-image izuna-pet"
@@ -311,18 +280,20 @@
                         draggable="false"
                     >
 
+
+                    <!-- Glow -->
+                    <div class="pet-glow"></div>
+
                 </div>
 
 
-                <!-- INSTRUCTION -->
 
+                <!-- Instruction -->
                 <div
                     id="petInstruction"
                     class="pet-instruction"
                 >
-
                     RUB IZUNA'S HEAD
-
                 </div>
 
             </div>
@@ -331,29 +302,27 @@
 
 
 
-        <!-- BACK -->
+        <!-- =====================================================
+             BACK BUTTON
+             ===================================================== -->
 
         <button
             id="backButton"
             class="back-button"
             type="button"
         >
-
             BACK
-
         </button>
 
     </section>
 
 
 
-    <!-- =====================================================
+    <!-- =========================================================
          JAVASCRIPT
-    ====================================================== -->
+         ========================================================= -->
 
-    <script
-        src="./script.js"
-    ></script>
+    <script src="./script.js"></script>
 
 </body>
 
