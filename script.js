@@ -1,6 +1,9 @@
 /* =========================================================
    HYAKKIYAKO
-   MENU + LOGO PARTICLE TRANSITION + IZUNA PET GAME
+   MENU
+   LOGO PARTICLE TRANSITION
+   BACKGROUND PARTICLES
+   IZUNA PET GAME
 ========================================================= */
 
 
@@ -9,31 +12,57 @@
 ========================================================= */
 
 const menuScreen =
-    document.getElementById("menuScreen");
+    document.getElementById(
+        "menuScreen"
+    );
+
 
 const leaderboardScreen =
-    document.getElementById("leaderboardScreen");
+    document.getElementById(
+        "leaderboardScreen"
+    );
+
 
 const logoContainer =
-    document.getElementById("logoContainer");
+    document.getElementById(
+        "logoContainer"
+    );
+
 
 const mainLogo =
-    document.querySelector(".main-logo");
+    document.querySelector(
+        ".main-logo"
+    );
+
 
 const viewButton =
-    document.getElementById("viewButton");
+    document.getElementById(
+        "viewButton"
+    );
+
 
 const backButton =
-    document.getElementById("backButton");
+    document.getElementById(
+        "backButton"
+    );
+
 
 const izunaArea =
-    document.getElementById("izunaArea");
+    document.getElementById(
+        "izunaArea"
+    );
+
 
 const petSeconds =
-    document.getElementById("petSeconds");
+    document.getElementById(
+        "petSeconds"
+    );
+
 
 const petInstruction =
-    document.getElementById("petInstruction");
+    document.getElementById(
+        "petInstruction"
+    );
 
 
 /* =========================================================
@@ -41,47 +70,61 @@ const petInstruction =
 ========================================================= */
 
 const canvas =
-    document.getElementById("particleCanvas");
+    document.getElementById(
+        "particleCanvas"
+    );
+
 
 const ctx =
-    canvas.getContext("2d");
+    canvas.getContext(
+        "2d"
+    );
 
 
-let particleWidth =
+let canvasWidth =
     window.innerWidth;
 
-let particleHeight =
+
+let canvasHeight =
     window.innerHeight;
 
 
 /* =========================================================
-   PARTICLE ARRAYS
+   PARTICLES
 ========================================================= */
 
 let backgroundParticles = [];
 
 let transitionParticles = [];
 
-let transitionActive = false;
+
+/* =========================================================
+   TRANSITION STATE
+========================================================= */
+
+let transitionActive =
+    false;
 
 
 /* =========================================================
-   RESIZE
+   CANVAS RESIZE
 ========================================================= */
 
 function resizeCanvas() {
 
-    particleWidth =
+    canvasWidth =
         window.innerWidth;
 
-    particleHeight =
+    canvasHeight =
         window.innerHeight;
 
+
     canvas.width =
-        particleWidth;
+        canvasWidth;
 
     canvas.height =
-        particleHeight;
+        canvasHeight;
+
 }
 
 
@@ -104,15 +147,16 @@ function createBackgroundParticle() {
 
         x:
             Math.random()
-            * particleWidth,
+            * canvasWidth,
 
         y:
-            particleHeight
-            + Math.random() * 40,
+            canvasHeight
+            +
+            Math.random() * 50,
 
         size:
-            Math.random() * 2.2
-            + 0.7,
+            Math.random() * 2
+            + 0.5,
 
         speed:
             Math.random() * 0.45
@@ -123,16 +167,18 @@ function createBackgroundParticle() {
                 Math.random()
                 - 0.5
             )
-            * 0.22,
+            * 0.20,
 
         alpha:
-            Math.random() * 0.45
-            + 0.35,
+            Math.random() * 0.40
+            + 0.25,
 
         glow:
             Math.random() * 5
             + 4
+
     };
+
 }
 
 
@@ -142,18 +188,23 @@ function createBackgroundParticle() {
 
 for (
     let i = 0;
-    i < 45;
+    i < 55;
     i++
 ) {
 
     const p =
         createBackgroundParticle();
 
+
     p.y =
         Math.random()
-        * particleHeight;
+        * canvasHeight;
 
-    backgroundParticles.push(p);
+
+    backgroundParticles.push(
+        p
+    );
+
 }
 
 
@@ -167,14 +218,24 @@ function createLogoParticles() {
         mainLogo.getBoundingClientRect();
 
 
+    /*
+     * More particles for
+     * stronger logo dissolution.
+     */
+
     const particleCount =
         Math.min(
-            260,
+            420,
             Math.max(
-                150,
+                220,
                 Math.floor(
-                    (rect.width * rect.height)
-                    / 4200
+                    (
+                        rect.width
+                        *
+                        rect.height
+                    )
+                    /
+                    3000
                 )
             )
         );
@@ -186,37 +247,49 @@ function createLogoParticles() {
         i++
     ) {
 
+
         /*
-         * Start particle somewhere inside
-         * the visible logo area.
+         * Start from logo area.
          */
 
         const x =
             rect.left
-            + Math.random()
-            * rect.width;
+            +
+            Math.random()
+            *
+            rect.width;
+
 
         const y =
             rect.top
-            + Math.random()
-            * rect.height;
+            +
+            Math.random()
+            *
+            rect.height;
 
 
         /*
-         * Particle movement.
+         * Particle direction.
+         *
+         * Bias movement upward.
          */
 
         const angle =
             (
                 Math.random()
-                * Math.PI
-                * 2
+                *
+                Math.PI
+                *
+                2
             );
+
 
         const force =
             Math.random()
-            * 2.5
-            + 0.8;
+            *
+            2.8
+            +
+            0.7;
 
 
         transitionParticles.push({
@@ -227,38 +300,50 @@ function createLogoParticles() {
 
             vx:
                 Math.cos(angle)
-                * force,
+                *
+                force,
 
             vy:
                 Math.sin(angle)
-                * force
-                - (
+                *
+                force
+                -
+                (
                     Math.random()
-                    * 1.8
-                    + 0.6
+                    *
+                    1.8
                 ),
 
             size:
                 Math.random()
-                * 2.3
-                + 0.5,
+                *
+                2.6
+                +
+                0.5,
 
             alpha:
                 Math.random()
-                * 0.75
-                + 0.25,
+                *
+                0.7
+                +
+                0.3,
 
             life: 1,
 
             decay:
                 Math.random()
-                * 0.008
-                + 0.004,
+                *
+                0.007
+                +
+                0.003,
 
             gravity:
-                -0.008
+                -0.012
+
         });
+
     }
+
 }
 
 
@@ -273,9 +358,21 @@ function drawBackgroundParticles() {
         of backgroundParticles
     ) {
 
-        p.y -= p.speed;
 
-        p.x += p.drift;
+        /*
+         * Move upward.
+         */
+
+        p.y -=
+            p.speed;
+
+
+        /*
+         * Slight horizontal movement.
+         */
+
+        p.x +=
+            p.drift;
 
 
         /*
@@ -284,18 +381,19 @@ function drawBackgroundParticles() {
 
         if (
             p.y <
-            particleHeight * 0.30
+            canvasHeight * 0.25
         ) {
 
             Object.assign(
                 p,
                 createBackgroundParticle()
             );
+
         }
 
 
         /*
-         * Horizontal wrap.
+         * Wrap horizontal.
          */
 
         if (
@@ -303,33 +401,44 @@ function drawBackgroundParticles() {
         ) {
 
             p.x =
-                particleWidth + 10;
+                canvasWidth + 10;
+
         }
 
 
         if (
             p.x >
-            particleWidth + 10
+            canvasWidth + 10
         ) {
 
-            p.x = -10;
+            p.x =
+                -10;
+
         }
 
 
         /*
-         * Glow.
+         * Draw.
          */
 
         ctx.beginPath();
 
+
         ctx.shadowBlur =
             p.glow;
 
+
         ctx.shadowColor =
-            "rgba(0,220,255,0.75)";
+            "rgba(0,220,255,0.8)";
+
 
         ctx.fillStyle =
-            `rgba(0,210,255,${p.alpha})`;
+            `rgba(
+                0,
+                210,
+                255,
+                ${p.alpha}
+            )`;
 
 
         ctx.arc(
@@ -340,24 +449,19 @@ function drawBackgroundParticles() {
             Math.PI * 2
         );
 
+
         ctx.fill();
+
     }
+
 }
 
 
 /* =========================================================
-   DRAW TRANSITION PARTICLES
+   DRAW LOGO TRANSITION PARTICLES
 ========================================================= */
 
 function drawTransitionParticles() {
-
-    if (
-        transitionParticles.length === 0
-    ) {
-
-        return;
-    }
-
 
     for (
         let i =
@@ -376,38 +480,51 @@ function drawTransitionParticles() {
          * Movement.
          */
 
-        p.x += p.vx;
+        p.x +=
+            p.vx;
 
-        p.y += p.vy;
 
-        p.vy += p.gravity;
+        p.y +=
+            p.vy;
 
 
         /*
-         * Slight horizontal damping.
+         * Slight upward acceleration.
          */
 
-        p.vx *= 0.995;
+        p.vy +=
+            p.gravity;
+
+
+        /*
+         * Slight damping.
+         */
+
+        p.vx *=
+            0.995;
 
 
         /*
          * Fade.
          */
 
-        p.life -= p.decay;
+        p.life -=
+            p.decay;
 
 
         /*
-         * Draw.
+         * Draw particle.
          */
 
         ctx.beginPath();
 
+
         ctx.shadowBlur =
             10;
 
+
         ctx.shadowColor =
-            "rgba(0,220,255,0.9)";
+            "rgba(0,225,255,0.95)";
 
 
         ctx.fillStyle =
@@ -443,8 +560,11 @@ function drawTransitionParticles() {
                 i,
                 1
             );
+
         }
+
     }
+
 }
 
 
@@ -457,31 +577,33 @@ function drawParticles() {
     ctx.clearRect(
         0,
         0,
-        particleWidth,
-        particleHeight
+        canvasWidth,
+        canvasHeight
     );
 
 
     /*
-     * Background particles.
+     * Background.
      */
 
     drawBackgroundParticles();
 
 
     /*
-     * Logo transition particles.
+     * Logo transition.
      */
 
     drawTransitionParticles();
 
 
-    ctx.shadowBlur = 0;
+    ctx.shadowBlur =
+        0;
 
 
     requestAnimationFrame(
         drawParticles
     );
+
 }
 
 
@@ -496,11 +618,17 @@ viewButton.addEventListener(
     "click",
     () => {
 
+
+        /*
+         * Prevent double click.
+         */
+
         if (
             transitionActive
         ) {
 
             return;
+
         }
 
 
@@ -515,23 +643,26 @@ viewButton.addEventListener(
         viewButton.disabled =
             true;
 
+
         viewButton.style.opacity =
             "0";
+
 
         viewButton.style.pointerEvents =
             "none";
 
 
         /*
-         * Create particles
-         * BEFORE logo disappears.
+         * IMPORTANT:
+         * Capture logo position BEFORE
+         * making it disappear.
          */
 
         createLogoParticles();
 
 
         /*
-         * Start logo disappearance.
+         * Start logo animation.
          */
 
         logoContainer.classList.add(
@@ -540,27 +671,20 @@ viewButton.addEventListener(
 
 
         /*
-         * Keep particles visible
-         * during transition.
+         * Fade menu after
+         * logo transition.
          */
 
         setTimeout(
             () => {
 
-                /*
-                 * Fade menu.
-                 */
-
                 menuScreen.style.opacity =
                     "0";
+
 
                 menuScreen.style.pointerEvents =
                     "none";
 
-
-                /*
-                 * Show leaderboard.
-                 */
 
                 leaderboardScreen.classList.add(
                     "active"
@@ -573,7 +697,7 @@ viewButton.addEventListener(
 
 
         /*
-         * Finish transition.
+         * Transition finished.
          */
 
         setTimeout(
@@ -584,7 +708,7 @@ viewButton.addEventListener(
 
             },
 
-            1500
+            1600
         );
 
     }
@@ -599,6 +723,7 @@ backButton.addEventListener(
     "click",
     () => {
 
+
         leaderboardScreen.classList.remove(
             "active"
         );
@@ -607,19 +732,21 @@ backButton.addEventListener(
         setTimeout(
             () => {
 
+
                 /*
-                 * Reset menu.
+                 * Restore menu.
                  */
 
                 menuScreen.style.opacity =
                     "1";
+
 
                 menuScreen.style.pointerEvents =
                     "auto";
 
 
                 /*
-                 * Reset logo.
+                 * Restore logo.
                  */
 
                 logoContainer.classList.remove(
@@ -628,25 +755,28 @@ backButton.addEventListener(
 
 
                 /*
-                 * Reset button.
+                 * Restore button.
                  */
 
                 viewButton.disabled =
                     false;
 
+
                 viewButton.style.opacity =
                     "1";
+
 
                 viewButton.style.pointerEvents =
                     "auto";
 
 
                 /*
-                 * Clear old transition particles.
+                 * Clear old particles.
                  */
 
                 transitionParticles =
                     [];
+
 
             },
 
@@ -664,8 +794,10 @@ backButton.addEventListener(
 let isPetting =
     false;
 
+
 let petStartTime =
     0;
+
 
 let totalPetTime =
     0;
@@ -678,25 +810,22 @@ let totalPetTime =
 let pointerDown =
     false;
 
+
 let lastPointerX =
     0;
 
+
 let lastPointerY =
     0;
+
 
 let petIdleTimer =
     null;
 
 
 /* =========================================================
-   HEAD ZONE
+   IZUNA HEAD AREA
 ========================================================= */
-
-/*
- * Percentage of the Izuna game area.
- *
- * Adjust these values if necessary.
- */
 
 const HEAD_ZONE = {
 
@@ -704,14 +833,15 @@ const HEAD_ZONE = {
 
     right: 75,
 
-    top: 8,
+    top: 5,
 
     bottom: 58
+
 };
 
 
 /* =========================================================
-   CHECK HEAD AREA
+   CHECK HEAD
 ========================================================= */
 
 function isInsideHead(
@@ -723,20 +853,36 @@ function isInsideHead(
         izunaArea.getBoundingClientRect();
 
 
-    const px =
-        x - rect.left;
+    const localX =
+        x
+        -
+        rect.left;
 
-    const py =
-        y - rect.top;
+
+    const localY =
+        y
+        -
+        rect.top;
 
 
     const percentX =
-        (px / rect.width)
-        * 100;
+        (
+            localX
+            /
+            rect.width
+        )
+        *
+        100;
+
 
     const percentY =
-        (py / rect.height)
-        * 100;
+        (
+            localY
+            /
+            rect.height
+        )
+        *
+        100;
 
 
     return (
@@ -760,6 +906,7 @@ function isInsideHead(
         HEAD_ZONE.bottom
 
     );
+
 }
 
 
@@ -774,6 +921,7 @@ function startPetting() {
     ) {
 
         return;
+
     }
 
 
@@ -792,6 +940,7 @@ function startPetting() {
 
     petInstruction.textContent =
         "PET PET...";
+
 }
 
 
@@ -806,12 +955,15 @@ function stopPetting() {
     ) {
 
         return;
+
     }
 
 
     totalPetTime +=
+
         performance.now()
-        - petStartTime;
+        -
+        petStartTime;
 
 
     isPetting =
@@ -825,11 +977,12 @@ function stopPetting() {
 
     petInstruction.textContent =
         "RUB IZUNA'S HEAD";
+
 }
 
 
 /* =========================================================
-   RESET IDLE TIMER
+   PET IDLE TIMER
 ========================================================= */
 
 function resetPetIdleTimer() {
@@ -849,6 +1002,7 @@ function resetPetIdleTimer() {
 
             220
         );
+
 }
 
 
@@ -867,15 +1021,23 @@ function updateScore() {
     ) {
 
         time +=
+
             performance.now()
-            - petStartTime;
+            -
+            petStartTime;
+
     }
 
 
     petSeconds.textContent =
+
         (
-            time / 1000
-        ).toFixed(1);
+            time
+            /
+            1000
+        )
+        .toFixed(1);
+
 }
 
 
@@ -903,14 +1065,10 @@ izunaArea.addEventListener(
         lastPointerX =
             event.clientX;
 
+
         lastPointerY =
             event.clientY;
 
-
-        /*
-         * Capture pointer so dragging
-         * remains active.
-         */
 
         try {
 
@@ -919,8 +1077,6 @@ izunaArea.addEventListener(
             );
 
         } catch (error) {
-
-            // Ignore unsupported browsers.
 
         }
 
@@ -940,30 +1096,34 @@ izunaArea.addEventListener(
 
 
         /*
-         * For mouse:
-         * movement must happen over Izuna.
+         * Touch / pen:
+         * must hold pointer.
          *
-         * For touch:
-         * finger must be held down.
+         * Mouse:
+         * movement itself is enough.
          */
 
         if (
             event.pointerType !== "mouse"
-            && !pointerDown
+            &&
+            !pointerDown
         ) {
 
             return;
+
         }
 
 
         const dx =
             event.clientX
-            - lastPointerX;
+            -
+            lastPointerX;
 
 
         const dy =
             event.clientY
-            - lastPointerY;
+            -
+            lastPointerY;
 
 
         const distance =
@@ -977,12 +1137,13 @@ izunaArea.addEventListener(
         lastPointerX =
             event.clientX;
 
+
         lastPointerY =
             event.clientY;
 
 
         /*
-         * Ignore extremely tiny movement.
+         * Ignore tiny movement.
          */
 
         if (
@@ -990,12 +1151,12 @@ izunaArea.addEventListener(
         ) {
 
             return;
+
         }
 
 
         /*
-         * Only count movement
-         * over Izuna's head.
+         * Only head movement counts.
          */
 
         if (
@@ -1006,15 +1167,6 @@ izunaArea.addEventListener(
         ) {
 
             startPetting();
-
-            resetPetIdleTimer();
-
-        } else {
-
-            /*
-             * If pointer leaves the head,
-             * stop after a short delay.
-             */
 
             resetPetIdleTimer();
 
@@ -1055,8 +1207,6 @@ izunaArea.addEventListener(
 
         } catch (error) {
 
-            // Ignore.
-
         }
 
     }
@@ -1094,13 +1244,6 @@ izunaArea.addEventListener(
     "pointerleave",
     (event) => {
 
-        /*
-         * Mouse only.
-         *
-         * Touch should remain captured
-         * while dragging.
-         */
-
         if (
             event.pointerType === "mouse"
         ) {
@@ -1109,7 +1252,9 @@ izunaArea.addEventListener(
                 petIdleTimer
             );
 
+
             stopPetting();
+
         }
 
     }
