@@ -1,7 +1,7 @@
 /* =========================================================
    HYAKKIYAKO CLUB
-   STYLE
-   Placeholder adjusted to avoid Izuna overlap
+   COMPLETE STYLE
+   PC 100% + MOBILE RESPONSIVE
 ========================================================= */
 
 
@@ -25,6 +25,7 @@ body {
 body {
     background: #000;
     color: #fff;
+
     font-family:
         "Segoe UI",
         Arial,
@@ -38,7 +39,9 @@ body {
 
 .screen {
     position: fixed;
+
     inset: 0;
+
     width: 100%;
     height: 100%;
 }
@@ -50,6 +53,7 @@ body {
 
 #particleCanvas {
     position: fixed;
+
     inset: 0;
 
     width: 100%;
@@ -101,6 +105,7 @@ body {
     width: min(72vw, 760px);
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
@@ -112,8 +117,14 @@ body {
 
     filter:
         blur(0)
-        drop-shadow(0 0 12px rgba(0, 200, 255, 0.45))
-        drop-shadow(0 0 28px rgba(0, 150, 255, 0.22));
+        drop-shadow(
+            0 0 12px
+            rgba(0, 200, 255, 0.45)
+        )
+        drop-shadow(
+            0 0 28px
+            rgba(0, 150, 255, 0.22)
+        );
 
     transition:
         opacity 0.7s ease,
@@ -122,6 +133,7 @@ body {
 
     z-index: 20;
 }
+
 
 .logo-container img,
 #logo {
@@ -133,11 +145,18 @@ body {
     object-fit: contain;
 
     user-select: none;
+
     -webkit-user-drag: none;
 
     filter:
-        drop-shadow(0 0 8px rgba(80, 220, 255, 0.65))
-        drop-shadow(0 0 22px rgba(0, 150, 255, 0.25));
+        drop-shadow(
+            0 0 8px
+            rgba(80, 220, 255, 0.65)
+        )
+        drop-shadow(
+            0 0 22px
+            rgba(0, 150, 255, 0.25)
+        );
 }
 
 
@@ -151,9 +170,12 @@ body {
     width: 190px;
     height: 58px;
 
-    background: rgba(0, 10, 16, 0.65);
+    background:
+        rgba(0, 10, 16, 0.65);
 
-    border: 1px solid rgba(0, 210, 255, 0.65);
+    border:
+        1px solid
+        rgba(0, 210, 255, 0.65);
 
     color: #c9f8ff;
 
@@ -174,26 +196,38 @@ body {
     z-index: 60;
 }
 
+
 .view-button span {
     position: relative;
+
     z-index: 2;
 }
 
+
 .view-button:hover {
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 
-    background: rgba(0, 170, 220, 0.08);
+    background:
+        rgba(0, 170, 220, 0.08);
 
-    border-color: #63eaff;
+    border-color:
+        #63eaff;
 
     box-shadow:
-        0 0 12px rgba(0, 210, 255, 0.45),
-        0 0 35px rgba(0, 140, 255, 0.15);
+        0 0 12px
+        rgba(0, 210, 255, 0.45),
+
+        0 0 35px
+        rgba(0, 140, 255, 0.15);
 }
 
+
 .view-button:active {
-    transform: scale(0.97);
+    transform:
+        scale(0.97);
 }
+
 
 .button-line {
     position: absolute;
@@ -204,15 +238,18 @@ body {
 
     height: 1px;
 
-    background: rgba(80, 220, 255, 0.6);
+    background:
+        rgba(80, 220, 255, 0.6);
 
     box-shadow:
-        0 0 6px rgba(0, 210, 255, 0.55);
+        0 0 6px
+        rgba(0, 210, 255, 0.55);
 
     transition:
         left 0.25s ease,
         right 0.25s ease;
 }
+
 
 .view-button:hover .button-line {
     left: 10%;
@@ -239,11 +276,13 @@ body {
         #000;
 
     opacity: 0;
+
     visibility: hidden;
 
     pointer-events: none;
 
-    transform: scale(1.025);
+    transform:
+        scale(1.025);
 
     transition:
         opacity 0.7s ease,
@@ -251,7 +290,15 @@ body {
         transform 0.7s ease;
 
     z-index: 5;
+
+    /*
+       Allow scrolling only when the
+       screen is too short.
+    */
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
 
 .leaderboard-screen.active {
     opacity: 1;
@@ -260,7 +307,8 @@ body {
 
     pointer-events: auto;
 
-    transform: scale(1);
+    transform:
+        scale(1);
 }
 
 
@@ -273,11 +321,34 @@ body {
 
     width: min(1250px, 88vw);
 
-    height: min(720px, 84vh);
+    /*
+       Responsive height.
 
+       PC normal:
+       fits inside 100% viewport.
+
+       Short screen:
+       screen can scroll.
+    */
+    height:
+        min(
+            680px,
+            calc(100vh - 70px)
+        );
+
+    /*
+       This prevents the container
+       from becoming too short.
+    */
     min-height: 560px;
 
-    padding: 38px 40px;
+    margin:
+        35px 0;
+
+    padding:
+        38px 40px;
+
+    flex-shrink: 0;
 
     background:
         linear-gradient(
@@ -285,18 +356,23 @@ body {
             rgba(0, 7, 12, 0.5)
         );
 
-    border: 1px solid rgba(0, 215, 255, 0.65);
+    border:
+        1px solid
+        rgba(0, 215, 255, 0.65);
 
     box-shadow:
-        0 0 18px rgba(0, 190, 255, 0.12),
-        inset 0 0 35px rgba(0, 150, 210, 0.035);
+        0 0 18px
+        rgba(0, 190, 255, 0.12),
+
+        inset 0 0 35px
+        rgba(0, 150, 210, 0.035);
 
     overflow: visible;
 }
 
 
 /* =========================================================
-   GRID BACKGROUND
+   MAIN GRID BACKGROUND
 ========================================================= */
 
 .leaderboard-container::before {
@@ -309,17 +385,20 @@ body {
     pointer-events: none;
 
     background-image:
+
         linear-gradient(
             rgba(0, 190, 230, 0.045) 1px,
             transparent 1px
         ),
+
         linear-gradient(
             90deg,
             rgba(0, 190, 230, 0.045) 1px,
             transparent 1px
         );
 
-    background-size: 50px 50px;
+    background-size:
+        50px 50px;
 
     z-index: 0;
 }
@@ -339,8 +418,14 @@ body {
     margin-bottom: 26px;
 }
 
+
 .leaderboard-title {
-    font-size: clamp(25px, 2.4vw, 36px);
+    font-size:
+        clamp(
+            25px,
+            2.4vw,
+            36px
+        );
 
     font-weight: 300;
 
@@ -349,9 +434,13 @@ body {
     color: #eafcff;
 
     text-shadow:
-        0 0 8px rgba(90, 220, 255, 0.65),
-        0 0 20px rgba(0, 150, 255, 0.25);
+        0 0 8px
+        rgba(90, 220, 255, 0.65),
+
+        0 0 20px
+        rgba(0, 150, 255, 0.25);
 }
+
 
 .leaderboard-subtitle {
     margin-top: 10px;
@@ -360,13 +449,19 @@ body {
 
     letter-spacing: 7px;
 
-    color: rgba(90, 210, 245, 0.75);
+    color:
+        rgba(
+            90,
+            210,
+            245,
+            0.75
+        );
 }
 
 
 /* =========================================================
-   BIG PLACEHOLDER
-   ↓ ONLY THIS AREA WAS REDUCED
+   PLACEHOLDER
+   PC VERSION
 ========================================================= */
 
 .leaderboard-placeholder {
@@ -375,22 +470,22 @@ body {
     left: 50%;
 
     /*
-       Keep the same horizontal position.
+       Top position stays the same.
     */
     top: 145px;
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 
     width: 90%;
 
     /*
-       OLD:
-       height: 285px;
+       Reduced from 285px.
 
-       NEW:
-       smaller so it does not overlap Izuna.
+       This creates enough space
+       for Izuna below.
     */
-    height: 220px;
+    height: 210px;
 
     display: flex;
 
@@ -400,13 +495,16 @@ body {
 
     justify-content: center;
 
-    border: 1px solid rgba(0, 205, 245, 0.48);
+    border:
+        1px solid
+        rgba(0, 205, 245, 0.48);
 
     background:
         rgba(0, 15, 21, 0.42);
 
     box-shadow:
-        inset 0 0 25px rgba(0, 150, 220, 0.035);
+        inset 0 0 25px
+        rgba(0, 150, 220, 0.035);
 
     z-index: 2;
 
@@ -426,17 +524,20 @@ body {
     inset: 0;
 
     background-image:
+
         linear-gradient(
             rgba(0, 190, 230, 0.04) 1px,
             transparent 1px
         ),
+
         linear-gradient(
             90deg,
             rgba(0, 190, 230, 0.04) 1px,
             transparent 1px
         );
 
-    background-size: 50px 50px;
+    background-size:
+        50px 50px;
 
     pointer-events: none;
 }
@@ -455,36 +556,52 @@ body {
     z-index: 3;
 }
 
+
 .corner-tl {
     top: -1px;
     left: -1px;
 
-    border-top: 2px solid #39ddff;
-    border-left: 2px solid #39ddff;
+    border-top:
+        2px solid #39ddff;
+
+    border-left:
+        2px solid #39ddff;
 }
+
 
 .corner-tr {
     top: -1px;
     right: -1px;
 
-    border-top: 2px solid #39ddff;
-    border-right: 2px solid #39ddff;
+    border-top:
+        2px solid #39ddff;
+
+    border-right:
+        2px solid #39ddff;
 }
+
 
 .corner-bl {
     bottom: -1px;
     left: -1px;
 
-    border-bottom: 2px solid #39ddff;
-    border-left: 2px solid #39ddff;
+    border-bottom:
+        2px solid #39ddff;
+
+    border-left:
+        2px solid #39ddff;
 }
+
 
 .corner-br {
     bottom: -1px;
     right: -1px;
 
-    border-bottom: 2px solid #39ddff;
-    border-right: 2px solid #39ddff;
+    border-bottom:
+        2px solid #39ddff;
+
+    border-right:
+        2px solid #39ddff;
 }
 
 
@@ -504,15 +621,22 @@ body {
     margin-bottom: 10px;
 
     text-shadow:
-        0 0 8px rgba(100, 225, 255, 0.35);
+        0 0 8px
+        rgba(100, 225, 255, 0.35);
 }
+
 
 .placeholder-main {
     position: relative;
 
     z-index: 4;
 
-    font-size: clamp(38px, 4vw, 54px);
+    font-size:
+        clamp(
+            38px,
+            4vw,
+            54px
+        );
 
     font-weight: 300;
 
@@ -521,9 +645,13 @@ body {
     color: #f3fdff;
 
     text-shadow:
-        0 0 8px rgba(90, 220, 255, 0.8),
-        0 0 24px rgba(0, 170, 255, 0.3);
+        0 0 8px
+        rgba(90, 220, 255, 0.8),
+
+        0 0 24px
+        rgba(0, 170, 255, 0.3);
 }
+
 
 .placeholder-text {
     position: relative;
@@ -537,8 +665,10 @@ body {
     color: #fff;
 
     text-shadow:
-        0 0 8px rgba(90, 220, 255, 0.5);
+        0 0 8px
+        rgba(90, 220, 255, 0.5);
 }
+
 
 .placeholder-description {
     position: relative;
@@ -551,7 +681,13 @@ body {
 
     letter-spacing: 5px;
 
-    color: rgba(100, 205, 235, 0.55);
+    color:
+        rgba(
+            100,
+            205,
+            235,
+            0.55
+        );
 }
 
 
@@ -565,11 +701,19 @@ body {
     left: 50%;
 
     /*
-       Keep Izuna position the same.
-    */
-    top: 455px;
+       Placeholder:
+       145px → 355px
 
-    transform: translateX(-50%);
+       Izuna:
+       starts at 390px
+
+       Gap:
+       approximately 35px
+    */
+    top: 390px;
+
+    transform:
+        translateX(-50%);
 
     width: 320px;
 
@@ -605,8 +749,10 @@ body {
     text-align: center;
 
     text-shadow:
-        0 0 7px rgba(0, 200, 255, 0.45);
+        0 0 7px
+        rgba(0, 200, 255, 0.45);
 }
+
 
 #petSeconds {
     color: #52eaff;
@@ -614,8 +760,11 @@ body {
     font-size: 23px;
 
     text-shadow:
-        0 0 8px rgba(0, 220, 255, 0.75),
-        0 0 20px rgba(0, 150, 255, 0.35);
+        0 0 8px
+        rgba(0, 220, 255, 0.75),
+
+        0 0 20px
+        rgba(0, 150, 255, 0.35);
 }
 
 
@@ -634,6 +783,7 @@ body {
     display: flex;
 
     justify-content: center;
+
     align-items: center;
 
     cursor: grab;
@@ -646,6 +796,7 @@ body {
 
     z-index: 25;
 }
+
 
 .izuna-container:active {
     cursor: grabbing;
@@ -686,27 +837,36 @@ body {
 }
 
 
-/* STATIC */
+/* =========================================================
+   STATIC IZUNA
+========================================================= */
 
 .izuna-static {
     opacity: 1;
 }
 
 
-/* PET IMAGE */
+/* =========================================================
+   PET IZUNA
+========================================================= */
 
 .izuna-pet {
     opacity: 0;
 }
 
 
-/* WHEN PETTING */
+/* =========================================================
+   PETTING STATE
+========================================================= */
 
-.izuna-container.petting .izuna-static {
+.izuna-container.petting
+.izuna-static {
     opacity: 0;
 }
 
-.izuna-container.petting .izuna-pet {
+
+.izuna-container.petting
+.izuna-pet {
     opacity: 1;
 
     transform:
@@ -716,7 +876,7 @@ body {
 
 
 /* =========================================================
-   IZUNA IDLE ANIMATION
+   IZUNA IDLE MOTION
 ========================================================= */
 
 @keyframes izunaIdle {
@@ -757,10 +917,14 @@ body {
     }
 }
 
+
 .izuna-static,
 .izuna-pet {
     animation:
-        izunaIdle 3.8s ease-in-out infinite;
+        izunaIdle
+        3.8s
+        ease-in-out
+        infinite;
 }
 
 
@@ -789,7 +953,8 @@ body {
             transparent 70%
         );
 
-    filter: blur(10px);
+    filter:
+        blur(10px);
 
     opacity: 0;
 
@@ -802,7 +967,9 @@ body {
     z-index: -1;
 }
 
-.izuna-container.petting .pet-glow {
+
+.izuna-container.petting
+.pet-glow {
     opacity: 1;
 
     transform:
@@ -822,12 +989,19 @@ body {
 
     letter-spacing: 5px;
 
-    color: rgba(70, 200, 235, 0.6);
+    color:
+        rgba(
+            70,
+            200,
+            235,
+            0.6
+        );
 
     text-align: center;
 
     text-shadow:
-        0 0 8px rgba(0, 180, 255, 0.25);
+        0 0 8px
+        rgba(0, 180, 255, 0.25);
 }
 
 
@@ -839,9 +1013,11 @@ body {
     position: fixed;
 
     left: 50%;
+
     bottom: 24px;
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 
     width: 138px;
     height: 42px;
@@ -849,9 +1025,17 @@ body {
     background:
         rgba(0, 10, 15, 0.7);
 
-    border: 1px solid rgba(0, 180, 220, 0.5);
+    border:
+        1px solid
+        rgba(0, 180, 220, 0.5);
 
-    color: rgba(90, 215, 245, 0.85);
+    color:
+        rgba(
+            90,
+            215,
+            245,
+            0.85
+        );
 
     font-size: 11px;
 
@@ -867,6 +1051,7 @@ body {
         box-shadow 0.2s ease;
 }
 
+
 .back-button:hover {
     background:
         rgba(0, 180, 220, 0.08);
@@ -875,7 +1060,81 @@ body {
         rgba(70, 220, 255, 0.9);
 
     box-shadow:
-        0 0 14px rgba(0, 190, 255, 0.22);
+        0 0 14px
+        rgba(0, 190, 255, 0.22);
+}
+
+
+/* =========================================================
+   PC SHORT SCREEN
+   100% ZOOM / LOW HEIGHT
+========================================================= */
+
+@media
+    (min-width: 701px)
+    and (max-height: 700px) {
+
+    .leaderboard-container {
+        /*
+           Let the screen scroll instead
+           of overlapping Izuna.
+        */
+        height: 680px;
+
+        min-height: 680px;
+
+        margin-top: 35px;
+
+        margin-bottom: 35px;
+    }
+
+    .leaderboard-placeholder {
+        top: 125px;
+
+        height: 195px;
+    }
+
+    .izuna-game {
+        top: 350px;
+    }
+}
+
+
+/* =========================================================
+   VERY SHORT PC SCREEN
+========================================================= */
+
+@media
+    (min-width: 701px)
+    and (max-height: 600px) {
+
+    .leaderboard-screen {
+        align-items: flex-start;
+    }
+
+    .leaderboard-container {
+        margin-top: 20px;
+
+        margin-bottom: 20px;
+
+        height: 680px;
+
+        min-height: 680px;
+    }
+
+    .leaderboard-placeholder {
+        top: 115px;
+
+        height: 185px;
+    }
+
+    .izuna-game {
+        top: 330px;
+    }
+
+    .back-button {
+        bottom: 12px;
+    }
 }
 
 
@@ -889,14 +1148,25 @@ body {
         width: 82vw;
     }
 
+
     .menu-screen {
         gap: 30px;
     }
 
+
     .view-button {
         width: 160px;
+
         height: 52px;
     }
+
+
+    .leaderboard-screen {
+        align-items: center;
+
+        overflow-y: auto;
+    }
+
 
     .leaderboard-container {
         width: 92vw;
@@ -905,14 +1175,20 @@ body {
 
         min-height: 500px;
 
-        padding: 25px 20px;
+        margin:
+            20px 0;
+
+        padding:
+            25px 20px;
     }
+
 
     .leaderboard-title {
         font-size: 22px;
 
         letter-spacing: 7px;
     }
+
 
     .leaderboard-subtitle {
         font-size: 9px;
@@ -921,7 +1197,9 @@ body {
     }
 
 
-    /* SMALLER MOBILE PLACEHOLDER */
+    /* ==============================================
+       MOBILE PLACEHOLDER
+    ============================================== */
 
     .leaderboard-placeholder {
         top: 115px;
@@ -931,9 +1209,11 @@ body {
         height: 185px;
     }
 
+
     .placeholder-title {
         font-size: 15px;
     }
+
 
     .placeholder-main {
         font-size: 30px;
@@ -941,9 +1221,11 @@ body {
         letter-spacing: 5px;
     }
 
+
     .placeholder-text {
         font-size: 16px;
     }
+
 
     .placeholder-description {
         font-size: 8px;
@@ -952,33 +1234,45 @@ body {
     }
 
 
+    /* ==============================================
+       MOBILE IZUNA
+    ============================================== */
+
     .izuna-game {
         top: 365px;
     }
 
+
     .izuna-container {
         width: 145px;
+
         height: 145px;
     }
 
+
     .izuna-image {
         width: 145px !important;
+
         height: 145px !important;
     }
+
 
     .pet-score {
         font-size: 14px;
     }
 
+
     #petSeconds {
         font-size: 19px;
     }
+
 
     .pet-instruction {
         font-size: 8px;
 
         letter-spacing: 3px;
     }
+
 
     .back-button {
         bottom: 12px;
@@ -998,17 +1292,59 @@ body {
         height: 170px;
     }
 
+
     .izuna-game {
         top: 335px;
     }
 
+
     .izuna-container {
         width: 125px;
+
         height: 125px;
     }
 
+
     .izuna-image {
         width: 125px !important;
+
         height: 125px !important;
+    }
+}
+
+
+/* =========================================================
+   EXTRA SMALL HEIGHT MOBILE
+========================================================= */
+
+@media
+    (max-width: 700px)
+    and (max-height: 650px) {
+
+    .leaderboard-screen {
+        align-items: flex-start;
+    }
+
+
+    .leaderboard-container {
+        height: 560px;
+
+        min-height: 560px;
+
+        margin-top: 15px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .leaderboard-placeholder {
+        top: 105px;
+
+        height: 165px;
+    }
+
+
+    .izuna-game {
+        top: 310px;
     }
 }
