@@ -2,30 +2,53 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Hyakkiyako</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <title>Hyakkiyako Club</title>
+
+    <!-- IMPORTANT: CSS path -->
+    <link
+        rel="stylesheet"
+        href="./style.css"
+    >
+
 </head>
 
+
 <body>
+
 
     <!-- =====================================================
          MENU SCREEN
     ====================================================== -->
 
-    <section id="menuScreen" class="screen menu-screen">
+    <section
+        id="menuScreen"
+        class="screen menu-screen"
+    >
 
-        <!-- Background / transition particles -->
-        <canvas id="particleCanvas"></canvas>
+        <!-- Particle Canvas -->
+
+        <canvas
+            id="particleCanvas"
+        ></canvas>
+
 
         <!-- Logo -->
-        <div id="logoContainer" class="logo-container">
+
+        <div
+            id="logoContainer"
+            class="logo-container"
+        >
 
             <img
-                src="hyakkiyako.png"
+                src="./hyakkiyako.png"
                 alt="Hyakkiyako"
                 class="main-logo"
             >
@@ -33,7 +56,8 @@
         </div>
 
 
-        <!-- VIEW BUTTON -->
+        <!-- VIEW -->
+
         <button
             id="viewButton"
             class="view-button"
@@ -58,35 +82,92 @@
         class="screen leaderboard-screen"
     >
 
-        <div class="leaderboard-container">
+        <div
+            class="leaderboard-container"
+        >
 
 
-            <!-- TITLE -->
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
 
-            <div class="leaderboard-title">
-                HYAKKIYAKO CLUB
+            <div class="leaderboard-header">
+
+                <div class="leaderboard-title">
+
+                    HYAKKIYAKO CLUB
+
+                </div>
+
+
+                <div class="leaderboard-subtitle">
+
+                    5TH CLUB LEADERBOARD
+
+                </div>
+
             </div>
 
-            <div class="leaderboard-subtitle">
-                5TH CLUB LEADERBOARD
-            </div>
 
 
+            <!-- =================================================
+                 BIG PLACEHOLDER
+            ================================================== -->
 
-            <!-- LEADERBOARD PLACEHOLDER -->
+            <div
+                class="leaderboard-placeholder"
+            >
 
-            <div class="leaderboard-placeholder">
+                <!-- Decorative corners -->
 
-                <div class="wip-title">
+                <div class="corner corner-tl"></div>
+                <div class="corner corner-tr"></div>
+                <div class="corner corner-bl"></div>
+                <div class="corner corner-br"></div>
+
+
+                <!-- Placeholder content -->
+
+                <div
+                    class="placeholder-label"
+                >
+
+                    CLUB RANKING
+
+                </div>
+
+
+                <div
+                    class="placeholder-main"
+                >
+
                     LEADERBOARD
+
                 </div>
 
-                <div class="wip-text">
-                    WIP
-                </div>
 
-                <div class="wip-description">
+                <div
+                    class="placeholder-line"
+                ></div>
+
+
+                <div
+                    class="placeholder-description"
+                >
+
                     MEMBER RANKING WILL APPEAR HERE
+
+                </div>
+
+
+                <div
+                    class="placeholder-status"
+                >
+
+                    <span class="status-dot"></span>
+
+                    SYSTEM READY
+
                 </div>
 
             </div>
@@ -103,7 +184,7 @@
             >
 
 
-                <!-- SCORE -->
+                <!-- Score -->
 
                 <div class="pet-score">
 
@@ -118,55 +199,41 @@
                 </div>
 
 
-
-                <!-- IZUNA -->
+                <!-- Izuna -->
 
                 <div
                     id="izunaArea"
                     class="izuna-area"
                 >
 
-
-                    <!-- STATIC IMAGE -->
-
                     <img
                         id="izunaStatic"
                         class="izuna-image"
-                        src="izuna-static.png"
+                        src="./izuna-static.png"
                         alt="Izuna"
                         draggable="false"
                     >
 
-
-                    <!-- PET IMAGE -->
 
                     <img
                         id="izunaPet"
                         class="izuna-image izuna-pet"
-                        src="izuna-pet.png"
+                        src="./izuna-pet.png"
                         alt="Izuna"
                         draggable="false"
                     >
 
 
-                    <!-- GLOW -->
-
-                    <div class="pet-glow"></div>
-
-
-                    <!-- HEAD AREA -->
+                    <!-- Glow -->
 
                     <div
-                        id="headZone"
-                        class="head-zone"
+                        class="pet-glow"
                     ></div>
-
 
                 </div>
 
 
-
-                <!-- INSTRUCTION -->
+                <!-- Instruction -->
 
                 <div
                     id="petInstruction"
@@ -183,7 +250,7 @@
 
 
 
-        <!-- BACK -->
+        <!-- BACK BUTTON -->
 
         <button
             id="backButton"
@@ -198,9 +265,9 @@
 
 
 
-    <!-- SCRIPT -->
+    <!-- JavaScript -->
 
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
 
 </body>
 
