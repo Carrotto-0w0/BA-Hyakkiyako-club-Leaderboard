@@ -5,28 +5,42 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <title>Hyakkiyako Club Leaderboard</title>
+    <title>Hyakkiyako Club</title>
 
-    <link rel="stylesheet"
-          href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
 
 </head>
 
 
 <body>
 
-    <!-- Particle Background -->
+    <!-- =========================================
+         PARTICLE CANVAS
+    ========================================== -->
+
     <canvas id="particleCanvas"></canvas>
 
 
-    <!-- ================= MENU ================= -->
+    <!-- =========================================
+         MENU SCREEN
+    ========================================== -->
 
-    <main id="menu">
+    <section
+        id="menuScreen"
+        class="screen menu-screen">
 
-        <div class="logo-container" id="logoContainer">
+
+        <!-- LOGO -->
+
+        <div
+            id="logoContainer"
+            class="logo-container">
 
             <img
                 id="logo"
@@ -46,43 +60,69 @@
 
         </button>
 
-    </main>
+
+    </section>
 
 
-    <!-- ================= LEADERBOARD ================= -->
+
+    <!-- =========================================
+         LEADERBOARD SCREEN
+    ========================================== -->
 
     <section
-        id="leaderboard"
-        class="leaderboard-screen">
-
-        <div class="leaderboard-panel">
-
-            <div class="leaderboard-title">
-                HYAKKIYAKO CLUB
-            </div>
-
-            <div class="leaderboard-subtitle">
-                5TH CLUB LEADERBOARD
-            </div>
+        id="leaderboardScreen"
+        class="screen leaderboard-screen">
 
 
-            <!--
-                Placeholder
+        <div class="leaderboard-window">
 
-                ตรงนี้เราจะใส่ไฟล์
-                Leaderboard ของคุณภายหลัง
-            -->
 
-            <div class="leaderboard-placeholder">
+            <!-- HEADER -->
 
-                <div>LEADERBOARD</div>
+            <div class="leaderboard-header">
 
-                <span>
-                    DATA WILL BE LOADED HERE
-                </span>
+                <div class="header-line"></div>
+
+                <h1>
+                    HYAKKIYAKO CLUB
+                </h1>
+
+                <p>
+                    5TH CLUB LEADERBOARD
+                </p>
+
+                <div class="header-line"></div>
 
             </div>
 
+
+            <!-- =================================
+                 WIP PLACEHOLDER
+            ================================== -->
+
+            <div class="wip-area">
+
+                <div class="wip-symbol">
+                    ◈
+                </div>
+
+                <h2>
+                    LEADERBOARD
+                </h2>
+
+                <div class="wip-text">
+                    WIP
+                </div>
+
+                <p>
+                    LEADERBOARD DATA
+                    WILL BE INSERTED HERE
+                </p>
+
+            </div>
+
+
+            <!-- BACK BUTTON -->
 
             <button
                 id="backButton"
@@ -92,10 +132,16 @@
 
             </button>
 
+
         </div>
 
     </section>
 
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
 
     <script src="script.js"></script>
 
