@@ -1,9 +1,6 @@
 /* =========================================================
-   HYAKKIYAKO
-   MENU
-   LOGO PARTICLE TRANSITION
-   BACKGROUND PARTICLES
-   IZUNA PET GAME
+   HYAKKIYAKO CLUB
+   COMPLETE JAVASCRIPT
 ========================================================= */
 
 
@@ -11,125 +8,76 @@
    ELEMENTS
 ========================================================= */
 
-const menuScreen =
-    document.getElementById(
-        "menuScreen"
-    );
+const canvas = document.getElementById("particleCanvas");
+const ctx = canvas ? canvas.getContext("2d") : null;
 
+const menuScreen =
+    document.getElementById("menuScreen");
 
 const leaderboardScreen =
-    document.getElementById(
-        "leaderboardScreen"
-    );
-
+    document.getElementById("leaderboardScreen");
 
 const logoContainer =
-    document.getElementById(
-        "logoContainer"
-    );
+    document.getElementById("logoContainer");
 
-
-const mainLogo =
-    document.querySelector(
-        ".main-logo"
-    );
-
+const logo =
+    document.getElementById("logo");
 
 const viewButton =
-    document.getElementById(
-        "viewButton"
-    );
-
+    document.getElementById("viewButton");
 
 const backButton =
-    document.getElementById(
-        "backButton"
-    );
+    document.getElementById("backButton");
 
 
-const izunaArea =
-    document.getElementById(
-        "izunaArea"
-    );
+/* =========================================================
+   IZUNA ELEMENTS
+========================================================= */
 
+const izunaContainer =
+    document.getElementById("izunaContainer");
+
+const izunaStatic =
+    document.getElementById("izunaStatic");
+
+const izunaPet =
+    document.getElementById("izunaPet");
 
 const petSeconds =
-    document.getElementById(
-        "petSeconds"
-    );
-
+    document.getElementById("petSeconds");
 
 const petInstruction =
-    document.getElementById(
-        "petInstruction"
-    );
+    document.getElementById("petInstruction");
 
 
 /* =========================================================
-   CANVAS
+   SAFETY CHECK
 ========================================================= */
 
-const canvas =
-    document.getElementById(
-        "particleCanvas"
-    );
-
-
-const ctx =
-    canvas.getContext(
-        "2d"
-    );
-
-
-let canvasWidth =
-    window.innerWidth;
-
-
-let canvasHeight =
-    window.innerHeight;
-
-
-/* =========================================================
-   PARTICLES
-========================================================= */
-
-let backgroundParticles = [];
-
-let transitionParticles = [];
-
-
-/* =========================================================
-   STATE
-========================================================= */
-
-let transitionActive =
-    false;
-
-
-/* =========================================================
-   CANVAS RESIZE
-========================================================= */
-
-function resizeCanvas() {
-
-    canvasWidth =
-        window.innerWidth;
-
-    canvasHeight =
-        window.innerHeight;
-
-
-    canvas.width =
-        canvasWidth;
-
-    canvas.height =
-        canvasHeight;
-
+if (!canvas || !ctx) {
+    console.warn("Particle canvas was not found.");
 }
 
 
-resizeCanvas();
+/* =========================================================
+   CANVAS SIZE
+========================================================= */
 
+let canvasWidth = window.innerWidth;
+let canvasHeight = window.innerHeight;
+
+function resizeCanvas() {
+
+    canvasWidth = window.innerWidth;
+    canvasHeight = window.innerHeight;
+
+    if (!canvas) return;
+
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+}
+
+resizeCanvas();
 
 window.addEventListener(
     "resize",
@@ -138,790 +86,859 @@ window.addEventListener(
 
 
 /* =========================================================
-   BACKGROUND PARTICLE
+   PARTICLE SYSTEM
 ========================================================= */
 
-function createBackgroundParticle() {
+const particles = [];
 
-    return {
+const MAX_PARTICLES = 90;
 
-        x:
-            Math.random()
-            *
-            canvasWidth,
 
-        y:
-            canvasHeight
-            +
-            Math.random() * 50,
+/* =========================================================
+   RANDOM
+========================================================= */
 
-        size:
-            Math.random() * 1.8
-            + 0.5,
-
-        speed:
-            Math.random() * 0.45
-            + 0.25,
-
-        drift:
-            (
-                Math.random()
-                - 0.5
-            )
-            * 0.20,
-
-        alpha:
-            Math.random() * 0.35
-            + 0.20,
-
-        glow:
-            Math.random() * 4
-            + 3
-
-    };
-
+function random(min, max) {
+    return Math.random() * (max - min) + min;
 }
 
 
 /* =========================================================
-   INITIAL BACKGROUND PARTICLES
+   AMBIENT PARTICLE
 ========================================================= */
 
-for (
-    let i = 0;
-    i < 50;
-    i++
-) {
+class AmbientParticle {
 
-    const p =
-        createBackgroundParticle();
+    constructor() {
+
+        this.x =
+            random(0, canvasWidth);
+
+        this.y =
+            random(0, canvasHeight);
+
+        this.size =
+            random(0.6, 2.0);
+
+        this.speedY =
+            random(-0.18, -0.04);
+
+        this.speedX =
+            random(-0.08, 0.08);
+
+        this.alpha =
+            random(0.15, 0.55);
+
+        this.life =
+            random(0, 1000);
+
+        this.twinkle =
+            random(0.01, 0.035);
+    }
 
 
-    p.y =
-        Math.random()
-        *
-        canvasHeight;
+    update() {
+
+        this.y += this.speedY;
+
+        this.x += this.speedX;
+
+        this.life += 1;
+
+        if (this.y < -10) {
+
+            this.y =
+                canvasHeight + 10;
+
+            this.x =
+                random(0, canvasWidth);
+        }
+
+        if (this.x < -10)
+            this.x = canvasWidth + 10;
+
+        if (this.x > canvasWidth + 10)
+            this.x = -10;
+    }
 
 
-    backgroundParticles.push(
-        p
-    );
+    draw() {
 
+        if (!ctx) return;
+
+        const pulse =
+            Math.sin(this.life * this.twinkle);
+
+        const alpha =
+            Math.max(
+                0.05,
+                this.alpha + pulse * 0.08
+            );
+
+        ctx.beginPath();
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fillStyle =
+            `rgba(80,220,255,${alpha})`;
+
+        ctx.shadowBlur = 8;
+
+        ctx.shadowColor =
+            "rgba(0,190,255,0.8)";
+
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+    }
 }
 
 
 /* =========================================================
-   CREATE LOGO PARTICLES
+   CREATE AMBIENT PARTICLES
+========================================================= */
+
+function createAmbientParticles() {
+
+    particles.length = 0;
+
+    for (
+        let i = 0;
+        i < MAX_PARTICLES;
+        i++
+    ) {
+
+        particles.push(
+            new AmbientParticle()
+        );
+    }
+}
+
+createAmbientParticles();
+
+
+/* =========================================================
+   LOGO DISSOLVE PARTICLE
+========================================================= */
+
+const logoParticles = [];
+
+
+class LogoParticle {
+
+    constructor(
+        x,
+        y,
+        color
+    ) {
+
+        this.x = x;
+        this.y = y;
+
+        this.startX = x;
+        this.startY = y;
+
+        const angle =
+            random(0, Math.PI * 2);
+
+        const speed =
+            random(1.0, 4.2);
+
+        this.vx =
+            Math.cos(angle) * speed;
+
+        this.vy =
+            Math.sin(angle) * speed;
+
+        this.vy -= random(0.2, 1.2);
+
+        this.size =
+            random(0.8, 2.5);
+
+        this.alpha = 1;
+
+        this.life = 0;
+
+        this.maxLife =
+            random(50, 110);
+
+        this.color = color;
+    }
+
+
+    update() {
+
+        this.x += this.vx;
+
+        this.y += this.vy;
+
+        this.vx *= 0.985;
+
+        this.vy *= 0.985;
+
+        this.vy += 0.018;
+
+        this.life++;
+
+        this.alpha =
+            1 -
+            this.life /
+            this.maxLife;
+    }
+
+
+    draw() {
+
+        if (!ctx) return;
+
+        if (this.alpha <= 0)
+            return;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fillStyle =
+            `rgba(${this.color},${this.alpha})`;
+
+        ctx.shadowBlur = 10;
+
+        ctx.shadowColor =
+            `rgba(${this.color},${this.alpha})`;
+
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+    }
+
+
+    get dead() {
+
+        return (
+            this.life >= this.maxLife
+        );
+    }
+}
+
+
+/* =========================================================
+   CREATE PARTICLES FROM LOGO
 ========================================================= */
 
 function createLogoParticles() {
 
-    /*
-     * Get current logo position.
-     * This happens BEFORE the logo disappears.
-     */
+    if (!logo || !canvas)
+        return;
+
 
     const rect =
-        mainLogo.getBoundingClientRect();
+        logo.getBoundingClientRect();
 
 
-    /*
-     * Smaller particle count.
-     */
+    if (
+        rect.width <= 0 ||
+        rect.height <= 0
+    ) {
 
-    const particleCount =
+        return;
+    }
+
+
+    const tempCanvas =
+        document.createElement("canvas");
+
+    const tempCtx =
+        tempCanvas.getContext("2d");
+
+
+    const sampleWidth =
         Math.min(
-            150,
+            260,
             Math.max(
-                90,
-                Math.floor(
-                    (
-                        rect.width
-                        *
-                        rect.height
-                    )
-                    /
-                    8500
-                )
+                100,
+                Math.floor(rect.width)
             )
         );
 
 
-    /*
-     * Smaller emission area.
-     *
-     * Instead of the entire logo rectangle,
-     * keep particles closer to the center.
-     */
-
-    const areaWidth =
-        rect.width
-        *
-        0.78;
+    const aspect =
+        rect.height /
+        rect.width;
 
 
-    const areaHeight =
-        rect.height
-        *
-        0.72;
+    const sampleHeight =
+        Math.max(
+            1,
+            Math.floor(
+                sampleWidth * aspect
+            )
+        );
 
 
-    const areaLeft =
-        rect.left
-        +
-        (
-            rect.width
-            -
-            areaWidth
-        )
-        /
-        2;
+    tempCanvas.width =
+        sampleWidth;
+
+    tempCanvas.height =
+        sampleHeight;
 
 
-    const areaTop =
-        rect.top
-        +
-        (
-            rect.height
-            -
-            areaHeight
-        )
-        /
-        2;
+    try {
+
+        tempCtx.drawImage(
+            logo,
+            0,
+            0,
+            sampleWidth,
+            sampleHeight
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Unable to sample logo.",
+            error
+        );
+
+        return;
+    }
+
+
+    const imageData =
+        tempCtx.getImageData(
+            0,
+            0,
+            sampleWidth,
+            sampleHeight
+        );
+
+
+    const data =
+        imageData.data;
+
+
+    const step = 4;
+
+
+    for (
+        let y = 0;
+        y < sampleHeight;
+        y += step
+    ) {
+
+        for (
+            let x = 0;
+            x < sampleWidth;
+            x += step
+        ) {
+
+            const index =
+                (y * sampleWidth + x) * 4;
+
+
+            const alpha =
+                data[index + 3];
+
+
+            if (alpha < 80)
+                continue;
+
+
+            const red =
+                data[index];
+
+            const green =
+                data[index + 1];
+
+            const blue =
+                data[index + 2];
+
+
+            if (
+                red < 15 &&
+                green < 15 &&
+                blue < 15
+            ) {
+
+                continue;
+            }
+
+
+            const px =
+                rect.left +
+                (x / sampleWidth) *
+                rect.width;
+
+            const py =
+                rect.top +
+                (y / sampleHeight) *
+                rect.height;
+
+
+            logoParticles.push(
+                new LogoParticle(
+                    px,
+                    py,
+                    `${red},${green},${blue}`
+                )
+            );
+        }
+    }
+}
+
+
+/* =========================================================
+   FALLBACK LOGO PARTICLES
+========================================================= */
+
+function createFallbackLogoParticles() {
+
+    if (!logo)
+        return;
+
+
+    const rect =
+        logo.getBoundingClientRect();
 
 
     for (
         let i = 0;
-        i < particleCount;
+        i < 450;
         i++
     ) {
 
-
-        /*
-         * Position.
-         */
-
-        const x =
-            areaLeft
-            +
-            Math.random()
-            *
-            areaWidth;
-
-
-        const y =
-            areaTop
-            +
-            Math.random()
-            *
-            areaHeight;
-
-
-        /*
-         * Mostly upward movement.
-         */
-
-        const vx =
-            (
-                Math.random()
-                - 0.5
+        logoParticles.push(
+            new LogoParticle(
+                random(
+                    rect.left,
+                    rect.right
+                ),
+                random(
+                    rect.top,
+                    rect.bottom
+                ),
+                "80,220,255"
             )
-            *
-            1.4;
-
-
-        const vy =
-            -(
-                Math.random()
-                *
-                1.6
-                +
-                0.35
-            );
-
-
-        transitionParticles.push({
-
-            x: x,
-
-            y: y,
-
-            vx: vx,
-
-            vy: vy,
-
-            size:
-                Math.random()
-                *
-                1.8
-                +
-                0.5,
-
-            alpha:
-                Math.random()
-                *
-                0.55
-                +
-                0.35,
-
-            life: 1,
-
-            decay:
-                Math.random()
-                *
-                0.009
-                +
-                0.005
-
-        });
-
+        );
     }
-
 }
 
 
 /* =========================================================
-   DRAW BACKGROUND PARTICLES
+   BLUE PARTICLE BURST
 ========================================================= */
 
-function drawBackgroundParticles() {
+function createBurst() {
+
+    if (!canvas)
+        return;
+
+
+    const centerX =
+        canvasWidth / 2;
+
+    const centerY =
+        canvasHeight / 2;
+
 
     for (
-        const p
-        of backgroundParticles
+        let i = 0;
+        i < 100;
+        i++
     ) {
 
-
-        p.y -=
-            p.speed;
-
-
-        p.x +=
-            p.drift;
-
-
-        if (
-            p.y <
-            canvasHeight * 0.25
-        ) {
-
-            Object.assign(
-                p,
-                createBackgroundParticle()
+        const particle =
+            new LogoParticle(
+                centerX,
+                centerY,
+                "70,215,255"
             );
 
-        }
 
-
-        if (
-            p.x < -10
-        ) {
-
-            p.x =
-                canvasWidth + 10;
-
-        }
-
-
-        if (
-            p.x >
-            canvasWidth + 10
-        ) {
-
-            p.x =
-                -10;
-
-        }
-
-
-        ctx.beginPath();
-
-
-        ctx.shadowBlur =
-            p.glow;
-
-
-        ctx.shadowColor =
-            "rgba(0,220,255,0.65)";
-
-
-        ctx.fillStyle =
-            `rgba(
+        const angle =
+            random(
                 0,
-                210,
-                255,
-                ${p.alpha}
-            )`;
-
-
-        ctx.arc(
-            p.x,
-            p.y,
-            p.size,
-            0,
-            Math.PI * 2
-        );
-
-
-        ctx.fill();
-
-    }
-
-}
-
-
-/* =========================================================
-   DRAW LOGO TRANSITION PARTICLES
-========================================================= */
-
-function drawTransitionParticles() {
-
-    for (
-        let i =
-            transitionParticles.length - 1;
-
-        i >= 0;
-
-        i--
-    ) {
-
-        const p =
-            transitionParticles[i];
-
-
-        /*
-         * Movement.
-         */
-
-        p.x +=
-            p.vx;
-
-
-        p.y +=
-            p.vy;
-
-
-        /*
-         * Slight upward acceleration.
-         */
-
-        p.vy -=
-            0.006;
-
-
-        /*
-         * Fade.
-         */
-
-        p.life -=
-            p.decay;
-
-
-        /*
-         * Draw.
-         */
-
-        ctx.beginPath();
-
-
-        ctx.shadowBlur =
-            7;
-
-
-        ctx.shadowColor =
-            "rgba(0,225,255,0.85)";
-
-
-        ctx.fillStyle =
-            `rgba(
-                15,
-                220,
-                255,
-                ${p.alpha * p.life}
-            )`;
-
-
-        ctx.arc(
-            p.x,
-            p.y,
-            p.size,
-            0,
-            Math.PI * 2
-        );
-
-
-        ctx.fill();
-
-
-        /*
-         * Remove particle.
-         */
-
-        if (
-            p.life <= 0
-        ) {
-
-            transitionParticles.splice(
-                i,
-                1
+                Math.PI * 2
             );
 
-        }
 
+        const speed =
+            random(2, 7);
+
+
+        particle.vx =
+            Math.cos(angle) * speed;
+
+        particle.vy =
+            Math.sin(angle) * speed;
+
+
+        logoParticles.push(
+            particle
+        );
     }
-
 }
 
 
 /* =========================================================
-   PARTICLE LOOP
+   TRANSITION
 ========================================================= */
 
-function drawParticles() {
-
-    ctx.clearRect(
-        0,
-        0,
-        canvasWidth,
-        canvasHeight
-    );
+let transitioning = false;
 
 
-    drawBackgroundParticles();
+function startTransition() {
+
+    if (transitioning)
+        return;
+
+    transitioning = true;
 
 
-    drawTransitionParticles();
-
-
-    ctx.shadowBlur =
-        0;
-
-
-    requestAnimationFrame(
-        drawParticles
-    );
-
-}
-
-
-drawParticles();
-
-
-/* =========================================================
-   VIEW TRANSITION
-========================================================= */
-
-viewButton.addEventListener(
-    "click",
-    () => {
-
-
-        if (
-            transitionActive
-        ) {
-
-            return;
-
-        }
-
-
-        transitionActive =
-            true;
-
-
-        /*
-         * Disable button.
-         */
-
-        viewButton.disabled =
-            true;
-
-
-        viewButton.style.opacity =
-            "0";
-
+    if (viewButton) {
 
         viewButton.style.pointerEvents =
             "none";
 
+        viewButton.style.opacity =
+            "0";
+    }
 
-        /*
-         * -------------------------------------------------
-         * STEP 1
-         *
-         * Logo begins fading.
-         * NO transition particles yet.
-         * -------------------------------------------------
-         */
 
-        logoContainer.classList.add(
-            "logo-disappear"
+    /*
+       Create particles BEFORE hiding logo
+       so the logo can be sampled correctly.
+    */
+
+    logoParticles.length = 0;
+
+
+    try {
+
+        createLogoParticles();
+
+    } catch (error) {
+
+        console.warn(
+            "Logo particle generation failed.",
+            error
         );
+    }
 
 
-        /*
-         * -------------------------------------------------
-         * STEP 2
-         *
-         * Wait until logo is almost completely gone.
-         *
-         * Logo animation = 700ms
-         * Particle starts = 760ms
-         * -------------------------------------------------
-         */
+    if (
+        logoParticles.length === 0
+    ) {
 
-        setTimeout(
-            () => {
-
-                createLogoParticles();
-
-            },
-
-            760
-        );
+        createFallbackLogoParticles();
+    }
 
 
-        /*
-         * -------------------------------------------------
-         * STEP 3
-         *
-         * Show leaderboard after
-         * logo + particle transition.
-         * -------------------------------------------------
-         */
+    /*
+       Fade logo while particles
+       are appearing at the same time.
+    */
 
-        setTimeout(
-            () => {
+    if (logoContainer) {
+
+        logoContainer.style.opacity =
+            "0";
+
+        logoContainer.style.transform =
+            "translateY(-4px) scale(1.04)";
+
+        logoContainer.style.filter =
+            "blur(5px) drop-shadow(0 0 25px rgba(0,220,255,0.7))";
+    }
+
+
+    /*
+       Small blue burst
+    */
+
+    setTimeout(
+        () => {
+
+            createBurst();
+
+        },
+        180
+    );
+
+
+    /*
+       Show leaderboard
+    */
+
+    setTimeout(
+        () => {
+
+            if (menuScreen) {
 
                 menuScreen.style.opacity =
                     "0";
 
-
                 menuScreen.style.pointerEvents =
                     "none";
+            }
 
+
+            if (leaderboardScreen) {
 
                 leaderboardScreen.classList.add(
                     "active"
                 );
+            }
 
-            },
+        },
+        650
+    );
 
-            1150
-        );
 
+    /*
+       Finish transition
+    */
 
-        /*
-         * Transition state ends.
-         */
+    setTimeout(
+        () => {
 
-        setTimeout(
-            () => {
+            transitioning = false;
 
-                transitionActive =
-                    false;
-
-            },
-
-            1500
-        );
-
-    }
-);
+        },
+        1000
+    );
+}
 
 
 /* =========================================================
-   BACK BUTTON
+   BACK TO MENU
 ========================================================= */
 
-backButton.addEventListener(
-    "click",
-    () => {
+function goBack() {
 
+    stopPetting();
+
+
+    if (leaderboardScreen) {
 
         leaderboardScreen.classList.remove(
             "active"
         );
+    }
 
 
-        setTimeout(
-            () => {
+    setTimeout(
+        () => {
 
-
-                /*
-                 * Restore menu.
-                 */
+            if (menuScreen) {
 
                 menuScreen.style.opacity =
                     "1";
 
-
                 menuScreen.style.pointerEvents =
                     "auto";
+            }
 
 
-                /*
-                 * Restore logo.
-                 */
+            if (logoContainer) {
 
-                logoContainer.classList.remove(
-                    "logo-disappear"
-                );
+                logoContainer.style.opacity =
+                    "1";
+
+                logoContainer.style.transform =
+                    "translateY(0) scale(1)";
+
+                logoContainer.style.filter =
+                    "blur(0) drop-shadow(0 0 12px rgba(0,200,255,0.45)) drop-shadow(0 0 28px rgba(0,150,255,0.22))";
+            }
 
 
-                /*
-                 * Restore button.
-                 */
-
-                viewButton.disabled =
-                    false;
-
+            if (viewButton) {
 
                 viewButton.style.opacity =
                     "1";
 
-
                 viewButton.style.pointerEvents =
                     "auto";
+            }
 
-
-                /*
-                 * Remove old transition particles.
-                 */
-
-                transitionParticles =
-                    [];
-
-
-            },
-
-            500
-        );
-
-    }
-);
+        },
+        450
+    );
+}
 
 
 /* =========================================================
-   IZUNA PET GAME
+   BUTTON EVENTS
 ========================================================= */
 
-let isPetting =
-    false;
+if (viewButton) {
+
+    viewButton.addEventListener(
+        "click",
+        startTransition
+    );
+}
 
 
-let petStartTime =
-    0;
+if (backButton) {
 
-
-let totalPetTime =
-    0;
+    backButton.addEventListener(
+        "click",
+        goBack
+    );
+}
 
 
 /* =========================================================
-   POINTER
+   IZUNA PET SYSTEM
 ========================================================= */
 
-let pointerDown =
-    false;
+let pointerIsDown = false;
 
+let isPetting = false;
 
-let lastPointerX =
+let lastPointerX = 0;
+let lastPointerY = 0;
+
+let lastRubTime = 0;
+
+let totalPetTime = 0;
+
+let petStartTime = 0;
+
+let petAccumulatedBeforeCurrent =
     0;
 
 
-let lastPointerY =
-    0;
+/*
+   Head hit zone.
 
+   These values represent percentage
+   of the Izuna container.
 
-let petIdleTimer =
-    null;
+   Left/right:
+       25% → 75%
 
-
-/* =========================================================
-   HEAD ZONE
-========================================================= */
+   Top/bottom:
+       2% → 58%
+*/
 
 const HEAD_ZONE = {
 
-    left: 25,
+    left: 0.25,
 
-    right: 75,
+    right: 0.75,
 
-    top: 5,
+    top: 0.02,
 
-    bottom: 58
-
+    bottom: 0.58
 };
 
 
+/*
+   Minimum movement required
+   to count as actual rubbing.
+*/
+
+const MIN_RUB_DISTANCE = 1.5;
+
+
+/*
+   If pointer stops moving for this
+   amount of time, petting pauses.
+*/
+
+const PET_IDLE_DELAY = 220;
+
+
 /* =========================================================
-   CHECK HEAD
+   GET POINTER POSITION
 ========================================================= */
 
-function isInsideHead(
-    x,
-    y
+function getLocalPointer(
+    event
 ) {
 
+    if (!izunaContainer)
+        return null;
+
+
     const rect =
-        izunaArea.getBoundingClientRect();
+        izunaContainer.getBoundingClientRect();
 
 
-    const localX =
-        x
-        -
+    const x =
+        event.clientX -
         rect.left;
 
 
-    const localY =
-        y
-        -
+    const y =
+        event.clientY -
         rect.top;
 
 
-    const percentX =
-        (
-            localX
-            /
-            rect.width
-        )
-        *
-        100;
+    return {
 
+        x,
 
-    const percentY =
-        (
-            localY
-            /
+        y,
+
+        width:
+            rect.width,
+
+        height:
             rect.height
-        )
-        *
-        100;
+    };
+}
+
+
+/* =========================================================
+   IS POINTER ON HEAD
+========================================================= */
+
+function isOnHead(
+    event
+) {
+
+    const p =
+        getLocalPointer(event);
+
+
+    if (!p)
+        return false;
+
+
+    const nx =
+        p.x / p.width;
+
+
+    const ny =
+        p.y / p.height;
 
 
     return (
 
-        percentX >=
-        HEAD_ZONE.left
+        nx >= HEAD_ZONE.left &&
 
-        &&
+        nx <= HEAD_ZONE.right &&
 
-        percentX <=
-        HEAD_ZONE.right
+        ny >= HEAD_ZONE.top &&
 
-        &&
-
-        percentY >=
-        HEAD_ZONE.top
-
-        &&
-
-        percentY <=
-        HEAD_ZONE.bottom
+        ny <= HEAD_ZONE.bottom
 
     );
-
 }
 
 
@@ -931,31 +948,35 @@ function isInsideHead(
 
 function startPetting() {
 
-    if (
-        isPetting
-    ) {
-
+    if (isPetting)
         return;
 
-    }
 
-
-    isPetting =
-        true;
-
+    isPetting = true;
 
     petStartTime =
         performance.now();
 
-
-    izunaArea.classList.add(
-        "petting"
-    );
+    lastRubTime =
+        performance.now();
 
 
-    petInstruction.textContent =
-        "PET PET...";
+    if (izunaContainer) {
 
+        izunaContainer.classList.add(
+            "petting"
+        );
+    }
+
+
+    if (petInstruction) {
+
+        petInstruction.textContent =
+            "PETTING IZUNA...";
+
+        petInstruction.style.color =
+            "rgba(90,230,255,0.95)";
+    }
 }
 
 
@@ -965,296 +986,462 @@ function startPetting() {
 
 function stopPetting() {
 
-    if (
-        !isPetting
-    ) {
-
+    if (!isPetting)
         return;
 
-    }
+
+    const now =
+        performance.now();
 
 
     totalPetTime +=
-
-        performance.now()
-        -
-        petStartTime;
+        (now - petStartTime) /
+        1000;
 
 
-    isPetting =
-        false;
+    isPetting = false;
 
 
-    izunaArea.classList.remove(
-        "petting"
-    );
+    if (izunaContainer) {
 
-
-    petInstruction.textContent =
-        "RUB IZUNA'S HEAD";
-
-}
-
-
-/* =========================================================
-   IDLE TIMER
-========================================================= */
-
-function resetPetIdleTimer() {
-
-    clearTimeout(
-        petIdleTimer
-    );
-
-
-    petIdleTimer =
-        setTimeout(
-            () => {
-
-                stopPetting();
-
-            },
-
-            220
+        izunaContainer.classList.remove(
+            "petting"
         );
+    }
 
+
+    if (petInstruction) {
+
+        petInstruction.textContent =
+            "RUB IZUNA'S HEAD";
+
+        petInstruction.style.color =
+            "";
+    }
+
+
+    updatePetScore();
 }
 
 
 /* =========================================================
-   SCORE
+   UPDATE SCORE
 ========================================================= */
 
-function updateScore() {
+function updatePetScore() {
 
-    let time =
+    if (!petSeconds)
+        return;
+
+
+    let currentTime =
         totalPetTime;
 
 
-    if (
-        isPetting
-    ) {
+    if (isPetting) {
 
-        time +=
-
-            performance.now()
-            -
-            petStartTime;
-
+        currentTime +=
+            (
+                performance.now() -
+                petStartTime
+            ) / 1000;
     }
 
 
     petSeconds.textContent =
-
-        (
-            time
-            /
-            1000
-        )
-        .toFixed(1);
-
+        currentTime.toFixed(1);
 }
-
-
-setInterval(
-    updateScore,
-    50
-);
 
 
 /* =========================================================
    POINTER DOWN
 ========================================================= */
 
-izunaArea.addEventListener(
-    "pointerdown",
-    (event) => {
+function pointerDown(event) {
 
-        event.preventDefault();
-
-
-        pointerDown =
-            true;
+    if (!izunaContainer)
+        return;
 
 
-        lastPointerX =
-            event.clientX;
+    /*
+       Important:
+
+       Pointer down alone DOES NOT
+       start petting.
+
+       The user must actually move
+       over Izuna's head.
+    */
+
+    pointerIsDown = true;
 
 
-        lastPointerY =
-            event.clientY;
+    lastPointerX =
+        event.clientX;
+
+    lastPointerY =
+        event.clientY;
+
+    lastRubTime =
+        performance.now();
 
 
-        try {
+    try {
 
-            izunaArea.setPointerCapture(
-                event.pointerId
-            );
+        izunaContainer.setPointerCapture(
+            event.pointerId
+        );
 
-        } catch (error) {
-
-        }
-
+    } catch (error) {
+        // Ignore unsupported pointer capture
     }
-);
+
+
+    event.preventDefault();
+}
 
 
 /* =========================================================
    POINTER MOVE
 ========================================================= */
 
-izunaArea.addEventListener(
-    "pointermove",
-    (event) => {
+function pointerMove(event) {
 
-        event.preventDefault();
-
-
-        if (
-            event.pointerType !== "mouse"
-            &&
-            !pointerDown
-        ) {
-
-            return;
-
-        }
+    if (!pointerIsDown)
+        return;
 
 
-        const dx =
-            event.clientX
-            -
-            lastPointerX;
+    const dx =
+        event.clientX -
+        lastPointerX;
 
 
-        const dy =
-            event.clientY
-            -
-            lastPointerY;
+    const dy =
+        event.clientY -
+        lastPointerY;
 
 
-        const distance =
-            Math.sqrt(
-                dx * dx
-                +
-                dy * dy
-            );
+    const distance =
+        Math.sqrt(
+            dx * dx +
+            dy * dy
+        );
 
 
-        lastPointerX =
-            event.clientX;
+    lastPointerX =
+        event.clientX;
+
+    lastPointerY =
+        event.clientY;
 
 
-        lastPointerY =
-            event.clientY;
+    /*
+       Ignore tiny/no movement.
+    */
+
+    if (
+        distance <
+        MIN_RUB_DISTANCE
+    ) {
+
+        return;
+    }
 
 
-        if (
-            distance < 2
-        ) {
+    /*
+       Actual rubbing requires:
+       1. Pointer is held down
+       2. Pointer is moving
+       3. Pointer is inside head zone
+    */
 
-            return;
+    if (
+        isOnHead(event)
+    ) {
 
-        }
-
-
-        if (
-            isInsideHead(
-                event.clientX,
-                event.clientY
-            )
-        ) {
+        if (!isPetting) {
 
             startPetting();
-
-            resetPetIdleTimer();
-
         }
 
+
+        lastRubTime =
+            performance.now();
+
+    } else {
+
+        /*
+           Moving outside head
+           pauses petting.
+        */
+
+        stopPetting();
     }
-);
+
+
+    event.preventDefault();
+}
 
 
 /* =========================================================
    POINTER UP
 ========================================================= */
 
-izunaArea.addEventListener(
-    "pointerup",
-    (event) => {
+function pointerUp(event) {
 
-        event.preventDefault();
+    pointerIsDown = false;
 
-
-        pointerDown =
-            false;
+    stopPetting();
 
 
-        clearTimeout(
-            petIdleTimer
-        );
-
-
-        stopPetting();
-
+    if (
+        izunaContainer &&
+        event &&
+        event.pointerId !== undefined
+    ) {
 
         try {
 
-            izunaArea.releasePointerCapture(
+            izunaContainer.releasePointerCapture(
                 event.pointerId
             );
 
         } catch (error) {
-
+            // Ignore
         }
-
     }
-);
+}
 
 
 /* =========================================================
    POINTER CANCEL
 ========================================================= */
 
-izunaArea.addEventListener(
-    "pointercancel",
+function pointerCancel() {
+
+    pointerIsDown = false;
+
+    stopPetting();
+}
+
+
+/* =========================================================
+   IZUNA EVENTS
+========================================================= */
+
+if (izunaContainer) {
+
+    izunaContainer.addEventListener(
+        "pointerdown",
+        pointerDown,
+        { passive: false }
+    );
+
+
+    izunaContainer.addEventListener(
+        "pointermove",
+        pointerMove,
+        { passive: false }
+    );
+
+
+    izunaContainer.addEventListener(
+        "pointerup",
+        pointerUp,
+        { passive: false }
+    );
+
+
+    izunaContainer.addEventListener(
+        "pointercancel",
+        pointerCancel,
+        { passive: false }
+    );
+
+
+    izunaContainer.addEventListener(
+        "lostpointercapture",
+        () => {
+
+            if (pointerIsDown) {
+
+                pointerIsDown = false;
+
+                stopPetting();
+            }
+        }
+    );
+}
+
+
+/* =========================================================
+   GLOBAL POINTER UP
+========================================================= */
+
+window.addEventListener(
+    "pointerup",
     () => {
 
-        pointerDown =
-            false;
+        if (pointerIsDown) {
 
+            pointerIsDown = false;
 
-        clearTimeout(
-            petIdleTimer
-        );
-
-
-        stopPetting();
-
+            stopPetting();
+        }
     }
 );
 
 
 /* =========================================================
-   MOUSE LEAVE
+   ANIMATION LOOP
 ========================================================= */
 
-izunaArea.addEventListener(
-    "pointerleave",
-    (event) => {
+function animate() {
 
-        if (
-            event.pointerType === "mouse"
+    if (ctx) {
+
+        ctx.clearRect(
+            0,
+            0,
+            canvasWidth,
+            canvasHeight
+        );
+
+
+        /*
+           Ambient particles
+        */
+
+        for (
+            const particle of particles
         ) {
 
-            clearTimeout(
-                petIdleTimer
-            );
+            particle.update();
 
+            particle.draw();
+        }
+
+
+        /*
+           Logo transition particles
+        */
+
+        for (
+            let i =
+                logoParticles.length - 1;
+
+            i >= 0;
+
+            i--
+        ) {
+
+            const particle =
+                logoParticles[i];
+
+
+            particle.update();
+
+            particle.draw();
+
+
+            if (particle.dead) {
+
+                logoParticles.splice(
+                    i,
+                    1
+                );
+            }
+        }
+    }
+
+
+    /*
+       Update pet score continuously
+       while the user is rubbing.
+    */
+
+    if (isPetting) {
+
+        const now =
+            performance.now();
+
+
+        /*
+           Safety:
+           if movement stops, automatically
+           pause the timer.
+        */
+
+        if (
+            now - lastRubTime >
+            PET_IDLE_DELAY
+        ) {
 
             stopPetting();
 
-        }
+        } else {
 
+            updatePetScore();
+        }
     }
+
+
+    requestAnimationFrame(
+        animate
+    );
+}
+
+
+animate();
+
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+if (leaderboardScreen) {
+
+    leaderboardScreen.classList.remove(
+        "active"
+    );
+}
+
+
+if (menuScreen) {
+
+    menuScreen.style.opacity =
+        "1";
+
+    menuScreen.style.pointerEvents =
+        "auto";
+}
+
+
+if (viewButton) {
+
+    viewButton.style.opacity =
+        "1";
+
+    viewButton.style.pointerEvents =
+        "auto";
+}
+
+
+/* =========================================================
+   DEBUG
+========================================================= */
+
+console.log(
+    "%cHyakkiyako Club loaded successfully.",
+    "color:#50eaff;font-weight:bold;"
+);
+
+console.log(
+    "Izuna element:",
+    izunaContainer
+);
+
+console.log(
+    "Particle canvas:",
+    canvas
 );
