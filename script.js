@@ -1,105 +1,137 @@
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
 const canvas =
-    document.getElementById("particleCanvas");
+    document.getElementById(
+        "particleCanvas"
+    );
 
 const ctx =
     canvas.getContext("2d");
 
 
 const logo =
-    document.getElementById("logo");
+    document.getElementById(
+        "logo"
+    );
 
 const logoContainer =
-    document.getElementById("logoContainer");
+    document.getElementById(
+        "logoContainer"
+    );
 
 const viewButton =
-    document.getElementById("viewButton");
+    document.getElementById(
+        "viewButton"
+    );
 
-const menu =
-    document.getElementById("menu");
-
-const leaderboard =
-    document.getElementById("leaderboard");
+const leaderboardScreen =
+    document.getElementById(
+        "leaderboardScreen"
+    );
 
 const backButton =
-    document.getElementById("backButton");
-
-
-let particles = [];
-
-let logoParticles = [];
-
-let transitioning = false;
+    document.getElementById(
+        "backButton"
+    );
 
 
 /* =====================================================
-   CANVAS
+   CANVAS SIZE
 ===================================================== */
+
+let width = 0;
+let height = 0;
+
 
 function resizeCanvas() {
 
-    canvas.width =
+    width =
         window.innerWidth;
 
-    canvas.height =
+    height =
         window.innerHeight;
 
+
+    canvas.width =
+        width;
+
+    canvas.height =
+        height;
+
 }
+
+
+resizeCanvas();
+
 
 window.addEventListener(
     "resize",
     resizeCanvas
 );
 
-resizeCanvas();
+
+/* =====================================================
+   PARTICLE ARRAYS
+===================================================== */
+
+const ambientParticles = [];
+
+const logoParticles = [];
 
 
 /* =====================================================
-   AMBIENT PARTICLES
+   AMBIENT PARTICLE
 ===================================================== */
 
 class AmbientParticle {
 
     constructor() {
 
-        this.reset();
+        this.reset(true);
 
     }
 
 
-    reset() {
+    reset(firstSpawn = false) {
 
         this.x =
-            Math.random() *
-            canvas.width;
+            Math.random() * width;
 
         this.y =
-            canvas.height +
-            Math.random() * 100;
+            firstSpawn
+
+                ? Math.random() * height
+
+                : height + 20;
+
 
         this.size =
-            Math.random() * 2.2
-            + 0.5;
+            Math.random() * 2 + 0.5;
+
 
         this.speed =
-            Math.random() * 0.6
-            + 0.25;
+            Math.random() * 0.55 + 0.2;
+
 
         this.opacity =
-            Math.random() * 0.6
-            + 0.15;
+            Math.random() * 0.6 + 0.15;
+
 
         this.wave =
             Math.random() *
             Math.PI * 2;
 
+
         this.waveSpeed =
-            Math.random() *
-            0.025
-            + 0.01;
+            Math.random() * 0.025
+            + 0.008;
+
 
         this.waveAmount =
-            Math.random() * 1.2
-            + 0.4;
+            Math.random() * 0.8
+            + 0.2;
 
     }
 
@@ -109,8 +141,10 @@ class AmbientParticle {
         this.y -=
             this.speed;
 
+
         this.wave +=
             this.waveSpeed;
+
 
         this.x +=
             Math.sin(this.wave)
@@ -132,14 +166,18 @@ class AmbientParticle {
 
         ctx.save();
 
+
         ctx.globalAlpha =
             this.opacity;
 
+
         ctx.fillStyle =
-            "#39e7ff";
+            "#27dfff";
+
 
         ctx.shadowBlur =
-            12;
+            10;
+
 
         ctx.shadowColor =
             "#00cfff";
@@ -147,15 +185,24 @@ class AmbientParticle {
 
         ctx.beginPath();
 
+
         ctx.arc(
+
             this.x,
+
             this.y,
+
             this.size,
+
             0,
+
             Math.PI * 2
+
         );
 
+
         ctx.fill();
+
 
         ctx.restore();
 
@@ -164,15 +211,15 @@ class AmbientParticle {
 }
 
 
-/* Create ambient particles */
+/* Create background particles */
 
 for (
     let i = 0;
-    i < 90;
+    i < 100;
     i++
 ) {
 
-    particles.push(
+    ambientParticles.push(
         new AmbientParticle()
     );
 
@@ -185,37 +232,31 @@ for (
 
 class LogoParticle {
 
-    constructor(
-        x,
-        y
-    ) {
+    constructor(x, y) {
 
         this.x = x;
 
         this.y = y;
 
-        this.startX = x;
-
-        this.startY = y;
-
 
         /*
-            Particle จะพุ่งออก
-            แบบสุ่ม
+            Random direction
         */
 
         const angle =
             Math.random()
             * Math.PI * 2;
 
+
         const speed =
-            Math.random()
-            * 4 + 1;
+            Math.random() * 3.5
+            + 0.8;
 
 
         this.vx =
             Math.cos(angle)
             * speed;
+
 
         this.vy =
             Math.sin(angle)
@@ -223,16 +264,16 @@ class LogoParticle {
 
 
         /*
-            เพิ่มแรงขึ้นด้านบน
-            ให้คล้ายควัน / วิญญาณ
+            ทำให้บางส่วน
+            ลอยขึ้นเหมือนควัน
         */
 
         this.vy -=
-            Math.random() * 1.5;
+            Math.random() * 1.4;
 
 
         this.size =
-            Math.random() * 2.2
+            Math.random() * 2
             + 0.6;
 
 
@@ -240,8 +281,7 @@ class LogoParticle {
 
 
         this.decay =
-            Math.random()
-            * 0.012
+            Math.random() * 0.018
             + 0.006;
 
 
@@ -249,14 +289,24 @@ class LogoParticle {
             Math.random()
             * Math.PI * 2;
 
+
+        this.waveSpeed =
+            Math.random()
+            * 0.08
+            + 0.02;
+
     }
 
 
     update() {
 
         this.wave +=
-            0.05;
+            this.waveSpeed;
 
+
+        /*
+            Movement
+        */
 
         this.x +=
             this.vx;
@@ -267,7 +317,7 @@ class LogoParticle {
 
 
         /*
-            แรงลม
+            Friction
         */
 
         this.vx *=
@@ -278,20 +328,26 @@ class LogoParticle {
             0.985;
 
 
+        /*
+            Spirit-like movement
+        */
+
         this.x +=
             Math.sin(this.wave)
-            * 0.5;
+            * 0.35;
 
+
+        /*
+            Slowly disappear
+        */
 
         this.life -=
             this.decay;
 
 
-        /*
-            ค่อย ๆ จาง
-        */
-
-        return this.life > 0;
+        return (
+            this.life > 0
+        );
 
     }
 
@@ -300,31 +356,40 @@ class LogoParticle {
 
         ctx.save();
 
+
         ctx.globalAlpha =
             this.life;
 
 
         ctx.fillStyle =
-            "#42eaff";
+            "#35e6ff";
 
 
         ctx.shadowBlur =
-            15;
+            14;
 
 
         ctx.shadowColor =
-            "#00cfff";
+            "#00bfff";
 
 
         ctx.beginPath();
 
+
         ctx.arc(
+
             this.x,
+
             this.y,
+
             this.size,
+
             0,
+
             Math.PI * 2
+
         );
+
 
         ctx.fill();
 
@@ -337,33 +402,59 @@ class LogoParticle {
 
 
 /* =====================================================
-   CREATE PARTICLES FROM LOGO
+   CREATE LOGO PARTICLES
 ===================================================== */
 
 function createLogoParticles() {
 
     /*
-        สร้าง Canvas ชั่วคราว
-        สำหรับอ่าน pixel ของ PNG
+        ล้าง Particle เก่าก่อน
     */
 
-    const offCanvas =
-        document.createElement("canvas");
+    logoParticles.length = 0;
 
-    const offCtx =
-        offCanvas.getContext("2d");
 
+    /*
+        ถ้า PNG ยังโหลดไม่เสร็จ
+        ให้ใช้ Particle รอบ Logo แทน
+    */
+
+    if (
+        !logo.complete ||
+        logo.naturalWidth === 0
+    ) {
+
+        createFallbackParticles();
+
+        return;
+
+    }
+
+
+    /*
+        สร้าง Canvas ชั่วคราว
+    */
+
+    const tempCanvas =
+        document.createElement(
+            "canvas"
+        );
+
+    const tempCtx =
+        tempCanvas.getContext(
+            "2d"
+        );
+
+
+    /*
+        ขนาดจริงของ Logo
+    */
 
     const rect =
         logo.getBoundingClientRect();
 
 
-    /*
-        จำกัดขนาดเพื่อไม่ให้
-        Particle เยอะเกินไป
-    */
-
-    const width =
+    const logoWidth =
         Math.min(
             Math.floor(rect.width),
             900
@@ -375,106 +466,110 @@ function createLogoParticles() {
         logo.naturalWidth;
 
 
-    const height =
+    const logoHeight =
         Math.floor(
-            width * ratio
+            logoWidth * ratio
         );
 
 
-    offCanvas.width =
-        width;
-
-    offCanvas.height =
-        height;
+    tempCanvas.width =
+        logoWidth;
 
 
-    offCtx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
-
-
-    offCtx.drawImage(
-        logo,
-        0,
-        0,
-        width,
-        height
-    );
-
-
-    const imageData =
-        offCtx.getImageData(
-            0,
-            0,
-            width,
-            height
-        );
+    tempCanvas.height =
+        logoHeight;
 
 
     /*
-        ตำแหน่ง Logo บนจอ
+        วาด PNG ลง Canvas
     */
 
-    const startX =
-        rect.left;
+    tempCtx.drawImage(
 
-    const startY =
-        rect.top;
+        logo,
+
+        0,
+
+        0,
+
+        logoWidth,
+
+        logoHeight
+
+    );
+
+
+    /*
+        อ่าน Pixel
+    */
+
+    const pixels =
+        tempCtx.getImageData(
+
+            0,
+
+            0,
+
+            logoWidth,
+
+            logoHeight
+
+        ).data;
 
 
     /*
         Sampling
 
-        ยิ่งเลขมาก =
-        Particle น้อยลง
+        5 = Particle จำนวนปานกลาง
     */
 
-    const sample =
-        5;
+    const sample = 5;
 
 
     for (
         let y = 0;
-        y < height;
+        y < logoHeight;
         y += sample
     ) {
 
         for (
             let x = 0;
-            x < width;
+            x < logoWidth;
             x += sample
         ) {
 
             const index =
-                (y * width + x)
-                * 4;
+                (
+                    y * logoWidth
+                    + x
+                ) * 4;
 
 
             const alpha =
-                imageData.data[
+                pixels[
                     index + 3
                 ];
 
 
             /*
-                ถ้า pixel มีความโปร่งใส
-                ให้สร้าง Particle
+                เฉพาะ Pixel
+                ที่ไม่โปร่งใส
             */
 
             if (
                 alpha > 80
                 &&
-                Math.random() > 0.25
+                Math.random() > 0.2
             ) {
 
                 logoParticles.push(
 
                     new LogoParticle(
-                        startX + x,
-                        startY + y
+
+                        rect.left + x,
+
+                        rect.top + y
+
                     )
 
                 );
@@ -485,6 +580,61 @@ function createLogoParticles() {
 
     }
 
+
+    /*
+        ถ้าอ่าน Pixel ไม่ได้
+    */
+
+    if (
+        logoParticles.length === 0
+    ) {
+
+        createFallbackParticles();
+
+    }
+
+}
+
+
+/* =====================================================
+   FALLBACK PARTICLES
+===================================================== */
+
+function createFallbackParticles() {
+
+    const rect =
+        logo.getBoundingClientRect();
+
+
+    for (
+        let i = 0;
+        i < 300;
+        i++
+    ) {
+
+        const x =
+            rect.left
+            + Math.random()
+            * rect.width;
+
+
+        const y =
+            rect.top
+            + Math.random()
+            * rect.height;
+
+
+        logoParticles.push(
+
+            new LogoParticle(
+                x,
+                y
+            )
+
+        );
+
+    }
+
 }
 
 
@@ -492,17 +642,25 @@ function createLogoParticles() {
    TRANSITION
 ===================================================== */
 
+let isTransitioning = false;
+
+
 function startTransition() {
 
-    if (transitioning)
+    if (
+        isTransitioning
+    ) {
+
         return;
 
+    }
 
-    transitioning = true;
+
+    isTransitioning = true;
 
 
     /*
-        ปุ่มหายก่อน
+        ปิดปุ่ม
     */
 
     viewButton.style.opacity =
@@ -529,13 +687,26 @@ function startTransition() {
         logoContainer.style.opacity =
             "0";
 
+
         logoContainer.style.transform =
-            "scale(1.08)";
+            "scale(1.05)";
+
 
         logoContainer.style.filter =
-            "blur(8px)";
+            "blur(5px)";
 
     }, 50);
+
+
+    /*
+        เพิ่ม Particle burst
+    */
+
+    setTimeout(() => {
+
+        createBurst();
+
+    }, 300);
 
 
     /*
@@ -544,18 +715,101 @@ function startTransition() {
 
     setTimeout(() => {
 
-        leaderboard.classList.add(
+        leaderboardScreen.classList.add(
             "active"
         );
 
-    }, 1150);
-
+    }, 950);
 
 }
 
 
 /* =====================================================
-   BUTTON
+   PARTICLE BURST
+===================================================== */
+
+function createBurst() {
+
+    const centerX =
+        width / 2;
+
+    const centerY =
+        height / 2;
+
+
+    for (
+        let i = 0;
+        i < 120;
+        i++
+    ) {
+
+        logoParticles.push(
+
+            new LogoParticle(
+
+                centerX,
+                centerY
+
+            )
+
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   BACK TO MENU
+===================================================== */
+
+function goBack() {
+
+    leaderboardScreen.classList.remove(
+        "active"
+    );
+
+
+    /*
+        รอ Panel หาย
+    */
+
+    setTimeout(() => {
+
+        logoContainer.style.opacity =
+            "1";
+
+
+        logoContainer.style.transform =
+            "scale(1)";
+
+
+        logoContainer.style.filter =
+            "none";
+
+
+        viewButton.style.opacity =
+            "1";
+
+
+        viewButton.style.pointerEvents =
+            "auto";
+
+
+        logoParticles.length =
+            0;
+
+
+        isTransitioning =
+            false;
+
+    }, 700);
+
+}
+
+
+/* =====================================================
+   BUTTON EVENTS
 ===================================================== */
 
 viewButton.addEventListener(
@@ -564,58 +818,32 @@ viewButton.addEventListener(
 );
 
 
-/* =====================================================
-   BACK
-===================================================== */
-
 backButton.addEventListener(
     "click",
-    () => {
-
-        leaderboard.classList.remove(
-            "active"
-        );
-
-
-        setTimeout(() => {
-
-            logoContainer.style.opacity =
-                "1";
-
-            logoContainer.style.transform =
-                "scale(1)";
-
-            logoContainer.style.filter =
-                "none";
-
-
-            viewButton.style.opacity =
-                "1";
-
-            viewButton.style.pointerEvents =
-                "auto";
-
-
-            transitioning =
-                false;
-
-        }, 700);
-
-    }
+    goBack
 );
 
 
 /* =====================================================
-   ANIMATION LOOP
+   MAIN ANIMATION LOOP
 ===================================================== */
 
 function animate() {
 
+    /*
+        Clear canvas
+    */
+
     ctx.clearRect(
+
         0,
+
         0,
-        canvas.width,
-        canvas.height
+
+        width,
+
+        height
+
     );
 
 
@@ -625,7 +853,7 @@ function animate() {
 
     for (
         const particle
-        of particles
+        of ambientParticles
     ) {
 
         particle.update();
@@ -639,27 +867,39 @@ function animate() {
         Logo particles
     */
 
-    if (
-        logoParticles.length > 0
+    for (
+        let i =
+            logoParticles.length - 1;
+
+        i >= 0;
+
+        i--
     ) {
 
-        logoParticles =
-            logoParticles.filter(
-                particle => {
+        const particle =
+            logoParticles[i];
 
-                    const alive =
-                        particle.update();
 
-                    if (alive) {
+        const alive =
+            particle.update();
 
-                        particle.draw();
 
-                    }
+        if (
+            alive
+        ) {
 
-                    return alive;
+            particle.draw();
 
-                }
+        }
+
+        else {
+
+            logoParticles.splice(
+                i,
+                1
             );
+
+        }
 
     }
 
