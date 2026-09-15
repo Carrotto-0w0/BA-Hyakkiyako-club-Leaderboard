@@ -10,7 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Hyakkiyako Club</title>
+    <title>Hyakkiyako</title>
 
     <link
         rel="stylesheet"
@@ -24,17 +24,20 @@
 
 
     <!-- =====================================================
-         PARTICLE CANVAS
+         MENU SCREEN
     ====================================================== -->
 
-    <canvas id="particleCanvas"></canvas>
+    <section
+        id="menuScreen"
+        class="screen menu-screen"
+    >
 
 
-    <!-- =====================================================
-         MAIN MENU
-    ====================================================== -->
+        <!-- PARTICLE CANVAS -->
 
-    <main id="menuScreen" class="menu-screen">
+        <canvas
+            id="particleCanvas"
+        ></canvas>
 
 
         <!-- LOGO -->
@@ -45,9 +48,9 @@
         >
 
             <img
-                id="logo"
                 src="hyakkiyako.png"
                 alt="Hyakkiyako"
+                class="main-logo"
             >
 
         </div>
@@ -60,12 +63,14 @@
             class="view-button"
         >
 
-            VIEW
+            <span>VIEW</span>
+
+            <div class="button-line"></div>
 
         </button>
 
 
-    </main>
+    </section>
 
 
 
@@ -75,59 +80,153 @@
 
     <section
         id="leaderboardScreen"
-        class="leaderboard-screen"
+        class="screen leaderboard-screen"
     >
 
 
-        <div class="leaderboard-container">
+        <div
+            class="leaderboard-container"
+        >
 
 
             <!-- TITLE -->
 
-            <div class="leaderboard-title">
+            <div
+                class="leaderboard-title"
+            >
 
                 HYAKKIYAKO CLUB
 
             </div>
 
 
-            <div class="leaderboard-subtitle">
+            <div
+                class="leaderboard-subtitle"
+            >
 
                 5TH CLUB LEADERBOARD
 
             </div>
 
 
-            <!-- WIP PLACEHOLDER -->
 
-            <div class="leaderboard-placeholder">
+            <!-- =================================================
+                 WIP PLACEHOLDER
+            ================================================== -->
 
+            <div
+                class="leaderboard-placeholder"
+            >
 
-                <div class="placeholder-icon">
-
-                    ✦
-
-                </div>
-
-
-                <div class="placeholder-title">
+                <div
+                    class="wip-title"
+                >
 
                     LEADERBOARD
 
                 </div>
 
 
-                <div class="placeholder-text">
+                <div
+                    class="wip-text"
+                >
 
                     WIP
 
                 </div>
 
 
-                <div class="placeholder-description">
+                <div
+                    class="wip-description"
+                >
 
-                    MEMBER RANKING DATA<br>
-                    WILL BE ADDED HERE
+                    MEMBER RANKING WILL APPEAR HERE
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 IZUNA PET GAME
+            ================================================== -->
+
+            <div
+                id="izunaGame"
+                class="izuna-game"
+            >
+
+
+                <!-- SCORE -->
+
+                <div
+                    class="pet-score"
+                >
+
+                    You have pet Izuna for
+
+                    <span
+                        id="petSeconds"
+                    >
+                        0.0
+                    </span>
+
+                    second
+
+                </div>
+
+
+
+                <!-- IZUNA AREA -->
+
+                <div
+                    id="izunaArea"
+                    class="izuna-area"
+                >
+
+
+                    <!-- STATIC -->
+
+                    <img
+                        id="izunaStatic"
+                        class="izuna-image"
+                        src="izuna-static.png"
+                        alt="Izuna"
+                        draggable="false"
+                    >
+
+
+                    <!-- PET VERSION -->
+
+                    <img
+                        id="izunaPet"
+                        class="izuna-image izuna-pet"
+                        src="izuna-pet.png"
+                        alt="Izuna"
+                        draggable="false"
+                    >
+
+
+                    <!-- SOFT GLOW -->
+
+                    <div
+                        class="pet-glow"
+                    ></div>
+
+
+                </div>
+
+
+
+                <!-- INSTRUCTION -->
+
+                <div
+                    id="petInstruction"
+                    class="pet-instruction"
+                >
+
+                    RUB IZUNA'S HEAD
 
                 </div>
 
@@ -135,7 +234,9 @@
             </div>
 
 
+
         </div>
+
 
 
         <!-- BACK BUTTON -->
@@ -154,11 +255,11 @@
 
 
 
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
+    <!-- JAVASCRIPT -->
 
-    <script src="script.js"></script>
+    <script
+        src="script.js"
+    ></script>
 
 
 </body>
