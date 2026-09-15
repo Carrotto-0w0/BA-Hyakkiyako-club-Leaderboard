@@ -2,50 +2,27 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Hyakkiyako</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
-
 
     <!-- =====================================================
          MENU SCREEN
     ====================================================== -->
 
-    <section
-        id="menuScreen"
-        class="screen menu-screen"
-    >
+    <section id="menuScreen" class="screen menu-screen">
 
+        <!-- Background / transition particles -->
+        <canvas id="particleCanvas"></canvas>
 
-        <!-- PARTICLE CANVAS -->
-
-        <canvas
-            id="particleCanvas"
-        ></canvas>
-
-
-        <!-- LOGO -->
-
-        <div
-            id="logoContainer"
-            class="logo-container"
-        >
+        <!-- Logo -->
+        <div id="logoContainer" class="logo-container">
 
             <img
                 src="hyakkiyako.png"
@@ -57,7 +34,6 @@
 
 
         <!-- VIEW BUTTON -->
-
         <button
             id="viewButton"
             class="view-button"
@@ -68,7 +44,6 @@
             <div class="button-line"></div>
 
         </button>
-
 
     </section>
 
@@ -83,65 +58,35 @@
         class="screen leaderboard-screen"
     >
 
-
-        <div
-            class="leaderboard-container"
-        >
+        <div class="leaderboard-container">
 
 
             <!-- TITLE -->
 
-            <div
-                class="leaderboard-title"
-            >
-
+            <div class="leaderboard-title">
                 HYAKKIYAKO CLUB
-
             </div>
 
-
-            <div
-                class="leaderboard-subtitle"
-            >
-
+            <div class="leaderboard-subtitle">
                 5TH CLUB LEADERBOARD
-
             </div>
 
 
 
-            <!-- =================================================
-                 WIP PLACEHOLDER
-            ================================================== -->
+            <!-- LEADERBOARD PLACEHOLDER -->
 
-            <div
-                class="leaderboard-placeholder"
-            >
+            <div class="leaderboard-placeholder">
 
-                <div
-                    class="wip-title"
-                >
-
+                <div class="wip-title">
                     LEADERBOARD
-
                 </div>
 
-
-                <div
-                    class="wip-text"
-                >
-
+                <div class="wip-text">
                     WIP
-
                 </div>
 
-
-                <div
-                    class="wip-description"
-                >
-
+                <div class="wip-description">
                     MEMBER RANKING WILL APPEAR HERE
-
                 </div>
 
             </div>
@@ -160,15 +105,11 @@
 
                 <!-- SCORE -->
 
-                <div
-                    class="pet-score"
-                >
+                <div class="pet-score">
 
                     You have pet Izuna for
 
-                    <span
-                        id="petSeconds"
-                    >
+                    <span id="petSeconds">
                         0.0
                     </span>
 
@@ -178,7 +119,7 @@
 
 
 
-                <!-- IZUNA AREA -->
+                <!-- IZUNA -->
 
                 <div
                     id="izunaArea"
@@ -186,7 +127,7 @@
                 >
 
 
-                    <!-- STATIC -->
+                    <!-- STATIC IMAGE -->
 
                     <img
                         id="izunaStatic"
@@ -197,7 +138,7 @@
                     >
 
 
-                    <!-- PET VERSION -->
+                    <!-- PET IMAGE -->
 
                     <img
                         id="izunaPet"
@@ -208,10 +149,16 @@
                     >
 
 
-                    <!-- SOFT GLOW -->
+                    <!-- GLOW -->
+
+                    <div class="pet-glow"></div>
+
+
+                    <!-- HEAD AREA -->
 
                     <div
-                        class="pet-glow"
+                        id="headZone"
+                        class="head-zone"
                     ></div>
 
 
@@ -230,16 +177,13 @@
 
                 </div>
 
-
             </div>
-
-
 
         </div>
 
 
 
-        <!-- BACK BUTTON -->
+        <!-- BACK -->
 
         <button
             id="backButton"
@@ -250,17 +194,13 @@
 
         </button>
 
-
     </section>
 
 
 
-    <!-- JAVASCRIPT -->
+    <!-- SCRIPT -->
 
-    <script
-        src="script.js"
-    ></script>
-
+    <script src="script.js"></script>
 
 </body>
 
