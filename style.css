@@ -3,21 +3,15 @@
 ========================================================= */
 
 * {
-
     box-sizing: border-box;
-
     margin: 0;
-
     padding: 0;
-
 }
-
 
 html,
 body {
 
     width: 100%;
-
     height: 100%;
 
     overflow: hidden;
@@ -28,14 +22,10 @@ body {
         Arial,
         Helvetica,
         sans-serif;
-
 }
 
-
 body {
-
     color: white;
-
 }
 
 
@@ -50,11 +40,9 @@ body {
     inset: 0;
 
     width: 100vw;
-
     height: 100vh;
 
     background: #000;
-
 }
 
 
@@ -71,7 +59,6 @@ body {
     justify-content: center;
 
     align-items: center;
-
 }
 
 
@@ -86,13 +73,11 @@ body {
     inset: 0;
 
     width: 100%;
-
     height: 100%;
 
     pointer-events: none;
 
-    z-index: 1;
-
+    z-index: 20;
 }
 
 
@@ -106,19 +91,18 @@ body {
 
     z-index: 5;
 
-    width: min(
-        430px,
-        65vw
-    );
+    width:
+        min(
+            430px,
+            65vw
+        );
 
     display: flex;
 
     justify-content: center;
 
     align-items: center;
-
 }
-
 
 .main-logo {
 
@@ -146,26 +130,28 @@ body {
 
     transition:
 
-        opacity 0.5s ease,
+        opacity 0.45s ease,
 
-        transform 0.7s ease,
-
-        filter 0.5s ease;
-
+        filter 0.45s ease;
 }
 
 
 /* =========================================================
-   LOGO TRANSITION
+   LOGO DISAPPEAR
 ========================================================= */
 
 .logo-container.logo-disappear {
 
     animation:
-        logoDisappear 0.9s
-        cubic-bezier(.55,.05,.68,.19)
+        logoDisappear
+        1.05s
+        cubic-bezier(
+            .55,
+            .05,
+            .68,
+            .19
+        )
         forwards;
-
 }
 
 
@@ -179,28 +165,50 @@ body {
             scale(1)
             rotate(0deg);
 
+        filter:
+            blur(0px);
+
     }
 
-    35% {
 
-        opacity: 0.95;
+    25% {
+
+        opacity: 1;
 
         transform:
-            scale(1.02)
-            rotate(-1deg);
+            scale(1.015)
+            rotate(-0.5deg);
+
+        filter:
+            blur(0px);
 
     }
+
+
+    55% {
+
+        opacity: 0.75;
+
+        transform:
+            scale(1.04)
+            rotate(0.5deg);
+
+        filter:
+            blur(2px);
+
+    }
+
 
     100% {
 
         opacity: 0;
 
         transform:
-            scale(1.12)
-            rotate(2deg);
+            scale(1.10)
+            rotate(1.5deg);
 
         filter:
-            blur(8px);
+            blur(9px);
 
     }
 
@@ -215,7 +223,7 @@ body {
 
     position: relative;
 
-    z-index: 10;
+    z-index: 30;
 
     width: 148px;
 
@@ -223,7 +231,8 @@ body {
 
     margin-top: 75px;
 
-    border: 1px solid
+    border:
+        1px solid
         rgba(0,215,255,0.65);
 
     background:
@@ -252,7 +261,7 @@ body {
 
         border-color 0.25s ease,
 
-        background 0.25s ease;
+        opacity 0.4s ease;
 
     box-shadow:
 
@@ -261,7 +270,6 @@ body {
 
         inset 0 0 10px
         rgba(0,180,255,0.06);
-
 }
 
 
@@ -270,7 +278,6 @@ body {
     position: relative;
 
     z-index: 2;
-
 }
 
 
@@ -297,9 +304,10 @@ body {
         rgba(0,180,255,0.45);
 
     transition:
-        left 0.25s ease,
-        right 0.25s ease;
 
+        left 0.25s ease,
+
+        right 0.25s ease;
 }
 
 
@@ -321,16 +329,15 @@ body {
 
         inset 0 0 14px
         rgba(0,200,255,0.08);
-
 }
 
 
-.view-button:hover .button-line {
+.view-button:hover
+.button-line {
 
     left: 14px;
 
     right: 14px;
-
 }
 
 
@@ -339,12 +346,11 @@ body {
     transform:
         translateY(1px)
         scale(0.98);
-
 }
 
 
 /* =========================================================
-   LEADERBOARD SCREEN
+   LEADERBOARD
 ========================================================= */
 
 .leaderboard-screen {
@@ -369,7 +375,6 @@ body {
         transform 0.8s ease,
 
         visibility 0.8s;
-
 }
 
 
@@ -381,7 +386,6 @@ body {
 
     transform:
         translateY(0);
-
 }
 
 
@@ -393,10 +397,11 @@ body {
 
     position: relative;
 
-    width: min(
-        900px,
-        90vw
-    );
+    width:
+        min(
+            900px,
+            90vw
+        );
 
     min-height: 620px;
 
@@ -407,7 +412,6 @@ body {
     align-items: center;
 
     padding-top: 35px;
-
 }
 
 
@@ -427,7 +431,6 @@ body {
 
         0 0 10px
         rgba(0,210,255,0.30);
-
 }
 
 
@@ -436,12 +439,16 @@ body {
     margin-top: 8px;
 
     color:
-        rgba(150,225,235,0.55);
+        rgba(
+            150,
+            225,
+            235,
+            0.55
+        );
 
     font-size: 10px;
 
     letter-spacing: 4px;
-
 }
 
 
@@ -460,14 +467,16 @@ body {
     transform:
         translateX(-50%);
 
-    width: min(
-        720px,
-        80vw
-    );
+    width:
+        min(
+            720px,
+            80vw
+        );
 
     height: 110px;
 
-    border: 1px solid
+    border:
+        1px solid
         rgba(0,180,220,0.16);
 
     background:
@@ -482,19 +491,22 @@ body {
     align-items: center;
 
     opacity: 0.65;
-
 }
 
 
 .wip-title {
 
     color:
-        rgba(130,220,235,0.7);
+        rgba(
+            130,
+            220,
+            235,
+            0.7
+        );
 
     font-size: 12px;
 
     letter-spacing: 5px;
-
 }
 
 
@@ -503,12 +515,16 @@ body {
     margin-top: 5px;
 
     color:
-        rgba(0,210,255,0.45);
+        rgba(
+            0,
+            210,
+            255,
+            0.45
+        );
 
     font-size: 10px;
 
     letter-spacing: 4px;
-
 }
 
 
@@ -517,12 +533,16 @@ body {
     margin-top: 8px;
 
     color:
-        rgba(150,190,200,0.30);
+        rgba(
+            150,
+            190,
+            200,
+            0.30
+        );
 
     font-size: 8px;
 
     letter-spacing: 2px;
-
 }
 
 
@@ -548,7 +568,6 @@ body {
     flex-direction: column;
 
     align-items: center;
-
 }
 
 
@@ -559,7 +578,12 @@ body {
 .pet-score {
 
     color:
-        rgba(235,255,255,0.82);
+        rgba(
+            235,
+            255,
+            255,
+            0.82
+        );
 
     font-size: 13px;
 
@@ -569,7 +593,6 @@ body {
 
         0 0 8px
         rgba(0,190,255,0.25);
-
 }
 
 
@@ -594,7 +617,6 @@ body {
 
         0 0 18px
         rgba(0,180,255,0.25);
-
 }
 
 
@@ -606,10 +628,11 @@ body {
 
     position: relative;
 
-    width: min(
-        360px,
-        60vw
-    );
+    width:
+        min(
+            360px,
+            60vw
+        );
 
     height: 220px;
 
@@ -621,17 +644,16 @@ body {
 
     align-items: center;
 
-    cursor: pointer;
+    cursor: default;
 
     touch-action: none;
 
     user-select: none;
-
 }
 
 
 /* =========================================================
-   IMAGE
+   IZUNA IMAGE
 ========================================================= */
 
 .izuna-image {
@@ -651,12 +673,11 @@ body {
     pointer-events: none;
 
     user-select: none;
-
 }
 
 
 /* =========================================================
-   STATIC IZUNA
+   STATIC
 ========================================================= */
 
 #izunaStatic {
@@ -678,12 +699,11 @@ body {
         opacity 0.2s ease,
 
         transform 0.25s ease;
-
 }
 
 
 /* =========================================================
-   PET IZUNA
+   PET IMAGE
 ========================================================= */
 
 .izuna-pet {
@@ -701,21 +721,18 @@ body {
         );
 
     transition:
-
         opacity 0.18s ease;
-
 }
 
 
 /* =========================================================
-   WHEN PETTING
+   PETTING
 ========================================================= */
 
 .izuna-area.petting
 #izunaStatic {
 
     opacity: 0;
-
 }
 
 
@@ -729,12 +746,11 @@ body {
         1.8s
         ease-in-out
         infinite;
-
 }
 
 
 /* =========================================================
-   CUTE SLOW PET MOTION
+   PET MOTION
 ========================================================= */
 
 @keyframes izunaPetMotion {
@@ -745,7 +761,6 @@ body {
             translateY(0px)
             rotate(0deg)
             scale(1);
-
     }
 
     20% {
@@ -754,7 +769,6 @@ body {
             translateY(1px)
             rotate(-0.8deg)
             scale(1.005);
-
     }
 
     45% {
@@ -763,7 +777,6 @@ body {
             translateY(-2px)
             rotate(0.7deg)
             scale(1.01);
-
     }
 
     70% {
@@ -772,7 +785,6 @@ body {
             translateY(1px)
             rotate(-0.5deg)
             scale(1.005);
-
     }
 
     100% {
@@ -781,9 +793,7 @@ body {
             translateY(0px)
             rotate(0deg)
             scale(1);
-
     }
-
 }
 
 
@@ -804,7 +814,10 @@ body {
     top: 40%;
 
     transform:
-        translate(-50%, -50%);
+        translate(
+            -50%,
+            -50%
+        );
 
     border-radius: 50%;
 
@@ -812,7 +825,12 @@ body {
 
         radial-gradient(
             ellipse,
-            rgba(0,210,255,0.09),
+            rgba(
+                0,
+                210,
+                255,
+                0.09
+            ),
             transparent 70%
         );
 
@@ -825,7 +843,6 @@ body {
 
     transition:
         opacity 0.35s ease;
-
 }
 
 
@@ -839,7 +856,6 @@ body {
         2.5s
         ease-in-out
         infinite;
-
 }
 
 
@@ -848,27 +864,57 @@ body {
     0% {
 
         transform:
-            translate(-50%, -50%)
+            translate(
+                -50%,
+                -50%
+            )
             scale(0.9);
-
     }
 
     50% {
 
         transform:
-            translate(-50%, -50%)
+            translate(
+                -50%,
+                -50%
+            )
             scale(1.05);
-
     }
 
     100% {
 
         transform:
-            translate(-50%, -50%)
+            translate(
+                -50%,
+                -50%
+            )
             scale(0.9);
-
     }
+}
 
+
+/* =========================================================
+   HEAD ZONE
+========================================================= */
+
+.head-zone {
+
+    position: absolute;
+
+    left: 25%;
+
+    right: 25%;
+
+    top: 8%;
+
+    height: 50%;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    background:
+        transparent;
 }
 
 
@@ -881,7 +927,12 @@ body {
     margin-top: -3px;
 
     color:
-        rgba(150,220,230,0.38);
+        rgba(
+            150,
+            220,
+            230,
+            0.38
+        );
 
     font-size: 9px;
 
@@ -892,7 +943,6 @@ body {
         color 0.25s ease,
 
         opacity 0.25s ease;
-
 }
 
 
@@ -900,13 +950,17 @@ body {
 ~ .pet-instruction {
 
     color:
-        rgba(30,220,255,0.72);
-
+        rgba(
+            30,
+            220,
+            255,
+            0.72
+        );
 }
 
 
 /* =========================================================
-   BACK BUTTON
+   BACK
 ========================================================= */
 
 .back-button {
@@ -924,14 +978,24 @@ body {
 
     height: 34px;
 
-    background:
-        transparent;
+    background: transparent;
 
-    border: 1px solid
-        rgba(0,190,230,0.30);
+    border:
+        1px solid
+        rgba(
+            0,
+            190,
+            230,
+            0.30
+        );
 
     color:
-        rgba(180,240,245,0.55);
+        rgba(
+            180,
+            240,
+            245,
+            0.55
+        );
 
     font-size: 9px;
 
@@ -946,7 +1010,6 @@ body {
         color 0.25s ease,
 
         box-shadow 0.25s ease;
-
 }
 
 
@@ -955,13 +1018,22 @@ body {
     color: #eaffff;
 
     border-color:
-        rgba(0,220,255,0.75);
+        rgba(
+            0,
+            220,
+            255,
+            0.75
+        );
 
     box-shadow:
 
         0 0 10px
-        rgba(0,200,255,0.18);
-
+        rgba(
+            0,
+            200,
+            255,
+            0.18
+        );
 }
 
 
@@ -971,25 +1043,21 @@ body {
 
 @media (max-width: 768px) {
 
-
     .main-logo {
 
         width: 75vw;
-
     }
 
 
     .view-button {
 
         margin-top: 55px;
-
     }
 
 
     .leaderboard-container {
 
         min-height: 600px;
-
     }
 
 
@@ -998,14 +1066,12 @@ body {
         font-size: 17px;
 
         letter-spacing: 5px;
-
     }
 
 
     .leaderboard-subtitle {
 
         font-size: 8px;
-
     }
 
 
@@ -1016,14 +1082,12 @@ body {
         width: 85vw;
 
         height: 85px;
-
     }
 
 
     .izuna-game {
 
         top: 285px;
-
     }
 
 
@@ -1032,14 +1096,12 @@ body {
         width: 75vw;
 
         height: 210px;
-
     }
 
 
     .pet-score {
 
         font-size: 11px;
-
     }
 
 
@@ -1048,14 +1110,12 @@ body {
         font-size: 8px;
 
         letter-spacing: 3px;
-
     }
 
 
     .back-button {
 
         bottom: 20px;
-
     }
 
 }
