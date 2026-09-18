@@ -765,17 +765,9 @@ function createHeroCard(
             }
         </div>
 
-        <div>
-
-            <div class="hero-score">
-                ${escapeHTML(player.score)}
-            </div>
-
-            <div class="hero-score-label">
-                SCORE
-            </div>
-
-        </div>
+        <div class="hero-score">
+    ${escapeHTML(player.score)}
+</div>
 
     `;
 
@@ -975,75 +967,107 @@ resizeCanvas();
 
 
 /* =====================================================
-   AMBIENT PARTICLE
+   FALLING SAKURA PETALS
 ===================================================== */
 
-class AmbientParticle {
+class SakuraPetal {
 
     constructor() {
-
-        this.reset();
-
-        this.y =
-            Math.random() *
-            height;
-
+        this.reset(true);
     }
 
-
-    reset() {
+    reset(initial = false) {
 
         this.x =
-            Math.random() *
-            width;
+            Math.random() * width;
 
         this.y =
-            height +
-            Math.random() *
-            30;
+            initial
+                ? Math.random() * height
+                : -30 - Math.random() * 80;
 
+        /* ขนาดดอก Sakura */
         this.size =
-            Math.random() *
-            2.2 +
-            0.7;
+            Math.random() * 7 + 5;
 
+        /* ความเร็วในการตก */
         this.speed =
-            Math.random() *
-            0.45 +
-            0.12;
+            Math.random() * 0.8 + 0.45;
 
+        /* การแกว่งซ้ายขวา */
+        this.swing =
+            Math.random() * Math.PI * 2;
+
+        this.swingSpeed =
+            Math.random() * 0.018 + 0.008;
+
+        this.swingAmount =
+            Math.random() * 1.2 + 0.5;
+
+        /* การหมุน */
+        this.rotation =
+            Math.random() * Math.PI * 2;
+
+        this.rotationSpeed =
+            Math.random() * 0.025 - 0.0125;
+
+        /* ความโปร่งใส */
         this.alpha =
-            Math.random() *
-            0.45 +
-            0.12;
-
-        this.wave =
-            Math.random() *
-            Math.PI *
-            2;
-
+            Math.random() * 0.45 + 0.45;
     }
 
 
     update() {
 
-        this.y -=
-            this.speed;
+        this.y += this.speed;
 
-        this.wave +=
-            0.015;
+        this.swing +=
+            this.swingSpeed;
 
         this.x +=
-            Math.sin(
-                this.wave
-            ) *
-            0.18;
+            Math.sin(this.swing) *
+            this.swingAmount;
+
+        this.rotation +=
+            this.rotationSpeed;
+
+
+        /*
+            ถ้าตกพ้นจอ
+            ให้กลับไปเริ่มจากด้านบน
+        */
 
         if (
-            this.y < -20
+            this.y >
+            height + 40
         ) {
 
             this.reset();
+
+        }
+
+
+        /*
+            ถ้าหลุดด้านข้าง
+        */
+
+        if (
+            this.x <
+            -40
+        ) {
+
+            this.x =
+                width + 20;
+
+        }
+
+        if (
+            this.x >
+            width + 40
+        ) {
+
+            this.x =
+                -20;
 
         }
 
@@ -1054,29 +1078,100 @@ class AmbientParticle {
 
         ctx.save();
 
+        ctx.translate(
+            this.x,
+            this.y
+        );
+
+        ctx.rotate(
+            this.rotation
+        );
+
         ctx.globalAlpha =
             this.alpha;
 
+
+        /*
+            Sakura 5 กลีบ
+        */
+
         ctx.fillStyle =
-            "#ff9ed3";
+            "#ff9dcc";
 
         ctx.shadowBlur =
-            10;
+            8;
 
         ctx.shadowColor =
-            "#ff69bb";
+            "#ff69b4";
+
+
+        for (
+            let i = 0;
+            i < 5;
+            i++
+        ) {
+
+            ctx.save();
+
+            ctx.rotate(
+                (Math.PI * 2 / 5) * i
+            );
+
+            ctx.beginPath();
+
+            ctx.moveTo(
+                0,
+                0
+            );
+
+            ctx.bezierCurveTo(
+                -this.size * 0.9,
+                -this.size * 0.8,
+
+                -this.size * 0.75,
+                -this.size * 1.5,
+
+                0,
+                -this.size * 1.35
+            );
+
+            ctx.bezierCurveTo(
+                this.size * 0.75,
+                -this.size * 1.5,
+
+                this.size * 0.9,
+                -this.size * 0.8,
+
+                0,
+                0
+            );
+
+            ctx.fill();
+
+            ctx.restore();
+
+        }
+
+
+        /*
+            จุดตรงกลางดอก
+        */
 
         ctx.beginPath();
 
         ctx.arc(
-            this.x,
-            this.y,
-            this.size,
+            0,
+            0,
+            this.size * 0.18,
             0,
             Math.PI * 2
         );
 
+        ctx.fillStyle =
+            "#ffd3e8";
+
         ctx.fill();
+
 
         ctx.restore();
 
@@ -1085,14 +1180,47 @@ class AmbientParticle {
 }
 
 
+/* =====================================================
+   CREATE FALLING SAKURA
+===================================================== */
+
+const sakuraPetals = [];
+
+
+/*
+    จำนวนดอก Sakura
+    ปรับได้ตามความแรงที่ต้องการ
+*/
+
+const SAKURA_COUNT = 65;
+
+
 for (
     let i = 0;
-    i < 90;
+    i < SAKURA_COUNT;
     i++
 ) {
 
-    ambientParticles.push(
-        new AmbientParticle()
+    sakuraPetals.push(
+        new SakuraPetal()
+    );
+
+}
+
+
+/* =====================================================
+   SAKURA ANIMATION
+===================================================== */
+
+function updateSakura() {
+
+    sakuraPetals.forEach(
+        petal => {
+
+            petal.update();
+            petal.draw();
+
+        }
     );
 
 }
@@ -1285,21 +1413,14 @@ function particleLoop() {
 
 
     /*
-        Ambient
+        Falling Sakura
     */
 
-    ambientParticles.forEach(
-        particle => {
-
-            particle.update();
-            particle.draw();
-
-        }
-    );
+    updateSakura();
 
 
     /*
-        Sakura burst
+        Sakura burst ตอนเปลี่ยนหน้า
     */
 
     for (
@@ -1337,7 +1458,6 @@ function particleLoop() {
     );
 
 }
-
 
 particleLoop();
 
