@@ -14,8 +14,8 @@
 
 
     <!-- =====================================================
-         DISCORD / SOCIAL EMBED
-    ====================================================== -->
+         DISCORD / OPEN GRAPH
+         ===================================================== -->
 
     <meta
         property="og:title"
@@ -43,21 +43,23 @@
     >
 
     <meta
+        property="og:image:type"
+        content="image/png"
+    >
+
+    <meta
         property="og:image:width"
-        content="1280"
+        content="800"
     >
 
     <meta
         property="og:image:height"
-        content="720"
+        content="1000"
     >
-
-
-    <!-- TWITTER / OTHER SOCIAL PREVIEW -->
 
     <meta
         name="twitter:card"
-        content="summary_large_image"
+        content="summary"
     >
 
     <meta
@@ -76,10 +78,7 @@
     >
 
 
-    <!-- =====================================================
-         CSS
-    ====================================================== -->
-
+    <!-- CSS -->
     <link
         rel="stylesheet"
         href="./style.css"
@@ -91,269 +90,396 @@
 <body>
 
 
-    <!-- =====================================================
-         MENU SCREEN
-    ====================================================== -->
+<!-- =========================================================
+     GLOBAL PARTICLE CANVAS
+     ========================================================= -->
 
-    <section
-        id="menuScreen"
-        class="screen menu-screen"
+<canvas id="particleCanvas"></canvas>
+
+
+
+<!-- =========================================================
+     MENU SCREEN
+     ========================================================= -->
+
+<section
+    id="menuScreen"
+    class="screen menu-screen"
+>
+
+
+    <!-- Background -->
+    <div
+        id="menuBackground"
+        class="menu-background"
+    ></div>
+
+
+    <!-- Background overlay -->
+    <div class="background-overlay"></div>
+
+
+    <!-- Sakura atmosphere -->
+    <div class="sakura-haze"></div>
+
+
+    <!-- Logo -->
+    <div
+        id="logoContainer"
+        class="logo-container"
     >
 
-        <canvas
-            id="particleCanvas"
-        ></canvas>
-
-
-        <!-- LOGO -->
-
-        <div
-            id="logoContainer"
-            class="logo-container"
+        <img
+            id="logo"
+            class="main-logo"
+            src="./hyakkiyako.png"
+            alt="Hyakkiyako"
+            draggable="false"
         >
 
-            <img
-                id="logo"
-                class="hyakkiyako-logo"
-                src="./hyakkiyako.png"
-                alt="Hyakkiyako Club"
-                draggable="false"
-            >
-
-        </div>
+    </div>
 
 
-        <!-- VIEW BUTTON -->
+    <!-- Menu -->
+    <div class="main-menu">
+
 
         <button
-            id="viewButton"
-            class="view-button"
+            id="leaderboardButton"
+            class="menu-button"
             type="button"
         >
 
-            <span>VIEW</span>
+            <span class="menu-button-jp">
+                百鬼夜行
+            </span>
 
-            <div class="button-line"></div>
+            <span class="menu-button-title">
+                CLUB LEADERBOARD
+            </span>
+
+            <span class="menu-button-arrow">
+                →
+            </span>
 
         </button>
 
-    </section>
 
 
-
-    <!-- =====================================================
-         LEADERBOARD SCREEN
-    ====================================================== -->
-
-    <section
-        id="leaderboardScreen"
-        class="screen leaderboard-screen"
-    >
-
-        <div
-            class="leaderboard-container"
+        <button
+            id="petButton"
+            class="menu-button"
+            type="button"
         >
 
+            <span class="menu-button-jp">
+                イズナ
+            </span>
 
-            <!-- HEADER -->
+            <span class="menu-button-title">
+                PAT IZUNA
+            </span>
 
-            <div
-                class="leaderboard-header"
-            >
+            <span class="menu-button-arrow">
+                →
+            </span>
 
-                <div
-                    class="leaderboard-title"
-                >
-
-                    HYAKKIYAKO CLUB
-
-                </div>
+        </button>
 
 
-                <div
-                    class="leaderboard-subtitle"
-                >
+    </div>
 
-                    5TH CLUB LEADERBOARD
 
-                </div>
+    <!-- Day / Night -->
+    <div class="mode-switcher">
 
+
+        <button
+            id="dayModeButton"
+            class="mode-button"
+            type="button"
+        >
+            ☀ DAY
+        </button>
+
+
+        <div class="mode-divider"></div>
+
+
+        <button
+            id="nightModeButton"
+            class="mode-button active"
+            type="button"
+        >
+            ☾ NIGHT
+        </button>
+
+
+    </div>
+
+
+</section>
+
+
+
+
+<!-- =========================================================
+     LEADERBOARD SCREEN
+     ========================================================= -->
+
+<section
+    id="leaderboardScreen"
+    class="screen secondary-screen"
+>
+
+
+    <div class="secondary-background"></div>
+
+    <div class="secondary-overlay"></div>
+
+
+    <div class="secondary-container">
+
+
+        <!-- Header -->
+
+        <div class="secondary-header">
+
+            <div class="section-kicker">
+                HYAKKIYAKO CLUB
             </div>
 
-
-
-            <!-- =================================================
-                 BIG PLACEHOLDER
-            ================================================== -->
-
-            <div
-                id="leaderboardPlaceholder"
-                class="leaderboard-placeholder"
-            >
-
-
-                <!-- Corner decorations -->
-
-                <div
-                    class="corner corner-tl"
-                ></div>
-
-                <div
-                    class="corner corner-tr"
-                ></div>
-
-                <div
-                    class="corner corner-bl"
-                ></div>
-
-                <div
-                    class="corner corner-br"
-                ></div>
-
-
-                <!-- Placeholder content -->
-
-                <div
-                    class="placeholder-title"
-                >
-
-                    CLUB RANKING
-
-                </div>
-
-
-                <div
-                    class="placeholder-main"
-                >
-
-                    LEADERBOARD
-
-                </div>
-
-
-                <div
-                    class="placeholder-text"
-                >
-
-                    WIP
-
-                </div>
-
-
-                <div
-                    class="placeholder-description"
-                >
-
-                    MEMBER RANKING WILL APPEAR HERE
-
-                </div>
-
+            <div class="section-title">
+                5TH CLUB LEADERBOARD
             </div>
 
-
-
-            <!-- =================================================
-                 IZUNA PET GAME
-            ================================================== -->
-
-            <div
-                id="izunaGame"
-                class="izuna-game"
-            >
-
-
-                <!-- SCORE -->
-
-                <div
-                    id="petScore"
-                    class="pet-score"
-                >
-
-                    You have pet Izuna for
-
-                    <span
-                        id="petSeconds"
-                    >0.0</span>
-
-                    second
-
-                </div>
-
-
-
-                <!-- IZUNA -->
-
-                <div
-                    id="izunaContainer"
-                    class="izuna-container"
-                >
-
-                    <div
-                        id="petGlow"
-                        class="pet-glow"
-                    ></div>
-
-
-                    <img
-                        id="izunaStatic"
-                        class="izuna-image izuna-static"
-                        src="./izuna-static.png"
-                        alt="Izuna"
-                        draggable="false"
-                    >
-
-
-                    <img
-                        id="izunaPet"
-                        class="izuna-image izuna-pet"
-                        src="./izuna-pet.png"
-                        alt="Izuna"
-                        draggable="false"
-                    >
-
-                </div>
-
-
-                <!-- INSTRUCTION -->
-
-                <div
-                    id="petInstruction"
-                    class="pet-instruction"
-                >
-
-                    RUB IZUNA'S HEAD
-
-                </div>
-
-            </div>
+            <div class="section-line"></div>
 
         </div>
 
 
 
-        <!-- BACK -->
+        <!-- Boss selector -->
+
+        <div class="boss-selector">
+
+
+            <button
+                id="kaitenButton"
+                class="boss-button active"
+                type="button"
+            >
+
+                <span class="boss-small">
+                    BOSS SEASON
+                </span>
+
+                <span class="boss-name">
+                    KAITEN
+                </span>
+
+            </button>
+
+
+
+            <button
+                id="kurokageButton"
+                class="boss-button"
+                type="button"
+            >
+
+                <span class="boss-small">
+                    BOSS SEASON
+                </span>
+
+                <span class="boss-name">
+                    KUROKAGE
+                </span>
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- Score panel -->
+
+        <div
+            id="bossPanel"
+            class="boss-panel"
+        >
+
+
+            <div class="panel-decoration panel-tl"></div>
+            <div class="panel-decoration panel-tr"></div>
+            <div class="panel-decoration panel-bl"></div>
+            <div class="panel-decoration panel-br"></div>
+
+
+            <div
+                id="bossPanelTitle"
+                class="boss-panel-title"
+            >
+                KAITEN
+            </div>
+
+
+            <div class="boss-panel-subtitle">
+                BOSS SCORE RANKING
+            </div>
+
+
+            <div class="boss-panel-line"></div>
+
+
+            <div class="boss-panel-wip">
+                WIP
+            </div>
+
+
+            <div
+                id="bossPanelDescription"
+                class="boss-panel-description"
+            >
+                KAITEN MEMBER SCORE WILL APPEAR HERE
+            </div>
+
+
+        </div>
+
+
+
+        <!-- Back -->
 
         <button
-            id="backButton"
+            id="leaderboardBackButton"
             class="back-button"
             type="button"
         >
-
             BACK
-
         </button>
 
-    </section>
+
+    </div>
+
+</section>
 
 
 
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
 
-    <script
-        src="./script.js"
-    ></script>
+<!-- =========================================================
+     PAT IZUNA SCREEN
+     ========================================================= -->
+
+<section
+    id="petScreen"
+    class="screen secondary-screen pet-screen"
+>
+
+
+    <div class="secondary-background"></div>
+
+    <div class="secondary-overlay"></div>
+
+
+    <div class="secondary-container pet-container">
+
+
+        <!-- Header -->
+
+        <div class="secondary-header">
+
+            <div class="section-kicker">
+                HYAKKIYAKO CLUB
+            </div>
+
+            <div class="section-title">
+                PAT IZUNA
+            </div>
+
+            <div class="section-line"></div>
+
+        </div>
+
+
+
+        <!-- Score -->
+
+        <div class="pet-score">
+
+            You have pet Izuna for
+
+            <span id="petSeconds">
+                0.0
+            </span>
+
+            second
+
+        </div>
+
+
+
+        <!-- Izuna -->
+
+        <div
+            id="izunaArea"
+            class="izuna-area"
+        >
+
+
+            <img
+                id="izunaStatic"
+                class="izuna-image"
+                src="./izuna-static.png"
+                alt="Izuna"
+                draggable="false"
+            >
+
+
+            <img
+                id="izunaPet"
+                class="izuna-image izuna-pet"
+                src="./izuna-pet.png"
+                alt="Izuna"
+                draggable="false"
+            >
+
+
+            <div class="pet-glow"></div>
+
+
+        </div>
+
+
+
+        <div
+            id="petInstruction"
+            class="pet-instruction"
+        >
+            RUB IZUNA'S HEAD
+        </div>
+
+
+
+        <!-- Back -->
+
+        <button
+            id="petBackButton"
+            class="back-button"
+            type="button"
+        >
+            BACK
+        </button>
+
+
+    </div>
+
+</section>
+
+
+
+<script src="./script.js"></script>
 
 </body>
 
