@@ -81,16 +81,6 @@
 
 
 <!-- =====================================================
-     PARTICLE CANVAS
-===================================================== -->
-
-<canvas
-    id="particleCanvas"
-></canvas>
-
-
-
-<!-- =====================================================
      MENU SCREEN
 ===================================================== -->
 
@@ -100,7 +90,23 @@
 >
 
 
-    <!-- Background -->
+    <!-- =====================================================
+         PARTICLE CANVAS
+         
+         สำคัญ:
+         Canvas ถูกย้ายเข้ามาอยู่ใน Menu Screen
+         เพื่อให้ Sakura อยู่เหนือ Background
+         แต่ยังอยู่ใต้ Logo และปุ่ม
+    ===================================================== -->
+
+    <canvas
+        id="particleCanvas"
+    ></canvas>
+
+
+    <!-- =====================================================
+         BACKGROUND
+    ===================================================== -->
 
     <div
         id="menuBackground"
@@ -124,8 +130,9 @@
     </div>
 
 
-
-    <!-- Logo -->
+    <!-- =====================================================
+         LOGO
+    ===================================================== -->
 
     <div
         id="logoContainer"
@@ -142,8 +149,9 @@
     </div>
 
 
-
-    <!-- Menu buttons -->
+    <!-- =====================================================
+         MENU BUTTONS
+    ===================================================== -->
 
     <div
         id="menuButtons"
@@ -153,6 +161,7 @@
         <button
             id="leaderboardButton"
             class="menu-button"
+            type="button"
         >
 
             <span>
@@ -169,6 +178,7 @@
         <button
             id="patButton"
             class="menu-button"
+            type="button"
         >
 
             <span>
@@ -184,8 +194,9 @@
     </div>
 
 
-
-    <!-- Day / Night -->
+    <!-- =====================================================
+         DAY / NIGHT
+    ===================================================== -->
 
     <button
         id="modeToggle"
@@ -211,7 +222,6 @@
 </section>
 
 
-
 <!-- =====================================================
      LEADERBOARD SCREEN
 ===================================================== -->
@@ -227,7 +237,7 @@
     >
 
 
-        <!-- Header -->
+        <!-- HEADER -->
 
         <div
             class="leaderboard-header"
@@ -248,8 +258,7 @@
         </div>
 
 
-
-        <!-- Boss selector -->
+        <!-- BOSS SELECTOR -->
 
         <div
             class="boss-selector"
@@ -258,13 +267,18 @@
             <button
                 id="ta85Button"
                 class="boss-button"
+                type="button"
             >
 
-                <span class="boss-code">
+                <span
+                    class="boss-code"
+                >
                     TA85
                 </span>
 
-                <span class="boss-name">
+                <span
+                    class="boss-name"
+                >
                     KAITEN
                 </span>
 
@@ -274,13 +288,18 @@
             <button
                 id="ga33Button"
                 class="boss-button active"
+                type="button"
             >
 
-                <span class="boss-code">
+                <span
+                    class="boss-code"
+                >
                     GA33
                 </span>
 
-                <span class="boss-name">
+                <span
+                    class="boss-name"
+                >
                     KUROKAGE
                 </span>
 
@@ -289,8 +308,7 @@
         </div>
 
 
-
-        <!-- Leaderboard content -->
+        <!-- LEADERBOARD -->
 
         <div
             id="leaderboardContent"
@@ -301,16 +319,16 @@
     </div>
 
 
-
     <button
         id="leaderboardBackButton"
         class="back-button"
+        type="button"
     >
         BACK
     </button>
 
-</section>
 
+</section>
 
 
 <!-- =====================================================
@@ -399,18 +417,19 @@
     <button
         id="izunaBackButton"
         class="back-button"
+        type="button"
     >
         BACK
     </button>
 
-</section>
 
+</section>
 
 
 <script
     src="./script.js"
 ></script>
 
-</body>
 
+</body>
 </html>
