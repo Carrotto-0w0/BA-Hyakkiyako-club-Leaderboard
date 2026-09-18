@@ -1,6 +1,6 @@
 /* =====================================================
    HYAKKIYAKO CLUB
-   Main JavaScript
+   MAIN SCRIPT
 ===================================================== */
 
 
@@ -8,80 +8,1352 @@
    ELEMENTS
 ===================================================== */
 
-const menuScreen =
-    document.getElementById("menuScreen");
-
-const leaderboardScreen =
-    document.getElementById("leaderboardScreen");
-
-const izunaScreen =
-    document.getElementById("izunaScreen");
-
-const logoContainer =
-    document.getElementById("logoContainer");
-
-const mainLogo =
-    document.getElementById("mainLogo");
-
-const leaderboardButton =
-    document.getElementById("leaderboardButton");
-
-const patButton =
-    document.getElementById("patButton");
-
-const leaderboardBackButton =
-    document.getElementById("leaderboardBackButton");
-
-const izunaBackButton =
-    document.getElementById("izunaBackButton");
-
-const modeToggle =
-    document.getElementById("modeToggle");
-
-const modeIcon =
-    document.getElementById("modeIcon");
-
-const modeText =
-    document.getElementById("modeText");
-
-const leaderboardList =
-    document.getElementById("leaderboardList");
-
-const seasonButtons =
-    document.querySelectorAll(".season-option");
-
 const canvas =
-    document.getElementById("particleCanvas");
+    document.getElementById(
+        "particleCanvas"
+    );
 
 const ctx =
     canvas.getContext("2d");
 
+
+const menuScreen =
+    document.getElementById(
+        "menuScreen"
+    );
+
+const leaderboardScreen =
+    document.getElementById(
+        "leaderboardScreen"
+    );
+
+const izunaScreen =
+    document.getElementById(
+        "izunaScreen"
+    );
+
+
+const logo =
+    document.getElementById(
+        "logo"
+    );
+
+const logoContainer =
+    document.getElementById(
+        "logoContainer"
+    );
+
+
+const leaderboardButton =
+    document.getElementById(
+        "leaderboardButton"
+    );
+
+const patButton =
+    document.getElementById(
+        "patButton"
+    );
+
+
+const leaderboardBackButton =
+    document.getElementById(
+        "leaderboardBackButton"
+    );
+
+const izunaBackButton =
+    document.getElementById(
+        "izunaBackButton"
+    );
+
+
+const modeToggle =
+    document.getElementById(
+        "modeToggle"
+    );
+
+const modeIcon =
+    document.getElementById(
+        "modeIcon"
+    );
+
+const modeText =
+    document.getElementById(
+        "modeText"
+    );
+
+
+const ta85Button =
+    document.getElementById(
+        "ta85Button"
+    );
+
+const ga33Button =
+    document.getElementById(
+        "ga33Button"
+    );
+
+
+const leaderboardContent =
+    document.getElementById(
+        "leaderboardContent"
+    );
+
+
 const izunaArea =
-    document.getElementById("izunaArea");
+    document.getElementById(
+        "izunaArea"
+    );
 
 const izunaStatic =
-    document.getElementById("izunaStatic");
+    document.getElementById(
+        "izunaStatic"
+    );
 
 const izunaPet =
-    document.getElementById("izunaPet");
+    document.getElementById(
+        "izunaPet"
+    );
 
 const petSeconds =
-    document.getElementById("petSeconds");
+    document.getElementById(
+        "petSeconds"
+    );
 
-const petInstruction =
-    document.getElementById("petInstruction");
+
+
+/* =====================================================
+   CANVAS SIZE
+===================================================== */
+
+let width = 0;
+let height = 0;
+
+
+function resizeCanvas() {
+
+    width =
+        window.innerWidth;
+
+    height =
+        window.innerHeight;
+
+    canvas.width =
+        width;
+
+    canvas.height =
+        height;
+
+}
+
+
+resizeCanvas();
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+
+/* =====================================================
+   PARTICLE ARRAYS
+===================================================== */
+
+const fallingPetals = [];
+
+const logoParticles = [];
+
+const burstParticles = [];
+
+
+
+/* =====================================================
+   FALLING SAKURA PETAL
+   กลีบเดี่ยวเท่านั้น
+===================================================== */
+
+class FallingPetal {
+
+    constructor() {
+
+        this.reset(true);
+
+    }
+
+
+    reset(first = false) {
+
+        this.x =
+            Math.random() * width;
+
+        this.y =
+            first
+                ? Math.random() * height
+                : -30 - Math.random() * 100;
+
+
+        this.size =
+            Math.random() * 5 + 4;
+
+
+        this.speed =
+            Math.random() * 0.75 + 0.45;
+
+
+        this.wave =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        this.waveSpeed =
+            Math.random() * 0.018 +
+            0.008;
+
+
+        this.waveAmount =
+            Math.random() * 1.1 +
+            0.45;
+
+
+        this.rotation =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        this.rotationSpeed =
+            Math.random() * 0.025 -
+            0.0125;
+
+
+        this.alpha =
+            Math.random() * 0.35 +
+            0.45;
+
+    }
+
+
+    update() {
+
+        this.y +=
+            this.speed;
+
+
+        this.wave +=
+            this.waveSpeed;
+
+
+        this.x +=
+            Math.sin(
+                this.wave
+            ) *
+            this.waveAmount;
+
+
+        this.rotation +=
+            this.rotationSpeed;
+
+
+        if (
+            this.y >
+            height + 30
+        ) {
+
+            this.reset();
+
+        }
+
+    }
+
+
+    draw() {
+
+        ctx.save();
+
+
+        ctx.translate(
+            this.x,
+            this.y
+        );
+
+
+        ctx.rotate(
+            this.rotation
+        );
+
+
+        ctx.globalAlpha =
+            this.alpha;
+
+
+        ctx.fillStyle =
+            "#ff9dcc";
+
+
+        ctx.shadowBlur =
+            6;
+
+
+        ctx.shadowColor =
+            "#ff69b4";
+
+
+        /*
+            กลีบ Sakura เดี่ยว
+        */
+
+        ctx.beginPath();
+
+
+        ctx.moveTo(
+            0,
+            -this.size
+        );
+
+
+        ctx.bezierCurveTo(
+
+            this.size * 0.75,
+            -this.size * 0.8,
+
+            this.size * 0.95,
+            this.size * 0.15,
+
+            this.size * 0.35,
+            this.size * 0.75
+
+        );
+
+
+        ctx.bezierCurveTo(
+
+            0,
+            this.size * 1.05,
+
+            -this.size * 0.65,
+            this.size * 0.75,
+
+            -this.size * 0.45,
+            0
+
+        );
+
+
+        ctx.bezierCurveTo(
+
+            -this.size * 0.55,
+            -this.size * 0.55,
+
+            -this.size * 0.25,
+            -this.size * 0.9,
+
+            0,
+            -this.size
+
+        );
+
+
+        ctx.closePath();
+
+        ctx.fill();
+
+
+        ctx.restore();
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CREATE FALLING PETALS
+===================================================== */
+
+for (
+    let i = 0;
+    i < 45;
+    i++
+) {
+
+    fallingPetals.push(
+        new FallingPetal()
+    );
+
+}
+
+
+
+/* =====================================================
+   LOGO DISSOLVE PARTICLE
+===================================================== */
+
+class LogoParticle {
+
+    constructor(
+        x,
+        y
+    ) {
+
+        this.x = x;
+
+        this.y = y;
+
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const speed =
+            Math.random() *
+            3.5 +
+            0.8;
+
+
+        this.vx =
+            Math.cos(angle) *
+            speed;
+
+
+        this.vy =
+            Math.sin(angle) *
+            speed;
+
+
+        this.vy -=
+            Math.random() *
+            1.4;
+
+
+        this.size =
+            Math.random() *
+            2 +
+            0.6;
+
+
+        this.life = 1;
+
+
+        this.decay =
+            Math.random() *
+            0.018 +
+            0.006;
+
+
+        this.wave =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        this.waveSpeed =
+            Math.random() *
+            0.08 +
+            0.02;
+
+    }
+
+
+    update() {
+
+        this.wave +=
+            this.waveSpeed;
+
+
+        this.x +=
+            this.vx;
+
+
+        this.y +=
+            this.vy;
+
+
+        this.vx *=
+            0.985;
+
+
+        this.vy *=
+            0.985;
+
+
+        this.x +=
+            Math.sin(
+                this.wave
+            ) *
+            0.35;
+
+
+        this.life -=
+            this.decay;
+
+
+        return (
+            this.life > 0
+        );
+
+    }
+
+
+    draw() {
+
+        ctx.save();
+
+
+        ctx.globalAlpha =
+            this.life;
+
+
+        ctx.fillStyle =
+            "#ffb0d8";
+
+
+        ctx.shadowBlur =
+            12;
+
+
+        ctx.shadowColor =
+            "#ff69b4";
+
+
+        ctx.beginPath();
+
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+
+        ctx.fill();
+
+
+        ctx.restore();
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CREATE LOGO DISSOLVE
+===================================================== */
+
+function createLogoParticles() {
+
+    logoParticles.length =
+        0;
+
+
+    if (
+        !logo.complete ||
+        logo.naturalWidth === 0
+    ) {
+
+        createFallbackLogoParticles();
+
+        return;
+
+    }
+
+
+    const rect =
+        logo.getBoundingClientRect();
+
+
+    const tempCanvas =
+        document.createElement(
+            "canvas"
+        );
+
+
+    const tempCtx =
+        tempCanvas.getContext(
+            "2d"
+        );
+
+
+    const logoWidth =
+        Math.max(
+            1,
+            Math.floor(
+                rect.width
+            )
+        );
+
+
+    const ratio =
+        logo.naturalHeight /
+        logo.naturalWidth;
+
+
+    const logoHeight =
+        Math.max(
+            1,
+            Math.floor(
+                logoWidth * ratio
+            )
+        );
+
+
+    tempCanvas.width =
+        logoWidth;
+
+
+    tempCanvas.height =
+        logoHeight;
+
+
+    tempCtx.drawImage(
+
+        logo,
+
+        0,
+        0,
+
+        logoWidth,
+        logoHeight
+
+    );
+
+
+    const pixels =
+        tempCtx.getImageData(
+
+            0,
+            0,
+
+            logoWidth,
+            logoHeight
+
+        ).data;
+
+
+    const sample = 5;
+
+
+    for (
+        let y = 0;
+        y < logoHeight;
+        y += sample
+    ) {
+
+        for (
+            let x = 0;
+            x < logoWidth;
+            x += sample
+        ) {
+
+            const index =
+                (
+                    y *
+                    logoWidth +
+                    x
+                ) * 4;
+
+
+            const alpha =
+                pixels[
+                    index + 3
+                ];
+
+
+            if (
+                alpha > 80 &&
+                Math.random() > 0.2
+            ) {
+
+                logoParticles.push(
+
+                    new LogoParticle(
+
+                        rect.left + x,
+
+                        rect.top + y
+
+                    )
+
+                );
+
+            }
+
+        }
+
+    }
+
+
+    if (
+        logoParticles.length === 0
+    ) {
+
+        createFallbackLogoParticles();
+
+    }
+
+}
+
+
+
+/* =====================================================
+   FALLBACK LOGO PARTICLES
+===================================================== */
+
+function createFallbackLogoParticles() {
+
+    const rect =
+        logo.getBoundingClientRect();
+
+
+    for (
+        let i = 0;
+        i < 300;
+        i++
+    ) {
+
+        const x =
+            rect.left +
+            Math.random() *
+            rect.width;
+
+
+        const y =
+            rect.top +
+            Math.random() *
+            rect.height;
+
+
+        logoParticles.push(
+
+            new LogoParticle(
+                x,
+                y
+            )
+
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   SAKURA BURST
+   จุดกำเนิด = กึ่งกลาง Logo จริง
+===================================================== */
+
+class BurstPetal {
+
+    constructor(
+        x,
+        y
+    ) {
+
+        this.x = x;
+
+        this.y = y;
+
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const force =
+            Math.random() *
+            5 +
+            2;
+
+
+        this.vx =
+            Math.cos(angle) *
+            force;
+
+
+        this.vy =
+            Math.sin(angle) *
+            force;
+
+
+        this.size =
+            Math.random() *
+            5 +
+            3;
+
+
+        this.rotation =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        this.rotationSpeed =
+            Math.random() *
+            0.08 -
+            0.04;
+
+
+        this.life =
+            Math.random() *
+            35 +
+            40;
+
+    }
+
+
+    update() {
+
+        this.x +=
+            this.vx;
+
+
+        this.y +=
+            this.vy;
+
+
+        this.vx *=
+            0.985;
+
+
+        this.vy *=
+            0.985;
+
+
+        this.vy +=
+            0.025;
+
+
+        this.rotation +=
+            this.rotationSpeed;
+
+
+        this.life -= 1;
+
+
+        return (
+            this.life > 0
+        );
+
+    }
+
+
+    draw() {
+
+        ctx.save();
+
+
+        ctx.translate(
+            this.x,
+            this.y
+        );
+
+
+        ctx.rotate(
+            this.rotation
+        );
+
+
+        ctx.globalAlpha =
+            Math.max(
+                0,
+                this.life / 75
+            );
+
+
+        ctx.fillStyle =
+            "#ff9dcc";
+
+
+        ctx.shadowBlur =
+            9;
+
+
+        ctx.shadowColor =
+            "#ff69b4";
+
+
+        const s =
+            this.size;
+
+
+        ctx.beginPath();
+
+
+        ctx.moveTo(
+            0,
+            -s
+        );
+
+
+        ctx.bezierCurveTo(
+
+            s * 0.75,
+            -s * 0.8,
+
+            s * 0.95,
+            s * 0.15,
+
+            s * 0.35,
+            s * 0.75
+
+        );
+
+
+        ctx.bezierCurveTo(
+
+            0,
+            s * 1.05,
+
+            -s * 0.65,
+            s * 0.75,
+
+            -s * 0.45,
+            0
+
+        );
+
+
+        ctx.bezierCurveTo(
+
+            -s * 0.55,
+            -s * 0.55,
+
+            -s * 0.25,
+            -s * 0.9,
+
+            0,
+            -s
+
+        );
+
+
+        ctx.closePath();
+
+        ctx.fill();
+
+
+        ctx.restore();
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CREATE BURST FROM LOGO
+===================================================== */
+
+function createBurst() {
+
+    burstParticles.length =
+        0;
+
+
+    /*
+        สำคัญ:
+        Logo ยังอยู่ใน DOM
+        และยังมีตำแหน่งจริง
+        ตอน function นี้ทำงาน
+    */
+
+    const rect =
+        logo.getBoundingClientRect();
+
+
+    /*
+        Canvas เป็น fixed 100vw x 100vh
+        ดังนั้นพิกัด Logo
+        สามารถใช้ตรงกับ Canvas ได้
+    */
+
+    const burstX =
+        rect.left +
+        rect.width / 2;
+
+
+    const burstY =
+        rect.top +
+        rect.height / 2;
+
+
+    for (
+        let i = 0;
+        i < 150;
+        i++
+    ) {
+
+        burstParticles.push(
+
+            new BurstPetal(
+                burstX,
+                burstY
+            )
+
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   SCREEN CONTROL
+===================================================== */
+
+function showScreen(
+    screen
+) {
+
+    menuScreen.classList.remove(
+        "active"
+    );
+
+    leaderboardScreen.classList.remove(
+        "active"
+    );
+
+    izunaScreen.classList.remove(
+        "active"
+    );
+
+
+    screen.classList.add(
+        "active"
+    );
+
+}
+
+
+
+/* =====================================================
+   INITIAL MENU
+===================================================== */
+
+menuScreen.classList.add(
+    "active"
+);
+
+
+
+/* =====================================================
+   DAY / NIGHT
+===================================================== */
+
+let isNight = false;
+
+
+modeToggle.addEventListener(
+    "click",
+    () => {
+
+        isNight =
+            !isNight;
+
+
+        /*
+            Background crossfade
+            ทำงานผ่าน CSS
+        */
+
+        document.body.classList.toggle(
+            "night-mode",
+            isNight
+        );
+
+
+        /*
+            Fade icon ก่อนเปลี่ยน
+        */
+
+        modeIcon.style.opacity =
+            "0";
+
+        modeText.style.opacity =
+            "0";
+
+
+        setTimeout(
+            () => {
+
+                if (isNight) {
+
+                    modeIcon.textContent =
+                        "☾";
+
+                    modeText.textContent =
+                        "NIGHT";
+
+                } else {
+
+                    modeIcon.textContent =
+                        "☀";
+
+                    modeText.textContent =
+                        "DAY";
+
+                }
+
+
+                modeIcon.style.opacity =
+                    "1";
+
+                modeText.style.opacity =
+                    "1";
+
+            },
+            180
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   TRANSITION STATE
+===================================================== */
+
+let isTransitioning =
+    false;
+
+
+
+/* =====================================================
+   GO TO LEADERBOARD
+===================================================== */
+
+function openLeaderboard() {
+
+    if (
+        isTransitioning
+    ) {
+
+        return;
+
+    }
+
+
+    isTransitioning =
+        true;
+
+
+    /*
+        ซ่อนปุ่ม
+    */
+
+    document.getElementById(
+        "menuButtons"
+    ).style.opacity =
+        "0";
+
+
+    document.getElementById(
+        "menuButtons"
+    ).style.pointerEvents =
+        "none";
+
+
+    /*
+        สร้าง dissolve
+        จาก Logo
+    */
+
+    createLogoParticles();
+
+
+    /*
+        Burst ต้องเกิด
+        จากตำแหน่ง Logo
+        ก่อน Logo ถูกซ่อน
+    */
+
+    setTimeout(
+        () => {
+
+            createBurst();
+
+        },
+        180
+    );
+
+
+    /*
+        Logo dissolve
+    */
+
+    setTimeout(
+        () => {
+
+            logoContainer.style.opacity =
+                "0";
+
+            logoContainer.style.transform =
+                "scale(1.06)";
+
+            logoContainer.style.filter =
+                "blur(6px)";
+
+        },
+        50
+    );
+
+
+    /*
+        เปิด Leaderboard
+    */
+
+    setTimeout(
+        () => {
+
+            showScreen(
+                leaderboardScreen
+            );
+
+        },
+        900
+    );
+
+
+    /*
+        reset state
+    */
+
+    setTimeout(
+        () => {
+
+            isTransitioning =
+                false;
+
+        },
+        1200
+    );
+
+}
+
+
+
+/* =====================================================
+   GO TO IZUNA
+===================================================== */
+
+function openIzuna() {
+
+    showScreen(
+        izunaScreen
+    );
+
+}
+
+
+
+/* =====================================================
+   BACK TO MENU
+===================================================== */
+
+function goBackToMenu() {
+
+    leaderboardScreen.classList.remove(
+        "active"
+    );
+
+    izunaScreen.classList.remove(
+        "active"
+    );
+
+
+    setTimeout(
+        () => {
+
+            menuScreen.classList.add(
+                "active"
+            );
+
+
+            logoContainer.style.opacity =
+                "1";
+
+
+            logoContainer.style.transform =
+                "scale(1)";
+
+
+            logoContainer.style.filter =
+                "none";
+
+
+            document.getElementById(
+                "menuButtons"
+            ).style.opacity =
+                "1";
+
+
+            document.getElementById(
+                "menuButtons"
+            ).style.pointerEvents =
+                "auto";
+
+
+            logoParticles.length =
+                0;
+
+
+            burstParticles.length =
+                0;
+
+
+            isTransitioning =
+                false;
+
+        },
+        300
+    );
+
+}
+
+
+
+/* =====================================================
+   BUTTON EVENTS
+===================================================== */
+
+leaderboardButton.addEventListener(
+    "click",
+    openLeaderboard
+);
+
+
+patButton.addEventListener(
+    "click",
+    openIzuna
+);
+
+
+leaderboardBackButton.addEventListener(
+    "click",
+    goBackToMenu
+);
+
+
+izunaBackButton.addEventListener(
+    "click",
+    goBackToMenu
+);
+
 
 
 /* =====================================================
    LEADERBOARD DATA
 ===================================================== */
-
-/*
-    Kurokage data is based on the supplied
-    "Kurokage rank.pdf".
-
-    #N/A is intentionally preserved.
-*/
 
 const kuroKageData = [
 
@@ -241,17 +1513,6 @@ const kuroKageData = [
         score: "4662"
     },
 
-    /*
-        หมายเหตุ:
-        PDF extraction มีบรรทัดของ #27/#28
-        ติดกันเป็น
-        "NW2M 656628 「SH」Fournier6655"
-
-        จึงแยกเป็นค่าที่อ่านได้จาก source:
-        #27 NW2M 6566
-        #28 「SH」Fournier 6655
-    */
-
     {
         rank: 27,
         name: "NW2M",
@@ -363,479 +1624,6 @@ const kuroKageData = [
 ];
 
 
-/*
-    KAITEN
-
-    ยังไม่มีข้อมูลคะแนนจากผู้ใช้
-    จึงไม่ใส่ข้อมูลปลอม
-*/
-
-const kaitenData = [];
-
-
-/* =====================================================
-   CURRENT SEASON
-===================================================== */
-
-let currentSeason =
-    "kurokage";
-
-
-/* =====================================================
-   SCREEN CONTROL
-===================================================== */
-
-function showScreen(screen) {
-
-    document
-        .querySelectorAll(".screen")
-        .forEach(item => {
-
-            item.classList.remove("active");
-
-        });
-
-    screen.classList.add("active");
-}
-
-
-/* =====================================================
-   MENU -> LEADERBOARD
-===================================================== */
-
-leaderboardButton.addEventListener(
-    "click",
-    () => {
-
-        startLogoTransition(
-            () => {
-
-                showScreen(
-                    leaderboardScreen
-                );
-
-            }
-        );
-
-    }
-);
-
-
-/* =====================================================
-   MENU -> IZUNA
-===================================================== */
-
-patButton.addEventListener(
-    "click",
-    () => {
-
-        startLogoTransition(
-            () => {
-
-                showScreen(
-                    izunaScreen
-                );
-
-            }
-        );
-
-    }
-);
-
-
-/* =====================================================
-   BACK
-===================================================== */
-
-leaderboardBackButton.addEventListener(
-    "click",
-    () => {
-
-        stopPetting();
-
-        showScreen(
-            menuScreen
-        );
-
-        restoreLogo();
-
-    }
-);
-
-
-izunaBackButton.addEventListener(
-    "click",
-    () => {
-
-        stopPetting();
-
-        showScreen(
-            menuScreen
-        );
-
-        restoreLogo();
-
-    }
-);
-
-
-/* =====================================================
-   LOGO TRANSITION
-===================================================== */
-
-function startLogoTransition(callback) {
-
-    logoContainer.classList.add(
-        "logo-disappear"
-    );
-
-    createSakuraBurst();
-
-    setTimeout(
-        () => {
-
-            callback();
-
-        },
-        500
-    );
-
-}
-
-
-function restoreLogo() {
-
-    logoContainer.classList.remove(
-        "logo-disappear"
-    );
-
-}
-
-
-/* =====================================================
-   SEASON BUTTONS
-===================================================== */
-
-seasonButtons.forEach(
-    button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                seasonButtons.forEach(
-                    item => {
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-                button.classList.add(
-                    "active"
-                );
-
-                currentSeason =
-                    button.dataset.season;
-
-                renderLeaderboard();
-
-            }
-        );
-
-    }
-);
-
-
-/* =====================================================
-   RENDER LEADERBOARD
-===================================================== */
-
-function renderLeaderboard() {
-
-    leaderboardList.innerHTML = "";
-
-    let data;
-
-    if (
-        currentSeason ===
-        "kaiten"
-    ) {
-
-        data =
-            kaitenData;
-
-    } else {
-
-        data =
-            kuroKageData;
-
-    }
-
-
-    /*
-        No Kaiten data yet.
-    */
-
-    if (
-        data.length === 0
-    ) {
-
-        const empty =
-            document.createElement(
-                "div"
-            );
-
-        empty.className =
-            "rank-row";
-
-        empty.style.display =
-            "flex";
-
-        empty.style.justifyContent =
-            "center";
-
-        empty.style.textAlign =
-            "center";
-
-        empty.innerHTML = `
-            <div>
-                <div class="rank-name">
-                    KAITEN SCORE DATA
-                </div>
-
-                <div
-                    style="
-                    margin-top:6px;
-                    color:rgba(255,190,225,.55);
-                    font-size:11px;
-                    letter-spacing:.12em;
-                    "
-                >
-                    AWAITING SCORE DATA
-                </div>
-            </div>
-        `;
-
-        leaderboardList.appendChild(
-            empty
-        );
-
-        return;
-
-    }
-
-
-    /*
-        TOP 3
-    */
-
-    const topThree =
-        document.createElement(
-            "div"
-        );
-
-    topThree.className =
-        "top-three";
-
-
-    data
-        .slice(0, 3)
-        .forEach(
-            player => {
-
-                const card =
-                    createHeroCard(
-                        player
-                    );
-
-                topThree.appendChild(
-                    card
-                );
-
-            }
-        );
-
-
-    leaderboardList.appendChild(
-        topThree
-    );
-
-
-    /*
-        #4 onward
-    */
-
-    data
-        .slice(3)
-        .forEach(
-            player => {
-
-                const row =
-                    createRankRow(
-                        player
-                    );
-
-                leaderboardList.appendChild(
-                    row
-                );
-
-            }
-        );
-
-}
-
-
-/* =====================================================
-   HERO CARD
-===================================================== */
-
-function createHeroCard(
-    player
-) {
-
-    const card =
-        document.createElement(
-            "article"
-        );
-
-    card.className =
-        "hero-card";
-
-
-    let decoration =
-        "✦";
-
-    if (
-        player.rank === 1
-    ) {
-
-        decoration =
-            "♛";
-
-    } else if (
-        player.rank === 2
-    ) {
-
-        decoration =
-            "✦";
-
-    } else if (
-        player.rank === 3
-    ) {
-
-        decoration =
-            "✧";
-
-    }
-
-
-    const isNA =
-        player.score === "#N/A";
-
-
-    card.innerHTML = `
-
-        <div class="hero-decoration">
-            ${decoration}
-        </div>
-
-        <div class="hero-rank">
-            #${player.rank}
-        </div>
-
-        <div class="hero-name">
-            ${escapeHTML(player.name)}
-
-            ${
-                isNA
-                ?
-                `
-                <span
-                    class="na-warning"
-                    title="Ranking data unavailable"
-                >
-                    !
-                </span>
-                `
-                :
-                ""
-            }
-        </div>
-
-        <div class="hero-score">
-    ${escapeHTML(player.score)}
-</div>
-
-    `;
-
-    return card;
-
-}
-
-
-/* =====================================================
-   NORMAL RANK ROW
-===================================================== */
-
-function createRankRow(
-    player
-) {
-
-    const row =
-        document.createElement(
-            "article"
-        );
-
-    row.className =
-        "rank-row";
-
-
-    const isNA =
-        player.score === "#N/A";
-
-
-    row.innerHTML = `
-
-        <div class="rank-number">
-            #${player.rank}
-        </div>
-
-        <div class="rank-name">
-
-            <span class="rank-name-text">
-                ${escapeHTML(player.name)}
-            </span>
-
-            ${
-                isNA
-                ?
-                `
-                <span
-                    class="na-warning"
-                    title="Ranking data unavailable"
-                >
-                    !
-                </span>
-                `
-                :
-                ""
-            }
-
-        </div>
-
-        <div class="rank-score">
-            ${escapeHTML(player.score)}
-        </div>
-
-    `;
-
-    return row;
-
-}
-
 
 /* =====================================================
    HTML ESCAPE
@@ -846,22 +1634,27 @@ function escapeHTML(
 ) {
 
     return String(value)
+
         .replace(
             /&/g,
             "&amp;"
         )
+
         .replace(
             /</g,
             "&lt;"
         )
+
         .replace(
             />/g,
             "&gt;"
         )
+
         .replace(
             /"/g,
             "&quot;"
         )
+
         .replace(
             /'/g,
             "&#039;"
@@ -870,532 +1663,281 @@ function escapeHTML(
 }
 
 
+
 /* =====================================================
-   DAY / NIGHT MODE
+   RANK NAME
 ===================================================== */
 
-let isNight =
-    false;
+function rankNameHTML(
+    player
+) {
+
+    const name =
+        escapeHTML(
+            player.name
+        );
 
 
-modeToggle.addEventListener(
+    if (
+        player.score === "#N/A"
+    ) {
+
+        return `
+
+            <span>
+                ${name}
+            </span>
+
+            <span
+                class="rank-warning"
+                title="RANKING DATA UNAVAILABLE"
+            >
+                !
+            </span>
+
+        `;
+
+    }
+
+
+    return name;
+
+}
+
+
+
+/* =====================================================
+   HERO CARD
+===================================================== */
+
+function createHeroCard(
+    player
+) {
+
+    const isNA =
+        player.score === "#N/A";
+
+
+    let crown = "";
+
+
+    if (
+        player.rank === 1
+    ) {
+
+        crown =
+            `<div class="hero-crown">♛</div>`;
+
+    }
+
+
+    return `
+
+        <div class="hero-card">
+
+            ${crown}
+
+            <div class="hero-rank">
+                #${player.rank}
+            </div>
+
+            <div class="hero-name">
+                ${rankNameHTML(player)}
+            </div>
+
+            <div
+                class="hero-score ${isNA ? "hero-na" : ""}"
+            >
+                ${escapeHTML(player.score)}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   NORMAL ROW
+===================================================== */
+
+function createRankRow(
+    player
+) {
+
+    return `
+
+        <div class="rank-row">
+
+            <div class="rank-number">
+                #${player.rank}
+            </div>
+
+            <div class="rank-name">
+                ${rankNameHTML(player)}
+            </div>
+
+            <div class="rank-score">
+                ${escapeHTML(player.score)}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   RENDER KUROKAGE
+===================================================== */
+
+function renderKurokage() {
+
+    const topThree =
+        kuroKageData.slice(
+            0,
+            3
+        );
+
+
+    const remaining =
+        kuroKageData.slice(
+            3
+        );
+
+
+    leaderboardContent.innerHTML = `
+
+        <div class="hero-rankings">
+
+            ${topThree
+                .map(
+                    createHeroCard
+                )
+                .join("")}
+
+        </div>
+
+
+        <div class="ranking-list">
+
+            ${remaining
+                .map(
+                    createRankRow
+                )
+                .join("")}
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   RENDER TA85
+===================================================== */
+
+function renderTA85() {
+
+    leaderboardContent.innerHTML = `
+
+        <div class="wip-panel">
+
+            <div class="wip-title">
+                TA85 / KAITEN
+            </div>
+
+            <div class="wip-text">
+                RANKING DATA WILL APPEAR HERE
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   BOSS BUTTONS
+===================================================== */
+
+function activateBoss(
+    activeButton
+) {
+
+    ta85Button.classList.remove(
+        "active"
+    );
+
+    ga33Button.classList.remove(
+        "active"
+    );
+
+
+    activeButton.classList.add(
+        "active"
+    );
+
+}
+
+
+ta85Button.addEventListener(
     "click",
     () => {
 
-        isNight =
-            !isNight;
-
-        document.body.classList.toggle(
-            "night-mode",
-            isNight
+        activateBoss(
+            ta85Button
         );
 
-
-        if (isNight) {
-
-            modeIcon.textContent =
-                "☾";
-
-            modeText.textContent =
-                "NIGHT";
-
-        } else {
-
-            modeIcon.textContent =
-                "☀";
-
-            modeText.textContent =
-                "DAY";
-
-        }
+        renderTA85();
 
     }
 );
 
 
-/* =========================================================
-   SAKURA PARTICLES
-   ========================================================= */
+ga33Button.addEventListener(
+    "click",
+    () => {
 
-let particles = [];
+        activateBoss(
+            ga33Button
+        );
 
-const PARTICLE_COUNT = 75;
+        renderKurokage();
 
-
-function resizeCanvas() {
-
-    particleCanvas.width =
-        window.innerWidth *
-        window.devicePixelRatio;
-
-    particleCanvas.height =
-        window.innerHeight *
-        window.devicePixelRatio;
-
-    particleCanvas.style.width =
-        window.innerWidth + "px";
-
-    particleCanvas.style.height =
-        window.innerHeight + "px";
-
-    ctx.setTransform(
-        window.devicePixelRatio,
-        0,
-        0,
-        window.devicePixelRatio,
-        0,
-        0
-    );
-}
-
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
+    }
 );
 
 
-resizeCanvas();
 
+/* =====================================================
+   INITIAL LEADERBOARD
+===================================================== */
 
+renderKurokage();
 
-/* =========================================================
-   SAKURA PETAL
-   ========================================================= */
-
-class SakuraParticle {
-
-    constructor(
-        x = Math.random() * window.innerWidth,
-        y = Math.random() * window.innerHeight
-    ) {
-
-        this.x = x;
-
-        this.y = y;
-
-        this.size =
-            2.5 +
-            Math.random() * 4.5;
-
-        this.speedY =
-            0.25 +
-            Math.random() * 0.75;
-
-        this.speedX =
-            -0.35 +
-            Math.random() * 0.7;
-
-        this.rotation =
-            Math.random() * Math.PI * 2;
-
-        this.rotationSpeed =
-            -0.015 +
-            Math.random() * 0.03;
-
-        this.alpha =
-            0.25 +
-            Math.random() * 0.6;
-
-        this.wave =
-            Math.random() * Math.PI * 2;
-
-        this.waveSpeed =
-            0.008 +
-            Math.random() * 0.02;
-
-        this.color =
-            Math.random() > 0.5
-                ? "#FFD1E8"
-                : "#FF9FCB";
-
-    }
-
-
-    update() {
-
-        this.wave +=
-            this.waveSpeed;
-
-        this.x +=
-            this.speedX +
-            Math.sin(this.wave) * 0.35;
-
-        this.y +=
-            this.speedY;
-
-        this.rotation +=
-            this.rotationSpeed;
-
-
-        if (
-            this.y >
-            window.innerHeight + 20
-        ) {
-
-            this.y = -20;
-
-            this.x =
-                Math.random() *
-                window.innerWidth;
-        }
-
-
-        if (
-            this.x <
-            -30
-        ) {
-
-            this.x =
-                window.innerWidth + 20;
-
-        }
-
-
-        if (
-            this.x >
-            window.innerWidth + 30
-        ) {
-
-            this.x = -20;
-
-        }
-
-    }
-
-
-    draw() {
-
-        ctx.save();
-
-        ctx.translate(
-            this.x,
-            this.y
-        );
-
-        ctx.rotate(
-            this.rotation
-        );
-
-        ctx.globalAlpha =
-            this.alpha;
-
-        ctx.fillStyle =
-            this.color;
-
-
-        /* Sakura petal */
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            0,
-            -this.size
-        );
-
-        ctx.bezierCurveTo(
-            this.size,
-            -this.size * 0.7,
-            this.size,
-            this.size * 0.8,
-            0,
-            this.size
-        );
-
-        ctx.bezierCurveTo(
-            -this.size,
-            this.size * 0.8,
-            -this.size,
-            -this.size * 0.7,
-            0,
-            -this.size
-        );
-
-        ctx.fill();
-
-
-        /* Glow */
-
-        ctx.shadowBlur = 8;
-
-        ctx.shadowColor =
-            "#FF9FCB";
-
-
-        ctx.restore();
-
-    }
-
-}
-
-
-
-/* Create particles */
-
-for (
-    let i = 0;
-    i < PARTICLE_COUNT;
-    i++
-) {
-
-    particles.push(
-        new SakuraParticle()
-    );
-
-}
 
 
 /* =====================================================
-   SAKURA BURST PARTICLE
+   IZUNA PET SYSTEM
 ===================================================== */
-
-class SakuraParticle {
-
-    constructor(
-        x,
-        y
-    ) {
-
-        this.x =
-            x;
-
-        this.y =
-            y;
-
-        const angle =
-            Math.random() *
-            Math.PI *
-            2;
-
-        const speed =
-            Math.random() *
-            5 +
-            1.5;
-
-        this.vx =
-            Math.cos(angle) *
-            speed;
-
-        this.vy =
-            Math.sin(angle) *
-            speed;
-
-        this.size =
-            Math.random() *
-            3 +
-            1;
-
-        this.life =
-            1;
-
-        this.decay =
-            Math.random() *
-            0.018 +
-            0.012;
-
-        this.rotation =
-            Math.random() *
-            Math.PI *
-            2;
-
-        this.rotationSpeed =
-            Math.random() *
-            0.08 -
-            0.04;
-
-    }
-
-
-    update() {
-
-        this.x +=
-            this.vx;
-
-        this.y +=
-            this.vy;
-
-        this.vx *=
-            0.985;
-
-        this.vy *=
-            0.985;
-
-        this.vy +=
-            0.025;
-
-        this.rotation +=
-            this.rotationSpeed;
-
-        this.life -=
-            this.decay;
-
-        return (
-            this.life > 0
-        );
-
-    }
-
-
-    draw() {
-
-        ctx.save();
-
-        ctx.translate(
-            this.x,
-            this.y
-        );
-
-        ctx.rotate(
-            this.rotation
-        );
-
-        ctx.globalAlpha =
-            this.life;
-
-        ctx.fillStyle =
-            "#ff9ed3";
-
-        ctx.shadowBlur =
-            14;
-
-        ctx.shadowColor =
-            "#ff55b5";
-
-        /*
-            Small Sakura petal
-        */
-
-        ctx.beginPath();
-
-        ctx.ellipse(
-            0,
-            0,
-            this.size * 1.5,
-            this.size,
-            0,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fill();
-
-        ctx.restore();
-
-    }
-
-}
-
-
-/* =====================================================
-   SAKURA BURST
-===================================================== */
-
-function createSakuraBurst() {
-
-    const centerX =
-        width / 2;
-
-    const centerY =
-        height / 2;
-
-
-    for (
-        let i = 0;
-        i < 150;
-        i++
-    ) {
-
-        sakuraParticles.push(
-            new SakuraParticle(
-                centerX,
-                centerY
-            )
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   PARTICLE LOOP
-===================================================== */
-
-function particleLoop() {
-
-    ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
-
-
-    /*
-        Falling Sakura
-    */
-
-    updateSakura();
-
-
-    /*
-        Sakura burst ตอนเปลี่ยนหน้า
-    */
-
-    for (
-        let i =
-            sakuraParticles.length - 1;
-
-        i >= 0;
-
-        i--
-    ) {
-
-        const particle =
-            sakuraParticles[i];
-
-        if (
-            !particle.update()
-        ) {
-
-            sakuraParticles.splice(
-                i,
-                1
-            );
-
-            continue;
-
-        }
-
-        particle.draw();
-
-    }
-
-
-    requestAnimationFrame(
-        particleLoop
-    );
-
-}
-
-particleLoop();
-
-
-/* =====================================================
-   IZUNA PETTING
-===================================================== */
-
-let pointerIsDown =
-    false;
-
-let isPetting =
-    false;
 
 let petStartTime =
-    0;
+    null;
 
 let totalPetTime =
     0;
+
+let isPetting =
+    false;
 
 let lastPointerX =
     0;
@@ -1406,15 +1948,6 @@ let lastPointerY =
 let lastRubTime =
     0;
 
-
-/*
-    Head zone.
-
-    Relative coordinates:
-
-    x 0.25 - 0.75
-    y 0.02 - 0.58
-*/
 
 const HEAD_ZONE = {
 
@@ -1429,254 +1962,162 @@ const HEAD_ZONE = {
 };
 
 
-/*
-    Minimum movement required
-    to count as rubbing.
-*/
-
 const MIN_RUB_DISTANCE =
     1.5;
 
-
-/*
-    If movement stops for this
-    duration, petting stops.
-*/
 
 const PET_IDLE_DELAY =
     220;
 
 
-/* =====================================================
-   POINTER DOWN
-===================================================== */
-
-izunaArea.addEventListener(
-    "pointerdown",
-    event => {
-
-        pointerIsDown =
-            true;
-
-        lastPointerX =
-            event.clientX;
-
-        lastPointerY =
-            event.clientY;
-
-        lastRubTime =
-            performance.now();
-
-        /*
-            Important:
-            pointerdown alone does NOT
-            start the timer.
-        */
-
-        try {
-
-            izunaArea.setPointerCapture(
-                event.pointerId
-            );
-
-        } catch (error) {
-            // Ignore
-        }
-
-    }
-);
-
 
 /* =====================================================
-   POINTER MOVE
+   CHECK HEAD
 ===================================================== */
 
-izunaArea.addEventListener(
-    "pointermove",
-    event => {
+function isPointerOnHead(
+    event
+) {
 
-        if (
-            !pointerIsDown
-        ) {
-
-            return;
-
-        }
+    const rect =
+        izunaArea.getBoundingClientRect();
 
 
-        const dx =
-            event.clientX -
-            lastPointerX;
-
-        const dy =
-            event.clientY -
-            lastPointerY;
+    const x =
+        (event.clientX - rect.left)
+        / rect.width;
 
 
-        const distance =
-            Math.sqrt(
-                dx * dx +
-                dy * dy
-            );
+    const y =
+        (event.clientY - rect.top)
+        / rect.height;
 
 
-        lastPointerX =
-            event.clientX;
+    return (
 
-        lastPointerY =
-            event.clientY;
+        x >= HEAD_ZONE.left &&
 
+        x <= HEAD_ZONE.right &&
 
-        /*
-            No movement =
-            no petting.
-        */
+        y >= HEAD_ZONE.top &&
 
-        if (
-            distance <
-            MIN_RUB_DISTANCE
-        ) {
+        y <= HEAD_ZONE.bottom
 
-            return;
+    );
 
-        }
+}
 
-
-        const rect =
-            izunaArea.getBoundingClientRect();
-
-
-        const x =
-            (
-                event.clientX -
-                rect.left
-            ) /
-            rect.width;
-
-
-        const y =
-            (
-                event.clientY -
-                rect.top
-            ) /
-            rect.height;
-
-
-        const insideHead =
-            x >= HEAD_ZONE.left &&
-            x <= HEAD_ZONE.right &&
-            y >= HEAD_ZONE.top &&
-            y <= HEAD_ZONE.bottom;
-
-
-        if (
-            insideHead
-        ) {
-
-            if (
-                !isPetting
-            ) {
-
-                startPetting();
-
-            }
-
-            lastRubTime =
-                performance.now();
-
-        } else {
-
-            /*
-                Moving outside head
-                stops the current pet.
-            */
-
-            stopPetting();
-
-        }
-
-    }
-);
 
 
 /* =====================================================
-   POINTER UP / CANCEL
+   START PET
 ===================================================== */
 
-izunaArea.addEventListener(
-    "pointerup",
-    () => {
-
-        pointerIsDown =
-            false;
-
-        stopPetting();
-
-    }
-);
-
-
-izunaArea.addEventListener(
-    "pointercancel",
-    () => {
-
-        pointerIsDown =
-            false;
-
-        stopPetting();
-
-    }
-);
-
-
-izunaArea.addEventListener(
-    "lostpointercapture",
-    () => {
-
-        pointerIsDown =
-            false;
-
-        stopPetting();
-
-    }
-);
-
-
-/* =====================================================
-   START PETTING
-===================================================== */
-
-function startPetting() {
+function startPetting(
+    event
+) {
 
     if (
-        isPetting
+        !isPointerOnHead(event)
     ) {
 
         return;
 
     }
 
+
     isPetting =
         true;
 
-    petStartTime =
-        performance.now();
+
+    if (
+        petStartTime === null
+    ) {
+
+        petStartTime =
+            performance.now();
+
+    }
+
+
+    lastPointerX =
+        event.clientX;
+
+
+    lastPointerY =
+        event.clientY;
+
 
     lastRubTime =
         performance.now();
+
 
     izunaArea.classList.add(
         "petting"
     );
 
-    petInstruction.textContent =
-        "PETTING IZUNA ♥";
+}
+
+
+
+/* =====================================================
+   UPDATE PET
+===================================================== */
+
+function updatePetting(
+    event
+) {
+
+    if (
+        !isPetting
+    ) {
+
+        return;
+
+    }
+
+
+    const dx =
+        event.clientX -
+        lastPointerX;
+
+
+    const dy =
+        event.clientY -
+        lastPointerY;
+
+
+    const distance =
+        Math.sqrt(
+            dx * dx +
+            dy * dy
+        );
+
+
+    lastPointerX =
+        event.clientX;
+
+
+    lastPointerY =
+        event.clientY;
+
+
+    if (
+        distance >=
+        MIN_RUB_DISTANCE
+    ) {
+
+        lastRubTime =
+            performance.now();
+
+    }
 
 }
 
 
+
 /* =====================================================
-   STOP PETTING
+   STOP PET
 ===================================================== */
 
 function stopPetting() {
@@ -1690,13 +2131,19 @@ function stopPetting() {
     }
 
 
-    const now =
-        performance.now();
+    if (
+        petStartTime !== null
+    ) {
+
+        totalPetTime +=
+            performance.now() -
+            petStartTime;
+
+    }
 
 
-    totalPetTime +=
-        now -
-        petStartTime;
+    petStartTime =
+        null;
 
 
     isPetting =
@@ -1707,10 +2154,43 @@ function stopPetting() {
         "petting"
     );
 
-    petInstruction.textContent =
-        "RUB IZUNA'S HEAD";
-
 }
+
+
+
+/* =====================================================
+   POINTER EVENTS
+===================================================== */
+
+izunaArea.addEventListener(
+    "pointerdown",
+    startPetting
+);
+
+
+izunaArea.addEventListener(
+    "pointermove",
+    updatePetting
+);
+
+
+izunaArea.addEventListener(
+    "pointerup",
+    stopPetting
+);
+
+
+izunaArea.addEventListener(
+    "pointercancel",
+    stopPetting
+);
+
+
+izunaArea.addEventListener(
+    "pointerleave",
+    stopPetting
+);
+
 
 
 /* =====================================================
@@ -1719,51 +2199,28 @@ function stopPetting() {
 
 function updatePetTimer() {
 
-    /*
-        Automatically stop if
-        rubbing becomes idle.
-    */
-
-    if (
-        isPetting
-    ) {
-
-        const now =
-            performance.now();
-
-        if (
-            now -
-            lastRubTime >
-            PET_IDLE_DELAY
-        ) {
-
-            stopPetting();
-
-        }
-
-    }
-
-
-    let displayedTime =
+    let current =
         totalPetTime;
 
 
     if (
+        petStartTime !== null &&
         isPetting
     ) {
 
-        displayedTime +=
+        current +=
             performance.now() -
             petStartTime;
 
     }
 
 
+    const seconds =
+        current / 1000;
+
+
     petSeconds.textContent =
-        (
-            displayedTime /
-            1000
-        ).toFixed(1);
+        seconds.toFixed(1);
 
 
     requestAnimationFrame(
@@ -1776,36 +2233,112 @@ function updatePetTimer() {
 updatePetTimer();
 
 
+
 /* =====================================================
-   DISABLE IMAGE DRAGGING
+   MAIN ANIMATION
 ===================================================== */
 
-[
-    izunaStatic,
-    izunaPet,
-    mainLogo
-].forEach(
-    image => {
+function animate() {
 
-        if (!image) {
-            return;
-        }
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
 
-        image.addEventListener(
-            "dragstart",
-            event => {
 
-                event.preventDefault();
+    /*
+        Falling Sakura
+    */
 
-            }
-        );
+    for (
+        const petal
+        of fallingPetals
+    ) {
+
+        petal.update();
+
+        petal.draw();
 
     }
-);
 
 
-/* =====================================================
-   INITIAL RENDER
-===================================================== */
+    /*
+        Logo dissolve
+    */
 
-renderLeaderboard();
+    for (
+        let i =
+            logoParticles.length - 1;
+
+        i >= 0;
+
+        i--
+    ) {
+
+        const particle =
+            logoParticles[i];
+
+
+        if (
+            particle.update()
+        ) {
+
+            particle.draw();
+
+        } else {
+
+            logoParticles.splice(
+                i,
+                1
+            );
+
+        }
+
+    }
+
+
+    /*
+        Sakura burst
+    */
+
+    for (
+        let i =
+            burstParticles.length - 1;
+
+        i >= 0;
+
+        i--
+    ) {
+
+        const particle =
+            burstParticles[i];
+
+
+        if (
+            particle.update()
+        ) {
+
+            particle.draw();
+
+        } else {
+
+            burstParticles.splice(
+                i,
+                1
+            );
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        animate
+    );
+
+}
+
+
+animate();
