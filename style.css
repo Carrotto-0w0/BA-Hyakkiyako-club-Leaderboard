@@ -72,42 +72,143 @@ button {
         #08070c;
 }
 
+/* =====================================================
+   IMMERSIVE DAY / NIGHT BACKGROUND
+===================================================== */
+
 .menu-background {
     position: absolute;
 
     inset: -4%;
 
-    background-image:
-        linear-gradient(
-            rgba(10, 5, 15, 0.22),
-            rgba(10, 5, 15, 0.40)
-        ),
-        url("./background-day.png");
+    overflow: hidden;
+
+    transform: scale(1.05);
+
+    z-index: 0;
+}
+
+
+/* =====================================================
+   BACKGROUND LAYERS
+===================================================== */
+
+.background-layer {
+    position: absolute;
+
+    inset: 0;
 
     background-size: cover;
     background-position: center;
 
-    filter: blur(5px);
-
-    transform: scale(1.05);
-
-    opacity: 0.88;
+    filter:
+        blur(5px);
 
     transition:
-        background-image 0.7s ease,
-        opacity 0.5s ease,
-        filter 0.5s ease;
+        opacity 2.2s
+        cubic-bezier(.4, 0, .2, 1);
+
+    transform:
+        scale(1.04);
 }
 
-body.night-mode .menu-background {
+
+/* DAY */
+
+.background-day {
     background-image:
-        linear-gradient(
-            rgba(5, 3, 12, 0.36),
-            rgba(5, 3, 12, 0.62)
-        ),
+        url("./background-day.png");
+
+    opacity: 1;
+}
+
+
+/* NIGHT */
+
+.background-night {
+    background-image:
         url("./background-night.png");
 
-    opacity: 0.82;
+    opacity: 0;
+}
+
+
+/* =====================================================
+   NIGHT MODE
+===================================================== */
+
+body.night-mode
+.background-day {
+
+    opacity: 0;
+
+}
+
+
+body.night-mode
+.background-night {
+
+    opacity: 1;
+
+}
+
+
+/* =====================================================
+   ATMOSPHERIC OVERLAY
+===================================================== */
+
+.background-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(20, 5, 18, 0.12),
+            rgba(10, 4, 14, 0.42)
+        );
+
+    pointer-events: none;
+
+    z-index: 3;
+}
+
+
+/* =====================================================
+   IMMERSIVE BACKGROUND TRANSITION
+===================================================== */
+
+.menu-background::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 140, 210, 0.10),
+            transparent 55%
+        );
+
+    opacity: 0.7;
+
+    pointer-events: none;
+
+    transition:
+        opacity 2.2s ease;
+
+    z-index: 4;
+}
+
+
+body.night-mode
+.menu-background::after {
+
+    opacity: 0.25;
+
 }
 
 
@@ -412,6 +513,19 @@ body.night-mode .menu-background {
     transition:
         0.2s ease;
 }
+
+
+/* =====================================================
+   DAY / NIGHT ICON TRANSITION
+===================================================== */
+
+#modeIcon,
+#modeText {
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
+}
+
 
 .mode-toggle:hover {
     border-color:
