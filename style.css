@@ -1,36 +1,38 @@
-/* =========================================================
+/* =====================================================
    GLOBAL
-   ========================================================= */
+===================================================== */
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html,
 body {
     width: 100%;
     height: 100%;
-    margin: 0;
 }
 
 body {
-    background: #120d18;
-    color: #fff;
+    overflow: hidden;
+
     font-family:
         "Segoe UI",
         Arial,
         sans-serif;
-    overflow: hidden;
-    user-select: none;
+
+    background: #08070c;
+    color: #ffffff;
 }
 
-
-/* =========================================================
-   SCREEN
-   ========================================================= */
+button {
+    font-family: inherit;
+}
 
 .screen {
     position: fixed;
+
     inset: 0;
 
     width: 100%;
@@ -39,151 +41,146 @@ body {
     opacity: 0;
     visibility: hidden;
 
+    pointer-events: none;
+
     transition:
-        opacity 0.7s ease,
-        visibility 0.7s ease;
+        opacity 0.45s ease,
+        visibility 0.45s ease;
 }
 
 .screen.active {
     opacity: 1;
     visibility: visible;
+
+    pointer-events: auto;
 }
 
 
-/* =========================================================
+/* =====================================================
+   MENU BACKGROUND
+===================================================== */
+
+.menu-screen {
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 150, 210, 0.12),
+            transparent 45%
+        ),
+        #08070c;
+}
+
+.menu-background {
+    position: absolute;
+
+    inset: -4%;
+
+    background-image:
+        linear-gradient(
+            rgba(10, 5, 15, 0.22),
+            rgba(10, 5, 15, 0.40)
+        ),
+        url("./background-day.png");
+
+    background-size: cover;
+    background-position: center;
+
+    filter: blur(5px);
+
+    transform: scale(1.05);
+
+    opacity: 0.88;
+
+    transition:
+        background-image 0.7s ease,
+        opacity 0.5s ease,
+        filter 0.5s ease;
+}
+
+body.night-mode .menu-background {
+    background-image:
+        linear-gradient(
+            rgba(5, 3, 12, 0.36),
+            rgba(5, 3, 12, 0.62)
+        ),
+        url("./background-night.png");
+
+    opacity: 0.82;
+}
+
+
+/* =====================================================
    PARTICLE CANVAS
-   ========================================================= */
+===================================================== */
 
 #particleCanvas {
-    position: fixed;
+    position: absolute;
+
     inset: 0;
 
     width: 100%;
     height: 100%;
 
     pointer-events: none;
-    z-index: 20;
-}
-
-
-/* =========================================================
-   MENU
-   ========================================================= */
-
-.menu-screen {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    flex-direction: column;
-
-    overflow: hidden;
-}
-
-
-/* =========================================================
-   MENU BACKGROUND
-   ========================================================= */
-
-.menu-background {
-    position: absolute;
-    inset: -25px;
-
-    z-index: 0;
-
-    background-image:
-        url("./background-night.png");
-
-    background-size: cover;
-    background-position: center;
-
-    filter:
-        blur(3px)
-        saturate(0.92);
-
-    transform: scale(1.04);
-
-    transition:
-        background-image 0.8s ease,
-        filter 0.8s ease;
-}
-
-
-/* Day mode */
-
-.menu-screen.day-mode
-.menu-background {
-    background-image:
-        url("./background-day.png");
-}
-
-
-/* =========================================================
-   BACKGROUND OVERLAY
-   ========================================================= */
-
-.background-overlay {
-    position: absolute;
-    inset: 0;
-
-    z-index: 1;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(255, 180, 225, 0.04),
-            rgba(10, 5, 15, 0.45) 65%,
-            rgba(5, 3, 8, 0.78)
-        );
-
-    pointer-events: none;
-}
-
-
-/* =========================================================
-   SAKURA HAZE
-   ========================================================= */
-
-.sakura-haze {
-    position: absolute;
-    inset: 0;
 
     z-index: 2;
-
-    pointer-events: none;
-
-    background:
-        radial-gradient(
-            circle at 50% 45%,
-            rgba(255, 170, 220, 0.12),
-            transparent 42%
-        );
 }
 
 
-/* =========================================================
-   LOGO
-   ========================================================= */
+/* =====================================================
+   MENU CONTENT
+===================================================== */
 
-.logo-container {
+.menu-content {
     position: relative;
 
     z-index: 5;
 
-    width: min(620px, 70vw);
+    width: 100%;
+    height: 100%;
 
-    display: flex;
-    justify-content: center;
+    display: grid;
 
-    margin-bottom: 35px;
+    grid-template-rows:
+        1fr
+        auto
+        1fr;
 
-    transition:
-        opacity 0.6s ease,
-        transform 0.6s ease,
-        filter 0.6s ease;
+    align-items: center;
+    justify-items: center;
+
+    padding:
+        clamp(20px, 5vw, 70px);
 }
 
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo-container {
+    position: relative;
+
+    width: min(
+        65vw,
+        760px
+    );
+
+    max-height: 42vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    grid-row: 1;
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+}
 
 .main-logo {
     display: block;
@@ -191,905 +188,1429 @@ body {
     width: 100%;
     height: auto;
 
+    max-height: 42vh;
+
     object-fit: contain;
 
+    /*
+       Logo stays sharp.
+       Background is blurred instead.
+    */
+
     filter:
-        drop-shadow(0 0 8px rgba(255, 170, 220, 0.75))
-        drop-shadow(0 0 24px rgba(220, 100, 190, 0.45));
+        drop-shadow(
+            0 0 10px rgba(255, 130, 205, 0.8)
+        )
+        drop-shadow(
+            0 0 28px rgba(255, 75, 180, 0.45)
+        );
 
     user-select: none;
+}
 
-    pointer-events: none;
+.logo-container.logo-disappear {
+    opacity: 0;
+
+    transform:
+        scale(1.05);
 }
 
 
-/* =========================================================
-   MAIN MENU
-   ========================================================= */
+/* =====================================================
+   MENU BUTTONS
+===================================================== */
 
-.main-menu {
-    position: relative;
+.menu-buttons {
+    grid-row: 2;
 
-    z-index: 6;
-
-    width: min(420px, 78vw);
+    width:
+        min(
+            92vw,
+            580px
+        );
 
     display: grid;
 
     gap: 14px;
 }
 
-
-/* =========================================================
-   MENU BUTTON
-   ========================================================= */
-
 .menu-button {
     position: relative;
 
     width: 100%;
-    min-height: 68px;
 
-    padding: 9px 55px 9px 25px;
+    min-height: 76px;
 
-    display: flex;
-    flex-direction: column;
+    padding:
+        14px
+        28px;
 
-    justify-content: center;
-    align-items: flex-start;
+    border: 1px solid
+        rgba(255, 170, 220, 0.48);
 
     background:
         linear-gradient(
             90deg,
-            rgba(30, 15, 35, 0.82),
-            rgba(55, 24, 52, 0.62)
+            rgba(25, 10, 25, 0.82),
+            rgba(75, 22, 57, 0.66)
         );
 
-    border: 1px solid rgba(255, 180, 225, 0.65);
-
-    color: #fff;
+    color: #ffffff;
 
     cursor: pointer;
 
-    backdrop-filter: blur(5px);
+    text-align: left;
 
-    box-shadow:
-        0 0 14px rgba(245, 130, 205, 0.12),
-        inset 0 0 18px rgba(255, 160, 220, 0.04);
+    overflow: hidden;
 
     transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease;
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
-
 
 .menu-button::before {
     content: "";
 
     position: absolute;
 
-    left: 0;
-    top: 0;
-
-    width: 4px;
-    height: 100%;
-
-    background: #ffb7df;
-
-    box-shadow:
-        0 0 12px rgba(255, 170, 220, 0.9);
-}
-
-
-.menu-button:hover {
-    transform: translateX(5px);
-
-    border-color: #ffd1ed;
+    inset: 0;
 
     background:
         linear-gradient(
             90deg,
-            rgba(72, 30, 67, 0.92),
-            rgba(85, 34, 72, 0.72)
+            transparent,
+            rgba(255, 160, 215, 0.13),
+            transparent
         );
 
-    box-shadow:
-        0 0 22px rgba(255, 145, 215, 0.28),
-        inset 0 0 20px rgba(255, 190, 230, 0.08);
-}
-
-
-.menu-button:active {
-    transform: translateX(2px);
-}
-
-
-.menu-button-jp {
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-    color: #eeb7d9;
-
-    margin-bottom: 2px;
-}
-
-
-.menu-button-title {
-    font-size: 16px;
-
-    letter-spacing: 2.5px;
-
-    color: #fff;
-}
-
-
-.menu-button-arrow {
-    position: absolute;
-
-    right: 22px;
-
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    color: #ffb6dd;
-
-    font-size: 22px;
+    transform:
+        translateX(-100%);
 
     transition:
-        transform 0.25s ease;
+        transform 0.5s ease;
 }
 
-
-.menu-button:hover
-.menu-button-arrow {
+.menu-button:hover {
     transform:
-        translate(4px, -50%);
+        translateX(5px);
+
+    border-color:
+        rgba(255, 190, 230, 0.9);
+
+    box-shadow:
+        0 0 20px
+        rgba(255, 85, 190, 0.3);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(55, 14, 46, 0.9),
+            rgba(100, 30, 75, 0.72)
+        );
 }
 
+.menu-button:hover::before {
+    transform:
+        translateX(100%);
+}
 
-/* =========================================================
-   DAY / NIGHT SWITCH
-   ========================================================= */
+.menu-button-main {
+    display: block;
 
-.mode-switcher {
+    font-size:
+        clamp(17px, 2vw, 23px);
+
+    font-weight: 700;
+
+    letter-spacing:
+        0.12em;
+}
+
+.menu-button-sub {
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 10px;
+
+    letter-spacing:
+        0.25em;
+
+    color:
+        rgba(255, 190, 225, 0.72);
+}
+
+.button-line {
     position: absolute;
 
-    z-index: 7;
+    left: 0;
+    bottom: 0;
 
-    bottom: 28px;
+    width: 0;
+    height: 2px;
 
-    left: 50%;
+    background:
+        #ff9dd4;
 
-    transform: translateX(-50%);
+    box-shadow:
+        0 0 10px
+        #ff79c7;
+
+    transition:
+        width 0.3s ease;
+}
+
+.menu-button:hover .button-line {
+    width: 100%;
+}
+
+
+/* =====================================================
+   DAY / NIGHT BUTTON
+===================================================== */
+
+.mode-toggle {
+    position: absolute;
+
+    right:
+        clamp(16px, 3vw, 35px);
+
+    bottom:
+        clamp(16px, 3vw, 35px);
+
+    z-index: 10;
 
     display: flex;
 
     align-items: center;
 
-    gap: 14px;
+    gap: 8px;
 
-    padding: 7px 12px;
+    padding:
+        9px
+        15px;
 
-    border: 1px solid rgba(255, 190, 225, 0.3);
+    border:
+        1px solid
+        rgba(255, 175, 220, 0.45);
 
     background:
-        rgba(25, 12, 25, 0.48);
+        rgba(15, 8, 18, 0.72);
 
-    backdrop-filter: blur(6px);
-}
-
-
-.mode-button {
-    border: 0;
-
-    background: transparent;
-
-    color: rgba(255, 220, 240, 0.5);
-
-    font-size: 11px;
-
-    letter-spacing: 2px;
+    color:
+        #ffd8ed;
 
     cursor: pointer;
 
+    letter-spacing:
+        0.15em;
+
+    font-size: 11px;
+
     transition:
-        color 0.25s ease,
-        text-shadow 0.25s ease;
+        0.2s ease;
+}
+
+.mode-toggle:hover {
+    border-color:
+        #ff9bd2;
+
+    box-shadow:
+        0 0 16px
+        rgba(255, 100, 190, 0.35);
 }
 
 
-.mode-button:hover,
-.mode-button.active {
-    color: #ffd0ea;
-
-    text-shadow:
-        0 0 10px rgba(255, 160, 220, 0.7);
-}
-
-
-.mode-divider {
-    width: 1px;
-    height: 14px;
-
-    background:
-        rgba(255, 190, 225, 0.3);
-}
-
-
-/* =========================================================
+/* =====================================================
    SECONDARY SCREENS
-   ========================================================= */
+===================================================== */
 
 .secondary-screen {
     overflow-y: auto;
     overflow-x: hidden;
 
     background:
-        #120c17;
-}
-
-
-.secondary-background {
-    position: fixed;
-    inset: -25px;
-
-    background-image:
-        url("./background-night.png");
-
-    background-size: cover;
-    background-position: center;
-
-    filter:
-        blur(5px)
-        saturate(0.8);
-
-    transform: scale(1.05);
-
-    opacity: 0.35;
-
-    pointer-events: none;
-}
-
-
-.secondary-overlay {
-    position: fixed;
-    inset: 0;
-
-    background:
         radial-gradient(
-            circle at center,
-            rgba(255, 160, 220, 0.10),
-            rgba(15, 8, 18, 0.92) 75%
-        );
-
-    pointer-events: none;
-}
-
-
-.secondary-container {
-    position: relative;
-
-    z-index: 3;
-
-    min-height: 100%;
-
-    width: min(1100px, 92vw);
-
-    margin: auto;
-
-    padding:
-        55px
-        0
-        50px;
-
-    display: grid;
-
-    grid-template-rows:
-        auto
-        auto
-        minmax(300px, 1fr)
-        auto;
-
-    gap: 25px;
-}
-
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.secondary-header {
-    text-align: center;
-}
-
-
-.section-kicker {
-    font-size: 11px;
-
-    letter-spacing: 5px;
-
-    color: #d99bc2;
-
-    margin-bottom: 8px;
-}
-
-
-.section-title {
-    font-size: clamp(25px, 4vw, 42px);
-
-    letter-spacing: 5px;
-
-    color: #fff;
-
-    text-shadow:
-        0 0 14px rgba(255, 170, 220, 0.35);
-}
-
-
-.section-line {
-    width: min(380px, 65vw);
-
-    height: 1px;
-
-    margin:
-        18px auto
-        0;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            #f0a9d0,
-            transparent
-        );
-
-    box-shadow:
-        0 0 10px rgba(255, 170, 220, 0.4);
-}
-
-
-/* =========================================================
-   BOSS SELECTOR
-   ========================================================= */
-
-.boss-selector {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 16px;
-
-    width: min(720px, 92vw);
-
-    margin: auto;
-}
-
-
-.boss-button {
-    min-height: 76px;
-
-    padding: 12px;
-
-    background:
-        rgba(35, 15, 32, 0.72);
-
-    border:
-        1px solid rgba(235, 160, 205, 0.4);
-
-    color: white;
-
-    cursor: pointer;
-
-    transition:
-        background 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.25s ease;
-}
-
-
-.boss-button:hover {
-    transform: translateY(-2px);
-
-    border-color:
-        rgba(255, 190, 225, 0.8);
-
-    box-shadow:
-        0 0 20px rgba(255, 150, 215, 0.18);
-}
-
-
-.boss-button.active {
-    border-color: #ffb7dd;
-
-    background:
+            circle at 50% 0%,
+            rgba(255, 100, 195, 0.12),
+            transparent 45%
+        ),
         linear-gradient(
             135deg,
-            rgba(91, 39, 76, 0.82),
-            rgba(47, 20, 42, 0.82)
+            #08070c,
+            #130912 50%,
+            #08070c
+        );
+}
+
+.secondary-screen::before {
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 150, 215, 0.018) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 150, 215, 0.018) 1px,
+            transparent 1px
         );
 
-    box-shadow:
-        0 0 22px rgba(255, 150, 215, 0.20),
-        inset 0 0 18px rgba(255, 180, 225, 0.06);
+    background-size:
+        45px 45px;
+
+    z-index: 0;
 }
 
-
-.boss-small {
-    display: block;
-
-    font-size: 9px;
-
-    letter-spacing: 3px;
-
-    color: #d89cbc;
-
-    margin-bottom: 5px;
-}
-
-
-.boss-name {
-    display: block;
-
-    font-size: 19px;
-
-    letter-spacing: 5px;
-
-    color: #fff;
-}
-
-
-/* =========================================================
-   BOSS PANEL
-   ========================================================= */
-
-.boss-panel {
+.screen-topbar {
     position: relative;
 
-    min-height: 330px;
+    z-index: 5;
 
-    width: 100%;
+    min-height: 100px;
 
     display: flex;
-
-    flex-direction: column;
 
     align-items: center;
 
     justify-content: center;
 
-    padding: 40px;
+    padding:
+        20px
+        70px;
 
-    background:
-        rgba(25, 11, 23, 0.74);
-
-    border:
-        1px solid rgba(244, 170, 215, 0.38);
-
-    box-shadow:
-        0 0 25px rgba(255, 145, 215, 0.07),
-        inset 0 0 30px rgba(255, 180, 225, 0.025);
-
-    backdrop-filter: blur(5px);
+    border-bottom:
+        1px solid
+        rgba(255, 150, 215, 0.18);
 }
 
-
-/* corners */
-
-.panel-decoration {
-    position: absolute;
-
-    width: 22px;
-    height: 22px;
-
-    border-color:
-        rgba(255, 185, 225, 0.8);
-
-    border-style: solid;
+.screen-title-group {
+    text-align: center;
 }
 
+.screen-title {
+    font-size:
+        clamp(22px, 3vw, 36px);
 
-.panel-tl {
-    top: 10px;
-    left: 10px;
+    font-weight: 800;
 
-    border-width: 1px 0 0 1px;
-}
-
-
-.panel-tr {
-    top: 10px;
-    right: 10px;
-
-    border-width: 1px 1px 0 0;
-}
-
-
-.panel-bl {
-    bottom: 10px;
-    left: 10px;
-
-    border-width: 0 0 1px 1px;
-}
-
-
-.panel-br {
-    bottom: 10px;
-    right: 10px;
-
-    border-width: 0 1px 1px 0;
-}
-
-
-.boss-panel-title {
-    font-size: 34px;
-
-    letter-spacing: 8px;
-
-    color: #fff;
+    letter-spacing:
+        0.18em;
 
     text-shadow:
-        0 0 15px rgba(255, 160, 215, 0.4);
+        0 0 15px
+        rgba(255, 110, 195, 0.5);
+}
+
+.screen-subtitle {
+    margin-top: 5px;
+
+    font-size: 10px;
+
+    letter-spacing:
+        0.35em;
+
+    color:
+        rgba(255, 190, 225, 0.68);
 }
 
 
-.boss-panel-subtitle {
-    margin-top: 8px;
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+.back-button {
+    position: absolute;
+
+    left: 22px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    min-width: 88px;
+
+    padding:
+        10px
+        18px;
+
+    border:
+        1px solid
+        rgba(255, 170, 220, 0.4);
+
+    background:
+        rgba(20, 8, 20, 0.75);
+
+    color:
+        #ffd6eb;
+
+    cursor: pointer;
 
     font-size: 11px;
 
-    letter-spacing: 4px;
+    letter-spacing:
+        0.15em;
 
-    color: #dba3c6;
+    transition:
+        0.2s ease;
+}
+
+.back-button:hover {
+    border-color:
+        #ff9dd4;
+
+    box-shadow:
+        0 0 15px
+        rgba(255, 100, 190, 0.3);
+
+    background:
+        rgba(75, 20, 55, 0.75);
 }
 
 
-.boss-panel-line {
-    width: 160px;
+/* =====================================================
+   SEASON SELECTOR
+===================================================== */
 
-    height: 1px;
+.season-selector {
+    position: relative;
 
-    margin: 20px 0;
+    z-index: 4;
+
+    width:
+        min(
+            94vw,
+            1100px
+        );
+
+    margin:
+        25px auto
+        18px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+.season-option {
+    min-height: 65px;
+
+    display: grid;
+
+    grid-template-columns:
+        auto 1fr;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding:
+        10px
+        22px;
+
+    border:
+        1px solid
+        rgba(255, 160, 215, 0.25);
+
+    background:
+        rgba(30, 10, 27, 0.65);
+
+    color: white;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition:
+        0.2s ease;
+}
+
+.season-option:hover,
+.season-option.active {
+    border-color:
+        rgba(255, 170, 220, 0.75);
 
     background:
         linear-gradient(
             90deg,
-            transparent,
-            #f0a9d0,
-            transparent
+            rgba(100, 25, 75, 0.5),
+            rgba(45, 12, 38, 0.75)
         );
-}
-
-
-.boss-panel-wip {
-    font-size: 26px;
-
-    letter-spacing: 8px;
-
-    color: #f4bfdc;
-}
-
-
-.boss-panel-description {
-    margin-top: 10px;
-
-    text-align: center;
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
-
-    color: rgba(255, 225, 240, 0.48);
-}
-
-
-/* =========================================================
-   BACK BUTTON
-   ========================================================= */
-
-.back-button {
-    justify-self: center;
-
-    min-width: 150px;
-
-    padding: 11px 28px;
-
-    background:
-        rgba(30, 13, 28, 0.78);
-
-    border:
-        1px solid rgba(245, 175, 215, 0.55);
-
-    color: #ffd8eb;
-
-    font-size: 11px;
-
-    letter-spacing: 4px;
-
-    cursor: pointer;
-
-    transition:
-        background 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-
-.back-button:hover {
-    border-color: #ffd0ea;
-
-    background:
-        rgba(80, 32, 65, 0.75);
 
     box-shadow:
-        0 0 18px rgba(255, 150, 215, 0.18);
+        0 0 20px
+        rgba(255, 90, 190, 0.18);
+}
+
+.season-code {
+    font-size: 20px;
+
+    font-weight: 800;
+
+    color:
+        #ffb4dc;
+
+    text-shadow:
+        0 0 10px
+        rgba(255, 100, 190, 0.5);
+}
+
+.season-name {
+    font-size: 14px;
+
+    letter-spacing:
+        0.2em;
 }
 
 
-/* =========================================================
-   PET SCREEN
-   ========================================================= */
+/* =====================================================
+   LEADERBOARD
+===================================================== */
 
-.pet-container {
-    grid-template-rows:
-        auto
-        auto
-        minmax(280px, 1fr)
-        auto
-        auto;
+.leaderboard-list {
+    position: relative;
+
+    z-index: 3;
+
+    width:
+        min(
+            94vw,
+            1100px
+        );
+
+    margin:
+        0 auto
+        50px;
+
+    display: grid;
+
+    gap: 10px;
 }
 
 
-.pet-score {
-    text-align: center;
+/* =====================================================
+   NORMAL ROW
+===================================================== */
 
-    font-size: 12px;
+.rank-row {
+    position: relative;
 
-    letter-spacing: 1px;
+    min-height: 68px;
 
-    color: rgba(255, 220, 240, 0.72);
+    display: grid;
+
+    grid-template-columns:
+        70px
+        minmax(0, 1fr)
+        130px;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding:
+        10px
+        22px;
+
+    border:
+        1px solid
+        rgba(255, 155, 210, 0.16);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(25, 9, 24, 0.88),
+            rgba(35, 12, 32, 0.72)
+        );
+
+    transition:
+        0.2s ease;
 }
 
+.rank-row:hover {
+    border-color:
+        rgba(255, 165, 215, 0.45);
 
-#petSeconds {
-    color: #ffd0e9;
+    transform:
+        translateX(3px);
+
+    box-shadow:
+        0 0 18px
+        rgba(255, 90, 185, 0.12);
+}
+
+.rank-number {
+    font-size: 17px;
+
+    font-weight: 700;
+
+    color:
+        rgba(255, 190, 225, 0.65);
+
+    letter-spacing:
+        0.05em;
+}
+
+.rank-name {
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size:
+        clamp(13px, 1.5vw, 17px);
+
+    overflow: hidden;
+}
+
+.rank-name-text {
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+.rank-score {
+    text-align: right;
 
     font-size: 16px;
 
-    font-weight: 600;
+    font-weight: 700;
 
-    text-shadow:
-        0 0 10px rgba(255, 150, 215, 0.55);
+    color:
+        #ffd6eb;
+
+    letter-spacing:
+        0.06em;
 }
 
 
-/* =========================================================
-   IZUNA
-   ========================================================= */
+/* =====================================================
+   N/A WARNING
+===================================================== */
+
+.na-warning {
+    flex: 0 0 auto;
+
+    width: 21px;
+    height: 21px;
+
+    display: inline-flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border:
+        1px solid
+        #ff7cbf;
+
+    border-radius: 50%;
+
+    background:
+        rgba(125, 15, 70, 0.8);
+
+    color:
+        #ffffff;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    box-shadow:
+        0 0 8px
+        rgba(255, 60, 165, 0.7);
+
+    animation:
+        warningPulse 1.5s infinite;
+
+    cursor: help;
+}
+
+.na-warning::after {
+    content:
+        "RANKING DATA UNAVAILABLE";
+
+    position: absolute;
+
+    bottom:
+        calc(100% + 9px);
+
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        translateY(4px);
+
+    width: max-content;
+
+    max-width: 220px;
+
+    padding:
+        7px
+        10px;
+
+    border:
+        1px solid
+        rgba(255, 150, 215, 0.45);
+
+    background:
+        rgba(20, 5, 18, 0.96);
+
+    color:
+        #ffd8ec;
+
+    font-size: 9px;
+
+    letter-spacing:
+        0.08em;
+
+    white-space: nowrap;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        0.18s ease;
+}
+
+.na-warning:hover::after {
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+@keyframes warningPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+
+        box-shadow:
+            0 0 7px
+            rgba(255, 60, 165, 0.5);
+    }
+
+    50% {
+        transform: scale(1.08);
+
+        box-shadow:
+            0 0 15px
+            rgba(255, 70, 175, 0.9);
+    }
+}
+
+
+/* =====================================================
+   TOP 3 HERO CARDS
+===================================================== */
+
+.top-three {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+
+    margin-bottom: 18px;
+}
+
+.hero-card {
+    position: relative;
+
+    min-height: 205px;
+
+    display: grid;
+
+    grid-template-rows:
+        auto
+        1fr
+        auto;
+
+    align-items: center;
+
+    justify-items: center;
+
+    padding:
+        18px
+        15px;
+
+    border:
+        1px solid
+        rgba(255, 180, 225, 0.48);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(68, 19, 55, 0.92),
+            rgba(23, 8, 23, 0.96)
+        );
+
+    overflow: hidden;
+
+    box-shadow:
+        0 0 25px
+        rgba(255, 85, 180, 0.14);
+
+    animation:
+        heroPulse 3s ease-in-out infinite;
+}
+
+.hero-card::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 5px;
+
+    border:
+        1px solid
+        rgba(255, 190, 225, 0.14);
+
+    pointer-events: none;
+}
+
+.hero-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    top: -55px;
+    right: -55px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 110, 195, 0.18);
+
+    filter: blur(20px);
+}
+
+.hero-card:nth-child(1) {
+    border-color:
+        rgba(255, 207, 140, 0.72);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(90, 45, 55, 0.96),
+            rgba(27, 10, 25, 0.98)
+        );
+}
+
+.hero-card:nth-child(2) {
+    border-color:
+        rgba(235, 235, 255, 0.66);
+}
+
+.hero-card:nth-child(3) {
+    border-color:
+        rgba(230, 170, 130, 0.65);
+}
+
+.hero-rank {
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    letter-spacing:
+        0.2em;
+
+    color:
+        #ffd2ea;
+}
+
+.hero-card:nth-child(1) .hero-rank {
+    color:
+        #ffe0a4;
+}
+
+.hero-card:nth-child(2) .hero-rank {
+    color:
+        #f2f1ff;
+}
+
+.hero-card:nth-child(3) .hero-rank {
+    color:
+        #eabf9f;
+}
+
+.hero-name {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    text-align: center;
+
+    font-size:
+        clamp(16px, 2vw, 23px);
+
+    font-weight: 800;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    text-shadow:
+        0 0 12px
+        rgba(255, 130, 205, 0.45);
+}
+
+.hero-score {
+    position: relative;
+
+    z-index: 2;
+
+    font-size:
+        clamp(25px, 3vw, 38px);
+
+    font-weight: 900;
+
+    letter-spacing:
+        0.08em;
+
+    color:
+        #ffffff;
+
+    text-shadow:
+        0 0 16px
+        rgba(255, 120, 205, 0.65);
+}
+
+.hero-score-label {
+    font-size: 8px;
+
+    letter-spacing:
+        0.28em;
+
+    color:
+        rgba(255, 205, 230, 0.6);
+
+    margin-top: -3px;
+}
+
+@keyframes heroPulse {
+
+    0%,
+    100% {
+        transform: translateY(0);
+
+        box-shadow:
+            0 0 25px
+            rgba(255, 85, 180, 0.13);
+    }
+
+    50% {
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 0 32px
+            rgba(255, 85, 180, 0.22);
+    }
+}
+
+
+/* =====================================================
+   TOP 3 DECORATION
+===================================================== */
+
+.hero-decoration {
+    position: absolute;
+
+    top: 10px;
+    right: 14px;
+
+    font-size: 20px;
+
+    opacity: 0.9;
+}
+
+.hero-card:nth-child(1) .hero-decoration {
+    color: #ffe1a3;
+}
+
+.hero-card:nth-child(2) .hero-decoration {
+    color: #f0efff;
+}
+
+.hero-card:nth-child(3) .hero-decoration {
+    color: #eab99d;
+}
+
+
+/* =====================================================
+   IZUNA SCREEN
+===================================================== */
+
+.izuna-screen {
+    display: grid;
+
+    grid-template-rows:
+        auto
+        1fr;
+}
+
+.izuna-content {
+    position: relative;
+
+    z-index: 3;
+
+    min-height: 0;
+
+    display: grid;
+
+    grid-template-rows:
+        auto
+        minmax(240px, 1fr)
+        auto
+        auto;
+
+    justify-items: center;
+    align-items: center;
+
+    gap: 12px;
+
+    padding:
+        20px;
+}
+
+.pet-score {
+    font-size:
+        clamp(14px, 2vw, 19px);
+
+    color:
+        #ffd8ec;
+
+    letter-spacing:
+        0.05em;
+
+    text-align: center;
+}
+
+#petSeconds {
+    display: inline-block;
+
+    min-width: 70px;
+
+    color:
+        #ff9ed3;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 0 12px
+        rgba(255, 80, 180, 0.7);
+}
+
+
+/* =====================================================
+   IZUNA AREA
+===================================================== */
 
 .izuna-area {
     position: relative;
 
-    min-height: 280px;
+    width:
+        min(
+            52vh,
+            55vw,
+            430px
+        );
 
-    display: grid;
+    aspect-ratio: 1 / 1;
 
-    place-items: center;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
 
     touch-action: none;
+
+    user-select: none;
+
+    cursor: grab;
 }
 
+.izuna-area:active {
+    cursor: grabbing;
+}
 
 .izuna-image {
     position: absolute;
 
-    width: 180px !important;
-    height: 180px !important;
+    width: 100%;
+    height: 100%;
 
     object-fit: contain;
 
     user-select: none;
 
-    pointer-events: auto;
+    pointer-events: none;
 
-    -webkit-user-drag: none;
+    transition:
+        opacity 0.12s ease,
+        transform 0.12s ease;
 
     filter:
         drop-shadow(
-            0 0 15px rgba(255, 170, 220, 0.35)
+            0 0 15px
+            rgba(255, 110, 195, 0.2)
         );
-
-    animation:
-        izunaFloat 3.4s ease-in-out infinite;
 }
-
 
 .izuna-pet {
     opacity: 0;
 }
 
-
-.izuna-area.petting
-.izuna-static {
+.izuna-area.petting #izunaStatic {
     opacity: 0;
 }
 
-
-.izuna-area.petting
-.izuna-pet {
+.izuna-area.petting #izunaPet {
     opacity: 1;
+
+    transform:
+        scale(1.015);
+
+    filter:
+        drop-shadow(
+            0 0 20px
+            rgba(255, 100, 195, 0.45)
+        );
 }
 
 
-@keyframes izunaFloat {
-
-    0%,
-    100% {
-        transform:
-            translateY(0)
-            rotate(-1deg);
-    }
-
-    50% {
-        transform:
-            translateY(-5px)
-            rotate(1deg);
-    }
-
-}
-
+/* =====================================================
+   PET GLOW
+===================================================== */
 
 .pet-glow {
     position: absolute;
 
-    width: 190px;
-    height: 190px;
+    width: 65%;
+    height: 65%;
 
     border-radius: 50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(255, 160, 220, 0.12),
-            transparent 68%
+            rgba(255, 115, 200, 0.20),
+            transparent 70%
         );
+
+    filter: blur(20px);
+
+    pointer-events: none;
+
+    opacity: 0.65;
+
+    animation:
+        petGlow 3s ease-in-out infinite;
+}
+
+@keyframes petGlow {
+
+    0%,
+    100% {
+        transform: scale(0.92);
+        opacity: 0.45;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: 0.72;
+    }
+}
+
+
+/* =====================================================
+   PET RINGS
+===================================================== */
+
+.pet-ring {
+    position: absolute;
+
+    border:
+        1px solid
+        rgba(255, 155, 215, 0.2);
+
+    border-radius: 50%;
 
     pointer-events: none;
 
     animation:
-        glowPulse 2.4s ease-in-out infinite;
+        ringPulse 4s ease-in-out infinite;
 }
 
+.ring-1 {
+    width: 82%;
+    height: 82%;
+}
 
-@keyframes glowPulse {
+.ring-2 {
+    width: 96%;
+    height: 96%;
+
+    animation-delay:
+        1s;
+}
+
+@keyframes ringPulse {
 
     0%,
     100% {
-        opacity: 0.45;
         transform: scale(0.95);
+        opacity: 0.3;
     }
 
     50% {
-        opacity: 0.8;
-        transform: scale(1.05);
+        transform: scale(1.02);
+        opacity: 0.65;
     }
-
 }
-
 
 .pet-instruction {
-    text-align: center;
+    font-size:
+        clamp(13px, 1.6vw, 18px);
 
-    font-size: 10px;
+    font-weight: 700;
 
-    letter-spacing: 4px;
+    letter-spacing:
+        0.25em;
 
-    color: #e8aecf;
+    color:
+        #ffc5e3;
 
     text-shadow:
-        0 0 10px rgba(255, 150, 215, 0.35);
+        0 0 12px
+        rgba(255, 100, 190, 0.55);
+}
+
+.pet-subinstruction {
+    font-size: 9px;
+
+    letter-spacing:
+        0.25em;
+
+    color:
+        rgba(255, 200, 230, 0.42);
 }
 
 
-/* =========================================================
+/* =====================================================
    MOBILE
-   ========================================================= */
+===================================================== */
 
 @media (max-width: 700px) {
 
     .logo-container {
-        width: min(500px, 82vw);
-
-        margin-bottom: 25px;
-    }
-
-
-    .main-menu {
         width: 84vw;
+
+        max-height: 35vh;
     }
 
+    .main-logo {
+        max-height: 35vh;
+    }
+
+    .menu-content {
+        padding:
+            20px;
+    }
+
+    .menu-buttons {
+        width: 94vw;
+    }
 
     .menu-button {
-        min-height: 62px;
+        min-height: 68px;
     }
 
+    .screen-topbar {
+        min-height: 85px;
 
-    .secondary-container {
-        width: 90vw;
-
-        padding-top: 35px;
-
-        gap: 20px;
+        padding:
+            15px
+            55px;
     }
 
+    .back-button {
+        left: 10px;
 
-    .section-title {
-        letter-spacing: 3px;
+        min-width: 65px;
+
+        padding:
+            9px
+            10px;
+
+        font-size: 9px;
     }
 
+    .season-selector {
+        width: 94vw;
 
-    .boss-selector {
-        width: 100%;
+        gap: 7px;
+    }
+
+    .season-option {
+        min-height: 58px;
+
+        grid-template-columns: 1fr;
+
+        justify-items: center;
+
+        text-align: center;
+
+        gap: 1px;
+
+        padding: 7px;
+    }
+
+    .season-code {
+        font-size: 16px;
+    }
+
+    .season-name {
+        font-size: 9px;
+    }
+
+    .top-three {
+        grid-template-columns:
+            1fr;
 
         gap: 10px;
     }
 
+    .hero-card {
+        min-height: 145px;
 
-    .boss-button {
-        min-height: 70px;
+        grid-template-columns:
+            70px
+            1fr
+            100px;
+
+        grid-template-rows: 1fr;
+
+        padding:
+            14px;
     }
 
-
-    .boss-name {
-        font-size: 15px;
-
-        letter-spacing: 3px;
+    .hero-rank {
+        font-size: 13px;
     }
 
-
-    .boss-panel {
-        min-height: 280px;
-
-        padding: 25px;
+    .hero-name {
+        font-size: 16px;
     }
 
-
-    .boss-panel-title {
-        font-size: 27px;
-
-        letter-spacing: 5px;
+    .hero-score {
+        font-size: 25px;
     }
 
-
-    .izuna-image {
-        width: 170px !important;
-        height: 170px !important;
+    .hero-score-label {
+        font-size: 7px;
     }
 
+    .hero-decoration {
+        top: 5px;
+        right: 7px;
+    }
+
+    .rank-row {
+        grid-template-columns:
+            45px
+            minmax(0, 1fr)
+            80px;
+
+        gap: 8px;
+
+        padding:
+            9px
+            11px;
+    }
+
+    .rank-number {
+        font-size: 13px;
+    }
+
+    .rank-score {
+        font-size: 12px;
+    }
+
+    .rank-name {
+        font-size: 12px;
+    }
+
+    .izuna-content {
+        padding:
+            10px;
+    }
+
+    .izuna-area {
+        width:
+            min(
+                76vw,
+                360px
+            );
+    }
+
+    .mode-toggle {
+        bottom: 12px;
+        right: 12px;
+    }
 }
 
 
-@media (max-height: 700px) {
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
 
-    .logo-container {
-        width: min(430px, 58vw);
+@media (prefers-reduced-motion: reduce) {
 
-        margin-bottom: 15px;
+    *,
+    *::before,
+    *::after {
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
     }
-
-
-    .menu-button {
-        min-height: 58px;
-    }
-
-
-    .mode-switcher {
-        bottom: 12px;
-    }
-
 }
