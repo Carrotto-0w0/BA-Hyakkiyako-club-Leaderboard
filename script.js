@@ -9,116 +9,75 @@
 ===================================================== */
 
 const canvas =
-    document.getElementById(
-        "particleCanvas"
-    );
+    document.getElementById("particleCanvas");
 
 const ctx =
     canvas.getContext("2d");
 
 
 const menuScreen =
-    document.getElementById(
-        "menuScreen"
-    );
+    document.getElementById("menuScreen");
 
 const leaderboardScreen =
-    document.getElementById(
-        "leaderboardScreen"
-    );
+    document.getElementById("leaderboardScreen");
 
 const izunaScreen =
-    document.getElementById(
-        "izunaScreen"
-    );
+    document.getElementById("izunaScreen");
 
 
 const logo =
-    document.getElementById(
-        "logo"
-    );
+    document.getElementById("logo");
 
 const logoContainer =
-    document.getElementById(
-        "logoContainer"
-    );
+    document.getElementById("logoContainer");
 
 
 const leaderboardButton =
-    document.getElementById(
-        "leaderboardButton"
-    );
+    document.getElementById("leaderboardButton");
 
 const patButton =
-    document.getElementById(
-        "patButton"
-    );
+    document.getElementById("patButton");
 
 
 const leaderboardBackButton =
-    document.getElementById(
-        "leaderboardBackButton"
-    );
+    document.getElementById("leaderboardBackButton");
 
 const izunaBackButton =
-    document.getElementById(
-        "izunaBackButton"
-    );
+    document.getElementById("izunaBackButton");
 
 
 const modeToggle =
-    document.getElementById(
-        "modeToggle"
-    );
+    document.getElementById("modeToggle");
 
 const modeIcon =
-    document.getElementById(
-        "modeIcon"
-    );
+    document.getElementById("modeIcon");
 
 const modeText =
-    document.getElementById(
-        "modeText"
-    );
+    document.getElementById("modeText");
 
 
 const ta85Button =
-    document.getElementById(
-        "ta85Button"
-    );
+    document.getElementById("ta85Button");
 
 const ga33Button =
-    document.getElementById(
-        "ga33Button"
-    );
+    document.getElementById("ga33Button");
 
 
 const leaderboardContent =
-    document.getElementById(
-        "leaderboardContent"
-    );
+    document.getElementById("leaderboardContent");
 
 
 const izunaArea =
-    document.getElementById(
-        "izunaArea"
-    );
+    document.getElementById("izunaArea");
 
 const izunaStatic =
-    document.getElementById(
-        "izunaStatic"
-    );
+    document.getElementById("izunaStatic");
 
 const izunaPet =
-    document.getElementById(
-        "izunaPet"
-    );
+    document.getElementById("izunaPet");
 
 const petSeconds =
-    document.getElementById(
-        "petSeconds"
-    );
-
+    document.getElementById("petSeconds");
 
 
 /* =====================================================
@@ -131,18 +90,13 @@ let height = 0;
 
 function resizeCanvas() {
 
-    width =
-        window.innerWidth;
+    width = window.innerWidth;
 
-    height =
-        window.innerHeight;
+    height = window.innerHeight;
 
-    canvas.width =
-        width;
+    canvas.width = width;
 
-    canvas.height =
-        height;
-
+    canvas.height = height;
 }
 
 
@@ -153,7 +107,6 @@ window.addEventListener(
     "resize",
     resizeCanvas
 );
-
 
 
 /* =====================================================
@@ -167,7 +120,6 @@ const logoParticles = [];
 const burstParticles = [];
 
 
-
 /* =====================================================
    FALLING SAKURA PETAL
    กลีบเดี่ยวเท่านั้น
@@ -176,9 +128,7 @@ const burstParticles = [];
 class FallingPetal {
 
     constructor() {
-
         this.reset(true);
-
     }
 
 
@@ -192,65 +142,45 @@ class FallingPetal {
                 ? Math.random() * height
                 : -30 - Math.random() * 100;
 
-
         this.size =
             Math.random() * 5 + 4;
 
-
         this.speed =
             Math.random() * 0.75 + 0.45;
-
 
         this.wave =
             Math.random() *
             Math.PI *
             2;
 
-
         this.waveSpeed =
-            Math.random() * 0.018 +
-            0.008;
-
+            Math.random() * 0.018 + 0.008;
 
         this.waveAmount =
-            Math.random() * 1.1 +
-            0.45;
-
+            Math.random() * 1.1 + 0.45;
 
         this.rotation =
             Math.random() *
             Math.PI *
             2;
 
-
         this.rotationSpeed =
-            Math.random() * 0.025 -
-            0.0125;
-
+            Math.random() * 0.025 - 0.0125;
 
         this.alpha =
-            Math.random() * 0.35 +
-            0.45;
-
+            Math.random() * 0.35 + 0.45;
     }
 
 
     update() {
 
-        this.y +=
-            this.speed;
+        this.y += this.speed;
 
-
-        this.wave +=
-            this.waveSpeed;
-
+        this.wave += this.waveSpeed;
 
         this.x +=
-            Math.sin(
-                this.wave
-            ) *
+            Math.sin(this.wave) *
             this.waveAmount;
-
 
         this.rotation +=
             this.rotationSpeed;
@@ -260,11 +190,8 @@ class FallingPetal {
             this.y >
             height + 30
         ) {
-
             this.reset();
-
         }
-
     }
 
 
@@ -300,8 +227,12 @@ class FallingPetal {
             "#ff69b4";
 
 
+        const s =
+            this.size;
+
+
         /*
-            กลีบ Sakura เดี่ยว
+            Sakura petal เดี่ยว
         */
 
         ctx.beginPath();
@@ -309,49 +240,43 @@ class FallingPetal {
 
         ctx.moveTo(
             0,
-            -this.size
+            -s
         );
 
 
         ctx.bezierCurveTo(
+            s * 0.75,
+            -s * 0.8,
 
-            this.size * 0.75,
-            -this.size * 0.8,
+            s * 0.95,
+            s * 0.15,
 
-            this.size * 0.95,
-            this.size * 0.15,
-
-            this.size * 0.35,
-            this.size * 0.75
-
+            s * 0.35,
+            s * 0.75
         );
 
 
         ctx.bezierCurveTo(
-
             0,
-            this.size * 1.05,
+            s * 1.05,
 
-            -this.size * 0.65,
-            this.size * 0.75,
+            -s * 0.65,
+            s * 0.75,
 
-            -this.size * 0.45,
+            -s * 0.45,
             0
-
         );
 
 
         ctx.bezierCurveTo(
+            -s * 0.55,
+            -s * 0.55,
 
-            -this.size * 0.55,
-            -this.size * 0.55,
-
-            -this.size * 0.25,
-            -this.size * 0.9,
+            -s * 0.25,
+            -s * 0.9,
 
             0,
-            -this.size
-
+            -s
         );
 
 
@@ -361,11 +286,8 @@ class FallingPetal {
 
 
         ctx.restore();
-
     }
-
 }
-
 
 
 /* =====================================================
@@ -381,9 +303,7 @@ for (
     fallingPetals.push(
         new FallingPetal()
     );
-
 }
-
 
 
 /* =====================================================
@@ -454,7 +374,6 @@ class LogoParticle {
             Math.random() *
             0.08 +
             0.02;
-
     }
 
 
@@ -494,7 +413,6 @@ class LogoParticle {
         return (
             this.life > 0
         );
-
     }
 
 
@@ -535,11 +453,8 @@ class LogoParticle {
 
 
         ctx.restore();
-
     }
-
 }
-
 
 
 /* =====================================================
@@ -548,8 +463,7 @@ class LogoParticle {
 
 function createLogoParticles() {
 
-    logoParticles.length =
-        0;
+    logoParticles.length = 0;
 
 
     if (
@@ -560,7 +474,6 @@ function createLogoParticles() {
         createFallbackLogoParticles();
 
         return;
-
     }
 
 
@@ -569,23 +482,17 @@ function createLogoParticles() {
 
 
     const tempCanvas =
-        document.createElement(
-            "canvas"
-        );
+        document.createElement("canvas");
 
 
     const tempCtx =
-        tempCanvas.getContext(
-            "2d"
-        );
+        tempCanvas.getContext("2d");
 
 
     const logoWidth =
         Math.max(
             1,
-            Math.floor(
-                rect.width
-            )
+            Math.floor(rect.width)
         );
 
 
@@ -612,27 +519,20 @@ function createLogoParticles() {
 
 
     tempCtx.drawImage(
-
         logo,
-
         0,
         0,
-
         logoWidth,
         logoHeight
-
     );
 
 
     const pixels =
         tempCtx.getImageData(
-
             0,
             0,
-
             logoWidth,
             logoHeight
-
         ).data;
 
 
@@ -660,9 +560,7 @@ function createLogoParticles() {
 
 
             const alpha =
-                pixels[
-                    index + 3
-                ];
+                pixels[index + 3];
 
 
             if (
@@ -671,21 +569,13 @@ function createLogoParticles() {
             ) {
 
                 logoParticles.push(
-
                     new LogoParticle(
-
                         rect.left + x,
-
                         rect.top + y
-
                     )
-
                 );
-
             }
-
         }
-
     }
 
 
@@ -694,11 +584,8 @@ function createLogoParticles() {
     ) {
 
         createFallbackLogoParticles();
-
     }
-
 }
-
 
 
 /* =====================================================
@@ -730,18 +617,13 @@ function createFallbackLogoParticles() {
 
 
         logoParticles.push(
-
             new LogoParticle(
                 x,
                 y
             )
-
         );
-
     }
-
 }
-
 
 
 /* =====================================================
@@ -805,30 +687,22 @@ class BurstPetal {
             Math.random() *
             35 +
             40;
-
     }
 
 
     update() {
 
-        this.x +=
-            this.vx;
+        this.x += this.vx;
+
+        this.y += this.vy;
 
 
-        this.y +=
-            this.vy;
+        this.vx *= 0.985;
+
+        this.vy *= 0.985;
 
 
-        this.vx *=
-            0.985;
-
-
-        this.vy *=
-            0.985;
-
-
-        this.vy +=
-            0.025;
+        this.vy += 0.025;
 
 
         this.rotation +=
@@ -841,7 +715,6 @@ class BurstPetal {
         return (
             this.life > 0
         );
-
     }
 
 
@@ -894,7 +767,6 @@ class BurstPetal {
 
 
         ctx.bezierCurveTo(
-
             s * 0.75,
             -s * 0.8,
 
@@ -903,12 +775,10 @@ class BurstPetal {
 
             s * 0.35,
             s * 0.75
-
         );
 
 
         ctx.bezierCurveTo(
-
             0,
             s * 1.05,
 
@@ -917,12 +787,10 @@ class BurstPetal {
 
             -s * 0.45,
             0
-
         );
 
 
         ctx.bezierCurveTo(
-
             -s * 0.55,
             -s * 0.55,
 
@@ -931,7 +799,6 @@ class BurstPetal {
 
             0,
             -s
-
         );
 
 
@@ -941,11 +808,8 @@ class BurstPetal {
 
 
         ctx.restore();
-
     }
-
 }
-
 
 
 /* =====================================================
@@ -954,16 +818,8 @@ class BurstPetal {
 
 function createBurst() {
 
-    burstParticles.length =
-        0;
+    burstParticles.length = 0;
 
-
-    /*
-        สำคัญ:
-        Logo ยังอยู่ใน DOM
-        และยังมีตำแหน่งจริง
-        ตอน function นี้ทำงาน
-    */
 
     const rect =
         logo.getBoundingClientRect();
@@ -971,8 +827,7 @@ function createBurst() {
 
     /*
         Canvas เป็น fixed 100vw x 100vh
-        ดังนั้นพิกัด Logo
-        สามารถใช้ตรงกับ Canvas ได้
+        ดังนั้นตำแหน่ง Logo ใช้กับ Canvas ได้ตรง ๆ
     */
 
     const burstX =
@@ -992,18 +847,13 @@ function createBurst() {
     ) {
 
         burstParticles.push(
-
             new BurstPetal(
                 burstX,
                 burstY
             )
-
         );
-
     }
-
 }
-
 
 
 /* =====================================================
@@ -1030,9 +880,7 @@ function showScreen(
     screen.classList.add(
         "active"
     );
-
 }
-
 
 
 /* =====================================================
@@ -1042,7 +890,6 @@ function showScreen(
 menuScreen.classList.add(
     "active"
 );
-
 
 
 /* =====================================================
@@ -1060,23 +907,15 @@ modeToggle.addEventListener(
             !isNight;
 
 
-        /*
-            Background crossfade
-            ทำงานผ่าน CSS
-        */
-
         document.body.classList.toggle(
             "night-mode",
             isNight
         );
 
 
-        /*
-            Fade icon ก่อนเปลี่ยน
-        */
-
         modeIcon.style.opacity =
             "0";
+
 
         modeText.style.opacity =
             "0";
@@ -1100,12 +939,12 @@ modeToggle.addEventListener(
 
                     modeText.textContent =
                         "DAY";
-
                 }
 
 
                 modeIcon.style.opacity =
                     "1";
+
 
                 modeText.style.opacity =
                     "1";
@@ -1118,14 +957,11 @@ modeToggle.addEventListener(
 );
 
 
-
 /* =====================================================
    TRANSITION STATE
 ===================================================== */
 
-let isTransitioning =
-    false;
-
+let isTransitioning = false;
 
 
 /* =====================================================
@@ -1139,42 +975,36 @@ function openLeaderboard() {
     ) {
 
         return;
-
     }
 
 
-    isTransitioning =
-        true;
+    isTransitioning = true;
 
 
-    /*
-        ซ่อนปุ่ม
-    */
+    const menuButtons =
+        document.getElementById(
+            "menuButtons"
+        );
 
-    document.getElementById(
-        "menuButtons"
-    ).style.opacity =
+
+    menuButtons.style.opacity =
         "0";
 
 
-    document.getElementById(
-        "menuButtons"
-    ).style.pointerEvents =
+    menuButtons.style.pointerEvents =
         "none";
 
 
     /*
-        สร้าง dissolve
-        จาก Logo
+        สร้าง Logo dissolve
     */
 
     createLogoParticles();
 
 
     /*
-        Burst ต้องเกิด
-        จากตำแหน่ง Logo
-        ก่อน Logo ถูกซ่อน
+        Sakura burst
+        เริ่มจากตำแหน่ง Logo จริง
     */
 
     setTimeout(
@@ -1188,7 +1018,7 @@ function openLeaderboard() {
 
 
     /*
-        Logo dissolve
+        Fade Logo
     */
 
     setTimeout(
@@ -1197,8 +1027,10 @@ function openLeaderboard() {
             logoContainer.style.opacity =
                 "0";
 
+
             logoContainer.style.transform =
                 "scale(1.06)";
+
 
             logoContainer.style.filter =
                 "blur(6px)";
@@ -1224,10 +1056,6 @@ function openLeaderboard() {
     );
 
 
-    /*
-        reset state
-    */
-
     setTimeout(
         () => {
 
@@ -1237,9 +1065,7 @@ function openLeaderboard() {
         },
         1200
     );
-
 }
-
 
 
 /* =====================================================
@@ -1251,9 +1077,7 @@ function openIzuna() {
     showScreen(
         izunaScreen
     );
-
 }
-
 
 
 /* =====================================================
@@ -1265,6 +1089,7 @@ function goBackToMenu() {
     leaderboardScreen.classList.remove(
         "active"
     );
+
 
     izunaScreen.classList.remove(
         "active"
@@ -1291,15 +1116,17 @@ function goBackToMenu() {
                 "none";
 
 
-            document.getElementById(
-                "menuButtons"
-            ).style.opacity =
+            const menuButtons =
+                document.getElementById(
+                    "menuButtons"
+                );
+
+
+            menuButtons.style.opacity =
                 "1";
 
 
-            document.getElementById(
-                "menuButtons"
-            ).style.pointerEvents =
+            menuButtons.style.pointerEvents =
                 "auto";
 
 
@@ -1317,9 +1144,7 @@ function goBackToMenu() {
         },
         300
     );
-
 }
-
 
 
 /* =====================================================
@@ -1348,7 +1173,6 @@ izunaBackButton.addEventListener(
     "click",
     goBackToMenu
 );
-
 
 
 /* =====================================================
@@ -1624,7 +1448,6 @@ const kuroKageData = [
 ];
 
 
-
 /* =====================================================
    HTML ESCAPE
 ===================================================== */
@@ -1659,9 +1482,7 @@ function escapeHTML(
             /'/g,
             "&#039;"
         );
-
 }
-
 
 
 /* =====================================================
@@ -1696,14 +1517,11 @@ function rankNameHTML(
             </span>
 
         `;
-
     }
 
 
     return name;
-
 }
-
 
 
 /* =====================================================
@@ -1727,7 +1545,6 @@ function createHeroCard(
 
         crown =
             `<div class="hero-crown">♛</div>`;
-
     }
 
 
@@ -1754,9 +1571,7 @@ function createHeroCard(
         </div>
 
     `;
-
 }
-
 
 
 /* =====================================================
@@ -1786,9 +1601,7 @@ function createRankRow(
         </div>
 
     `;
-
 }
-
 
 
 /* =====================================================
@@ -1834,9 +1647,7 @@ function renderKurokage() {
         </div>
 
     `;
-
 }
-
 
 
 /* =====================================================
@@ -1860,9 +1671,7 @@ function renderTA85() {
         </div>
 
     `;
-
 }
-
 
 
 /* =====================================================
@@ -1885,7 +1694,6 @@ function activateBoss(
     activeButton.classList.add(
         "active"
     );
-
 }
 
 
@@ -1917,13 +1725,11 @@ ga33Button.addEventListener(
 );
 
 
-
 /* =====================================================
    INITIAL LEADERBOARD
 ===================================================== */
 
 renderKurokage();
-
 
 
 /* =====================================================
@@ -1970,7 +1776,6 @@ const PET_IDLE_DELAY =
     220;
 
 
-
 /* =====================================================
    CHECK HEAD
 ===================================================== */
@@ -2004,9 +1809,7 @@ function isPointerOnHead(
         y <= HEAD_ZONE.bottom
 
     );
-
 }
-
 
 
 /* =====================================================
@@ -2022,7 +1825,6 @@ function startPetting(
     ) {
 
         return;
-
     }
 
 
@@ -2036,7 +1838,6 @@ function startPetting(
 
         petStartTime =
             performance.now();
-
     }
 
 
@@ -2055,9 +1856,7 @@ function startPetting(
     izunaArea.classList.add(
         "petting"
     );
-
 }
-
 
 
 /* =====================================================
@@ -2073,7 +1872,6 @@ function updatePetting(
     ) {
 
         return;
-
     }
 
 
@@ -2109,11 +1907,8 @@ function updatePetting(
 
         lastRubTime =
             performance.now();
-
     }
-
 }
-
 
 
 /* =====================================================
@@ -2127,7 +1922,6 @@ function stopPetting() {
     ) {
 
         return;
-
     }
 
 
@@ -2138,7 +1932,6 @@ function stopPetting() {
         totalPetTime +=
             performance.now() -
             petStartTime;
-
     }
 
 
@@ -2153,9 +1946,7 @@ function stopPetting() {
     izunaArea.classList.remove(
         "petting"
     );
-
 }
-
 
 
 /* =====================================================
@@ -2192,7 +1983,6 @@ izunaArea.addEventListener(
 );
 
 
-
 /* =====================================================
    PET TIMER
 ===================================================== */
@@ -2211,7 +2001,6 @@ function updatePetTimer() {
         current +=
             performance.now() -
             petStartTime;
-
     }
 
 
@@ -2226,12 +2015,10 @@ function updatePetTimer() {
     requestAnimationFrame(
         updatePetTimer
     );
-
 }
 
 
 updatePetTimer();
-
 
 
 /* =====================================================
@@ -2250,6 +2037,9 @@ function animate() {
 
     /*
         Falling Sakura
+
+        สำคัญ:
+        ทำงานทุก frame ตลอดเวลา
     */
 
     for (
@@ -2260,7 +2050,6 @@ function animate() {
         petal.update();
 
         petal.draw();
-
     }
 
 
@@ -2293,9 +2082,7 @@ function animate() {
                 i,
                 1
             );
-
         }
-
     }
 
 
@@ -2328,16 +2115,13 @@ function animate() {
                 i,
                 1
             );
-
         }
-
     }
 
 
     requestAnimationFrame(
         animate
     );
-
 }
 
 
