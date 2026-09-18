@@ -9,49 +9,47 @@
 ===================================================== */
 
 * {
-
     margin: 0;
     padding: 0;
-
     box-sizing: border-box;
-
 }
 
 
 html,
 body {
-
     width: 100%;
     height: 100%;
-
     overflow: hidden;
-
     background: #09050b;
 
     font-family:
         Arial,
         Helvetica,
         sans-serif;
-
 }
 
 
 body {
-
     position: relative;
-
     color: #fff;
-
 }
-
 
 
 /* =====================================================
    PARTICLE CANVAS
 ===================================================== */
 
-#particleCanvas {
+/*
+    Layer order:
 
+    Background  = 0
+    Sakura      = 4
+    Logo        = 7
+    Buttons     = 8
+    Day/Night   = 10
+*/
+
+#particleCanvas {
     position: fixed;
 
     inset: 0;
@@ -62,9 +60,7 @@ body {
     z-index: 4;
 
     pointer-events: none;
-
 }
-
 
 
 /* =====================================================
@@ -72,16 +68,13 @@ body {
 ===================================================== */
 
 .screen {
-
     position: fixed;
 
     inset: 0;
 
     width: 100%;
     height: 100%;
-
 }
-
 
 
 /* =====================================================
@@ -89,21 +82,22 @@ body {
 ===================================================== */
 
 .menu-screen {
-
     display: flex;
 
     flex-direction: column;
 
     justify-content: center;
-
     align-items: center;
 
     z-index: 5;
 
     background: transparent;
 
+    /*
+        สำคัญสำหรับ Sakura Layer
+    */
+    isolation: isolate;
 }
-
 
 
 /* =====================================================
@@ -111,7 +105,6 @@ body {
 ===================================================== */
 
 .menu-background {
-
     position: absolute;
 
     inset: -5%;
@@ -119,18 +112,15 @@ body {
     overflow: hidden;
 
     z-index: 0;
-
 }
 
 
 .background-layer {
-
     position: absolute;
 
     inset: 0;
 
     background-size: cover;
-
     background-position: center;
 
     filter:
@@ -143,45 +133,35 @@ body {
     transition:
         opacity 2.2s
         cubic-bezier(.4,0,.2,1);
-
 }
 
 
 .background-day {
-
     background-image:
         url("./background-day.png");
 
     opacity: 1;
-
 }
 
 
 .background-night {
-
     background-image:
         url("./background-night.png");
 
     opacity: 0;
-
 }
 
 
 body.night-mode
 .background-day {
-
     opacity: 0;
-
 }
 
 
 body.night-mode
 .background-night {
-
     opacity: 1;
-
 }
-
 
 
 /* =====================================================
@@ -189,13 +169,11 @@ body.night-mode
 ===================================================== */
 
 .background-overlay {
-
     position: absolute;
 
     inset: 0;
 
     background:
-
         linear-gradient(
             180deg,
             rgba(25,5,25,0.12),
@@ -203,9 +181,7 @@ body.night-mode
         );
 
     pointer-events: none;
-
 }
-
 
 
 /* =====================================================
@@ -213,7 +189,6 @@ body.night-mode
 ===================================================== */
 
 .menu-background::after {
-
     content: "";
 
     position: absolute;
@@ -221,7 +196,6 @@ body.night-mode
     inset: 0;
 
     background:
-
         radial-gradient(
             circle at center,
             rgba(255,145,210,0.10),
@@ -234,17 +208,13 @@ body.night-mode
         opacity 2.2s ease;
 
     pointer-events: none;
-
 }
 
 
 body.night-mode
 .menu-background::after {
-
     opacity: 0.28;
-
 }
-
 
 
 /* =====================================================
@@ -252,7 +222,6 @@ body.night-mode
 ===================================================== */
 
 .logo-container {
-
     position: relative;
 
     z-index: 7;
@@ -263,7 +232,6 @@ body.night-mode
     display: flex;
 
     justify-content: center;
-
     align-items: center;
 
     opacity: 1;
@@ -275,40 +243,30 @@ body.night-mode
         blur(0);
 
     transition:
-
         opacity 0.55s ease,
-
         transform 0.55s ease,
-
         filter 0.55s ease;
-
 }
 
 
 #logo {
-
     display: block;
 
     width: 100%;
-
     height: auto;
 
     object-fit: contain;
 
     filter:
-
         drop-shadow(
             0 0 5px
             rgba(255,255,255,0.32)
         )
-
         drop-shadow(
             0 0 15px
             rgba(255,110,190,0.22)
         );
-
 }
-
 
 
 /* =====================================================
@@ -316,7 +274,6 @@ body.night-mode
 ===================================================== */
 
 .menu-buttons {
-
     position: relative;
 
     z-index: 8;
@@ -330,31 +287,25 @@ body.night-mode
     gap: 14px;
 
     align-items: center;
-
 }
 
 
 .menu-button {
-
     position: relative;
 
     width: 235px;
-
     height: 52px;
 
     border:
-
         1px solid
         rgba(255,160,215,0.65);
 
     background:
-
         rgba(20,5,20,0.62);
 
     color: #fff1fa;
 
     font-size: 11px;
-
     font-weight: 500;
 
     letter-spacing: 3px;
@@ -362,7 +313,6 @@ body.night-mode
     cursor: pointer;
 
     box-shadow:
-
         0 0 10px
         rgba(255,100,190,0.16),
 
@@ -370,20 +320,14 @@ body.night-mode
         rgba(255,120,200,0.035);
 
     transition:
-
         transform 0.25s ease,
-
         border-color 0.25s ease,
-
         background 0.25s ease,
-
         box-shadow 0.25s ease;
-
 }
 
 
 .menu-button:hover {
-
     transform:
         translateY(-2px);
 
@@ -394,18 +338,15 @@ body.night-mode
         rgba(90,20,70,0.28);
 
     box-shadow:
-
         0 0 13px
         rgba(255,100,190,0.38),
 
         0 0 28px
         rgba(255,80,180,0.14);
-
 }
 
 
 .button-line {
-
     position: absolute;
 
     left: 25px;
@@ -416,7 +357,6 @@ body.night-mode
     height: 1px;
 
     background:
-
         linear-gradient(
             90deg,
             transparent,
@@ -425,20 +365,16 @@ body.night-mode
         );
 
     box-shadow:
-
         0 0 6px
         rgba(255,100,190,0.65);
-
 }
 
 
-
 /* =====================================================
-   DAY NIGHT BUTTON
+   DAY / NIGHT BUTTON
 ===================================================== */
 
 .mode-toggle {
-
     position: absolute;
 
     right:
@@ -459,7 +395,6 @@ body.night-mode
         9px 15px;
 
     border:
-
         1px solid
         rgba(255,175,220,0.45);
 
@@ -477,40 +412,28 @@ body.night-mode
     font-size: 11px;
 
     transition:
-
         border-color 0.3s ease,
-
         background 0.3s ease,
-
         box-shadow 0.3s ease;
-
 }
 
 
 .mode-toggle:hover {
-
     border-color:
         #ff9bd2;
 
     box-shadow:
-
         0 0 16px
         rgba(255,100,190,0.35);
-
 }
 
 
 #modeIcon,
 #modeText {
-
     transition:
-
         opacity 0.35s ease,
-
         transform 0.35s ease;
-
 }
-
 
 
 /* =====================================================
@@ -518,11 +441,9 @@ body.night-mode
 ===================================================== */
 
 .leaderboard-screen {
-
     display: flex;
 
     justify-content: center;
-
     align-items: center;
 
     padding:
@@ -538,7 +459,6 @@ body.night-mode
         scale(1.03);
 
     background:
-
         radial-gradient(
             ellipse at center,
             rgba(150,35,110,0.12),
@@ -550,18 +470,13 @@ body.night-mode
     z-index: 20;
 
     transition:
-
         opacity 0.65s ease,
-
         transform 0.65s ease,
-
         visibility 0.65s ease;
-
 }
 
 
 .leaderboard-screen.active {
-
     opacity: 1;
 
     visibility: visible;
@@ -570,9 +485,7 @@ body.night-mode
 
     transform:
         scale(1);
-
 }
-
 
 
 /* =====================================================
@@ -580,7 +493,6 @@ body.night-mode
 ===================================================== */
 
 .leaderboard-container {
-
     position: relative;
 
     width:
@@ -595,7 +507,6 @@ body.night-mode
     overflow-y: auto;
 
     background:
-
         linear-gradient(
             180deg,
             rgba(35,10,32,0.93),
@@ -603,35 +514,27 @@ body.night-mode
         );
 
     border:
-
         1px solid
         rgba(255,130,205,0.32);
 
     box-shadow:
-
         0 0 30px
         rgba(255,80,180,0.09),
 
         inset 0 0 40px
         rgba(255,100,190,0.025);
-
 }
 
 
 .leaderboard-container::-webkit-scrollbar {
-
     width: 5px;
-
 }
 
 
 .leaderboard-container::-webkit-scrollbar-thumb {
-
     background:
         rgba(255,135,205,0.35);
-
 }
-
 
 
 /* =====================================================
@@ -639,7 +542,6 @@ body.night-mode
 ===================================================== */
 
 .leaderboard-title {
-
     text-align: center;
 
     color:
@@ -652,15 +554,12 @@ body.night-mode
     letter-spacing: 7px;
 
     text-shadow:
-
         0 0 10px
         rgba(255,130,205,0.35);
-
 }
 
 
 .leaderboard-subtitle {
-
     margin-top: 9px;
 
     text-align: center;
@@ -671,9 +570,7 @@ body.night-mode
     font-size: 10px;
 
     letter-spacing: 5px;
-
 }
-
 
 
 /* =====================================================
@@ -681,7 +578,6 @@ body.night-mode
 ===================================================== */
 
 .boss-selector {
-
     display: flex;
 
     justify-content: center;
@@ -690,14 +586,11 @@ body.night-mode
 
     margin:
         25px 0 25px;
-
 }
 
 
 .boss-button {
-
     width: 175px;
-
     height: 55px;
 
     display: flex;
@@ -705,13 +598,11 @@ body.night-mode
     flex-direction: column;
 
     justify-content: center;
-
     align-items: center;
 
     gap: 3px;
 
     border:
-
         1px solid
         rgba(255,150,215,0.30);
 
@@ -724,31 +615,23 @@ body.night-mode
     cursor: pointer;
 
     transition:
-
         border-color 0.25s ease,
-
         background 0.25s ease,
-
         box-shadow 0.25s ease,
-
         transform 0.25s ease;
-
 }
 
 
 .boss-button:hover {
-
     transform:
         translateY(-2px);
 
     border-color:
         rgba(255,180,225,0.65);
-
 }
 
 
 .boss-button.active {
-
     border-color:
         rgba(255,150,215,0.9);
 
@@ -759,34 +642,27 @@ body.night-mode
         #fff;
 
     box-shadow:
-
         0 0 18px
         rgba(255,90,185,0.20);
-
 }
 
 
 .boss-code {
-
     font-size: 15px;
 
     letter-spacing: 3px;
 
     font-weight: 600;
-
 }
 
 
 .boss-name {
-
     font-size: 9px;
 
     letter-spacing: 3px;
 
     opacity: 0.75;
-
 }
-
 
 
 /* =====================================================
@@ -794,11 +670,8 @@ body.night-mode
 ===================================================== */
 
 .leaderboard-content {
-
     width: 100%;
-
 }
-
 
 
 /* =====================================================
@@ -806,7 +679,6 @@ body.night-mode
 ===================================================== */
 
 .hero-rankings {
-
     display: grid;
 
     grid-template-columns:
@@ -815,12 +687,10 @@ body.night-mode
     gap: 14px;
 
     margin-bottom: 18px;
-
 }
 
 
 .hero-card {
-
     position: relative;
 
     min-height: 180px;
@@ -833,18 +703,15 @@ body.night-mode
     flex-direction: column;
 
     justify-content: center;
-
     align-items: center;
 
     text-align: center;
 
     border:
-
         1px solid
         rgba(255,160,215,0.38);
 
     background:
-
         linear-gradient(
             180deg,
             rgba(70,15,55,0.55),
@@ -852,18 +719,15 @@ body.night-mode
         );
 
     box-shadow:
-
         inset 0 0 25px
         rgba(255,100,190,0.035),
 
         0 0 18px
         rgba(255,80,180,0.06);
-
 }
 
 
 .hero-card::before {
-
     content: "";
 
     position: absolute;
@@ -871,17 +735,14 @@ body.night-mode
     inset: 7px;
 
     border:
-
         1px solid
         rgba(255,170,220,0.10);
 
     pointer-events: none;
-
 }
 
 
 .hero-rank {
-
     font-size: 13px;
 
     letter-spacing: 4px;
@@ -890,23 +751,19 @@ body.night-mode
         rgba(255,210,235,0.65);
 
     margin-bottom: 7px;
-
 }
 
 
 .hero-crown {
-
     position: absolute;
 
     top: 12px;
 
     font-size: 18px;
-
 }
 
 
 .hero-name {
-
     font-size: 19px;
 
     color:
@@ -919,12 +776,10 @@ body.night-mode
     overflow: hidden;
 
     text-overflow: ellipsis;
-
 }
 
 
 .hero-score {
-
     margin-top: 14px;
 
     font-size: 42px;
@@ -937,20 +792,15 @@ body.night-mode
         #fff0fa;
 
     text-shadow:
-
         0 0 13px
         rgba(255,130,205,0.32);
-
 }
 
 
 .hero-na {
-
     color:
         #ffb6d9;
-
 }
-
 
 
 /* =====================================================
@@ -958,18 +808,15 @@ body.night-mode
 ===================================================== */
 
 .ranking-list {
-
     display: flex;
 
     flex-direction: column;
 
     gap: 6px;
-
 }
 
 
 .rank-row {
-
     display: grid;
 
     grid-template-columns:
@@ -985,7 +832,6 @@ body.night-mode
         0 14px;
 
     border:
-
         1px solid
         rgba(255,150,215,0.10);
 
@@ -993,39 +839,31 @@ body.night-mode
         rgba(40,10,35,0.34);
 
     transition:
-
         background 0.2s ease,
-
         border-color 0.2s ease;
-
 }
 
 
 .rank-row:hover {
-
     background:
         rgba(90,20,70,0.27);
 
     border-color:
         rgba(255,150,215,0.25);
-
 }
 
 
 .rank-number {
-
     color:
         rgba(255,195,225,0.55);
 
     font-size: 12px;
 
     letter-spacing: 2px;
-
 }
 
 
 .rank-name {
-
     color:
         #fceaf5;
 
@@ -1038,12 +876,10 @@ body.night-mode
     overflow: hidden;
 
     text-overflow: ellipsis;
-
 }
 
 
 .rank-score {
-
     text-align: right;
 
     color:
@@ -1052,9 +888,7 @@ body.night-mode
     font-size: 13px;
 
     letter-spacing: 1px;
-
 }
-
 
 
 /* =====================================================
@@ -1062,21 +896,17 @@ body.night-mode
 ===================================================== */
 
 .rank-warning {
-
     display: inline-flex;
 
     align-items: center;
-
     justify-content: center;
 
     width: 17px;
-
     height: 17px;
 
     margin-left: 7px;
 
     border:
-
         1px solid
         rgba(255,90,140,0.80);
 
@@ -1092,14 +922,12 @@ body.night-mode
     vertical-align: middle;
 
     box-shadow:
-
         0 0 8px
         rgba(255,70,130,0.35);
 
     animation:
         warningPulse 1.8s
         ease-in-out infinite;
-
 }
 
 
@@ -1107,27 +935,21 @@ body.night-mode
 
     0%,
     100% {
-
         opacity: 0.72;
 
         box-shadow:
             0 0 6px
             rgba(255,70,130,0.25);
-
     }
 
     50% {
-
         opacity: 1;
 
         box-shadow:
             0 0 12px
             rgba(255,70,130,0.55);
-
     }
-
 }
-
 
 
 /* =====================================================
@@ -1135,7 +957,6 @@ body.night-mode
 ===================================================== */
 
 .wip-panel {
-
     min-height: 300px;
 
     display: flex;
@@ -1143,36 +964,30 @@ body.night-mode
     flex-direction: column;
 
     justify-content: center;
-
     align-items: center;
 
     text-align: center;
 
     border:
-
         1px dashed
         rgba(255,150,215,0.25);
 
     background:
         rgba(40,10,35,0.20);
-
 }
 
 
 .wip-title {
-
     color:
         #fff0fa;
 
     font-size: 19px;
 
     letter-spacing: 5px;
-
 }
 
 
 .wip-text {
-
     margin-top: 13px;
 
     color:
@@ -1181,9 +996,7 @@ body.night-mode
     font-size: 10px;
 
     letter-spacing: 3px;
-
 }
-
 
 
 /* =====================================================
@@ -1191,7 +1004,6 @@ body.night-mode
 ===================================================== */
 
 .back-button {
-
     position: absolute;
 
     left: 50%;
@@ -1202,11 +1014,9 @@ body.night-mode
         translateX(-50%);
 
     width: 135px;
-
     height: 40px;
 
     border:
-
         1px solid
         rgba(255,150,215,0.48);
 
@@ -1223,18 +1033,13 @@ body.night-mode
     cursor: pointer;
 
     transition:
-
         border-color 0.25s ease,
-
         background 0.25s ease,
-
         box-shadow 0.25s ease;
-
 }
 
 
 .back-button:hover {
-
     border-color:
         rgba(255,190,230,0.9);
 
@@ -1242,12 +1047,9 @@ body.night-mode
         rgba(90,20,70,0.35);
 
     box-shadow:
-
         0 0 14px
         rgba(255,100,190,0.25);
-
 }
-
 
 
 /* =====================================================
@@ -1255,11 +1057,9 @@ body.night-mode
 ===================================================== */
 
 .izuna-screen {
-
     display: flex;
 
     justify-content: center;
-
     align-items: center;
 
     opacity: 0;
@@ -1272,7 +1072,6 @@ body.night-mode
         scale(1.03);
 
     background:
-
         radial-gradient(
             ellipse at center,
             rgba(120,25,95,0.18),
@@ -1284,18 +1083,13 @@ body.night-mode
     z-index: 20;
 
     transition:
-
         opacity 0.65s ease,
-
         transform 0.65s ease,
-
         visibility 0.65s ease;
-
 }
 
 
 .izuna-screen.active {
-
     opacity: 1;
 
     visibility: visible;
@@ -1304,35 +1098,29 @@ body.night-mode
 
     transform:
         scale(1);
-
 }
 
 
 .izuna-container {
-
     display: flex;
 
     flex-direction: column;
 
     align-items: center;
-
 }
 
 
 .izuna-title {
-
     font-size: 25px;
 
     letter-spacing: 7px;
 
     color:
         #fff1fa;
-
 }
 
 
 .izuna-subtitle {
-
     margin-top: 9px;
 
     font-size: 10px;
@@ -1341,34 +1129,28 @@ body.night-mode
 
     color:
         rgba(255,185,225,0.55);
-
 }
 
 
 .pet-score {
-
     margin-top: 18px;
 
     font-size: 13px;
 
     color:
         rgba(255,220,240,0.72);
-
 }
 
 
 #petSeconds {
-
     color:
         #ffacd3;
 
     font-weight: 600;
-
 }
 
 
 .izuna-area {
-
     position: relative;
 
     width:
@@ -1381,25 +1163,20 @@ body.night-mode
     user-select: none;
 
     touch-action: none;
-
 }
 
 
 .izuna-area:active {
-
     cursor: grabbing;
-
 }
 
 
 .izuna-image {
-
     position: relative;
 
     display: block;
 
     width: 100%;
-
     height: auto;
 
     z-index: 2;
@@ -1407,12 +1184,10 @@ body.night-mode
     user-select: none;
 
     pointer-events: none;
-
 }
 
 
 .izuna-pet {
-
     position: absolute;
 
     inset: 0;
@@ -1421,43 +1196,34 @@ body.night-mode
 
     transition:
         opacity 0.18s ease;
-
 }
 
 
 .izuna-area.petting
 #izunaStatic {
-
     opacity: 0;
-
 }
 
 
 .izuna-area.petting
 #izunaPet {
-
     opacity: 1;
-
 }
 
 
 .pet-glow {
-
     position: absolute;
 
     left: 50%;
-
     top: 38%;
 
     width: 48%;
-
     height: 35%;
 
     transform:
         translate(-50%,-50%);
 
     background:
-
         radial-gradient(
             ellipse,
             rgba(255,120,200,0.20),
@@ -1473,20 +1239,16 @@ body.night-mode
         opacity 0.2s ease;
 
     pointer-events: none;
-
 }
 
 
 .izuna-area.petting
 .pet-glow {
-
     opacity: 1;
-
 }
 
 
 .pet-instruction {
-
     margin-top: 2px;
 
     color:
@@ -1495,9 +1257,7 @@ body.night-mode
     font-size: 9px;
 
     letter-spacing: 4px;
-
 }
-
 
 
 /* =====================================================
@@ -1506,63 +1266,47 @@ body.night-mode
 
 @media (max-width: 768px) {
 
-
     .logo-container {
-
         width: 84vw;
-
     }
 
 
     .menu-buttons {
-
         margin-top: 28px;
-
     }
 
 
     .menu-button {
-
         width: 205px;
 
         height: 50px;
-
     }
 
 
     .boss-selector {
-
         gap: 8px;
-
     }
 
 
     .boss-button {
-
         width: 145px;
 
         height: 52px;
-
     }
 
 
     .hero-rankings {
-
         grid-template-columns:
             1fr;
-
     }
 
 
     .hero-card {
-
         min-height: 145px;
-
     }
 
 
     .rank-row {
-
         grid-template-columns:
             45px
             minmax(0,1fr)
@@ -1570,49 +1314,38 @@ body.night-mode
 
         padding:
             0 9px;
-
     }
 
 
     .rank-name {
-
         font-size: 11px;
-
     }
 
 
     .rank-score {
-
         font-size: 11px;
-
     }
 
 
     .leaderboard-container {
-
         width: 94vw;
 
         height: 88vh;
 
         padding:
             24px 14px 30px;
-
     }
 
 
     .leaderboard-title {
-
         font-size: 18px;
 
         letter-spacing: 4px;
-
     }
 
 
     .izuna-area {
-
         width: 82vw;
-
     }
 
 }
