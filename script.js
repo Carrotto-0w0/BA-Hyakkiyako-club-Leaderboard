@@ -913,38 +913,30 @@ modeToggle.addEventListener(
 );
 
 
-/* =====================================================
-   CANVAS PARTICLES
-===================================================== */
+/* =========================================================
+   SAKURA PARTICLES
+   ========================================================= */
 
-let width = 0;
-let height = 0;
+let particles = [];
 
-const ambientParticles = [];
-const sakuraParticles = [];
+const PARTICLE_COUNT = 75;
 
 
 function resizeCanvas() {
 
-    width =
-        window.innerWidth;
-
-    height =
-        window.innerHeight;
-
-    canvas.width =
-        width *
+    particleCanvas.width =
+        window.innerWidth *
         window.devicePixelRatio;
 
-    canvas.height =
-        height *
+    particleCanvas.height =
+        window.innerHeight *
         window.devicePixelRatio;
 
-    canvas.style.width =
-        width + "px";
+    particleCanvas.style.width =
+        window.innerWidth + "px";
 
-    canvas.style.height =
-        height + "px";
+    particleCanvas.style.height =
+        window.innerHeight + "px";
 
     ctx.setTransform(
         window.devicePixelRatio,
@@ -954,7 +946,6 @@ function resizeCanvas() {
         0,
         0
     );
-
 }
 
 
@@ -963,111 +954,110 @@ window.addEventListener(
     resizeCanvas
 );
 
+
 resizeCanvas();
 
 
-/* =====================================================
-   FALLING SAKURA PETALS
-===================================================== */
 
-class SakuraPetal {
+/* =========================================================
+   SAKURA PETAL
+   ========================================================= */
 
-    constructor() {
-        this.reset(true);
-    }
+class SakuraParticle {
 
-    reset(initial = false) {
+    constructor(
+        x = Math.random() * window.innerWidth,
+        y = Math.random() * window.innerHeight
+    ) {
 
-        this.x =
-            Math.random() * width;
+        this.x = x;
 
-        this.y =
-            initial
-                ? Math.random() * height
-                : -30 - Math.random() * 80;
+        this.y = y;
 
-        /* ขนาดดอก Sakura */
         this.size =
-            Math.random() * 7 + 5;
+            2.5 +
+            Math.random() * 4.5;
 
-        /* ความเร็วในการตก */
-        this.speed =
-            Math.random() * 0.8 + 0.45;
+        this.speedY =
+            0.25 +
+            Math.random() * 0.75;
 
-        /* การแกว่งซ้ายขวา */
-        this.swing =
-            Math.random() * Math.PI * 2;
+        this.speedX =
+            -0.35 +
+            Math.random() * 0.7;
 
-        this.swingSpeed =
-            Math.random() * 0.018 + 0.008;
-
-        this.swingAmount =
-            Math.random() * 1.2 + 0.5;
-
-        /* การหมุน */
         this.rotation =
             Math.random() * Math.PI * 2;
 
         this.rotationSpeed =
-            Math.random() * 0.025 - 0.0125;
+            -0.015 +
+            Math.random() * 0.03;
 
-        /* ความโปร่งใส */
         this.alpha =
-            Math.random() * 0.45 + 0.45;
+            0.25 +
+            Math.random() * 0.6;
+
+        this.wave =
+            Math.random() * Math.PI * 2;
+
+        this.waveSpeed =
+            0.008 +
+            Math.random() * 0.02;
+
+        this.color =
+            Math.random() > 0.5
+                ? "#FFD1E8"
+                : "#FF9FCB";
+
     }
 
 
     update() {
 
-        this.y += this.speed;
-
-        this.swing +=
-            this.swingSpeed;
+        this.wave +=
+            this.waveSpeed;
 
         this.x +=
-            Math.sin(this.swing) *
-            this.swingAmount;
+            this.speedX +
+            Math.sin(this.wave) * 0.35;
+
+        this.y +=
+            this.speedY;
 
         this.rotation +=
             this.rotationSpeed;
 
 
-        /*
-            ถ้าตกพ้นจอ
-            ให้กลับไปเริ่มจากด้านบน
-        */
-
         if (
             this.y >
-            height + 40
+            window.innerHeight + 20
         ) {
 
-            this.reset();
+            this.y = -20;
 
+            this.x =
+                Math.random() *
+                window.innerWidth;
         }
 
-
-        /*
-            ถ้าหลุดด้านข้าง
-        */
 
         if (
             this.x <
-            -40
+            -30
         ) {
 
             this.x =
-                width + 20;
+                window.innerWidth + 20;
 
         }
 
+
         if (
             this.x >
-            width + 40
+            window.innerWidth + 30
         ) {
 
-            this.x =
-                -20;
+            this.x = -20;
 
         }
 
@@ -1090,87 +1080,46 @@ class SakuraPetal {
         ctx.globalAlpha =
             this.alpha;
 
-
-        /*
-            Sakura 5 กลีบ
-        */
-
         ctx.fillStyle =
-            "#ff9dcc";
-
-        ctx.shadowBlur =
-            8;
-
-        ctx.shadowColor =
-            "#ff69b4";
+            this.color;
 
 
-        for (
-            let i = 0;
-            i < 5;
-            i++
-        ) {
-
-            ctx.save();
-
-            ctx.rotate(
-                (Math.PI * 2 / 5) * i
-            );
-
-            ctx.beginPath();
-
-            ctx.moveTo(
-                0,
-                0
-            );
-
-            ctx.bezierCurveTo(
-                -this.size * 0.9,
-                -this.size * 0.8,
-
-                -this.size * 0.75,
-                -this.size * 1.5,
-
-                0,
-                -this.size * 1.35
-            );
-
-            ctx.bezierCurveTo(
-                this.size * 0.75,
-                -this.size * 1.5,
-
-                this.size * 0.9,
-                -this.size * 0.8,
-
-                0,
-                0
-            );
-
-            ctx.fill();
-
-            ctx.restore();
-
-        }
-
-
-        /*
-            จุดตรงกลางดอก
-        */
+        /* Sakura petal */
 
         ctx.beginPath();
 
-        ctx.arc(
+        ctx.moveTo(
             0,
-            0,
-            this.size * 0.18,
-            0,
-            Math.PI * 2
+            -this.size
         );
 
-        ctx.fillStyle =
-            "#ffd3e8";
+        ctx.bezierCurveTo(
+            this.size,
+            -this.size * 0.7,
+            this.size,
+            this.size * 0.8,
+            0,
+            this.size
+        );
+
+        ctx.bezierCurveTo(
+            -this.size,
+            this.size * 0.8,
+            -this.size,
+            -this.size * 0.7,
+            0,
+            -this.size
+        );
 
         ctx.fill();
+
+
+        /* Glow */
+
+        ctx.shadowBlur = 8;
+
+        ctx.shadowColor =
+            "#FF9FCB";
 
 
         ctx.restore();
@@ -1180,47 +1129,17 @@ class SakuraPetal {
 }
 
 
-/* =====================================================
-   CREATE FALLING SAKURA
-===================================================== */
 
-const sakuraPetals = [];
-
-
-/*
-    จำนวนดอก Sakura
-    ปรับได้ตามความแรงที่ต้องการ
-*/
-
-const SAKURA_COUNT = 65;
-
+/* Create particles */
 
 for (
     let i = 0;
-    i < SAKURA_COUNT;
+    i < PARTICLE_COUNT;
     i++
 ) {
 
-    sakuraPetals.push(
-        new SakuraPetal()
-    );
-
-}
-
-
-/* =====================================================
-   SAKURA ANIMATION
-===================================================== */
-
-function updateSakura() {
-
-    sakuraPetals.forEach(
-        petal => {
-
-            petal.update();
-            petal.draw();
-
-        }
+    particles.push(
+        new SakuraParticle()
     );
 
 }
