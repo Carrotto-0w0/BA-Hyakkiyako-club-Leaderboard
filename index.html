@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -12,101 +10,35 @@
 
     <title>Hyakkiyako Club</title>
 
-
-    <!-- =====================================================
-         DISCORD / OPEN GRAPH
-         ===================================================== -->
-
-    <meta
-        property="og:title"
-        content="Hyakkiyako Club"
-    >
-
+    <!-- Discord / Social Preview -->
+    <meta property="og:title" content="Hyakkiyako Club">
     <meta
         property="og:description"
-        content="Hyakkiyako Club 5th Club Leaderboard"
+        content="Hyakkiyako 5th Club Leaderboard"
     >
-
-    <meta
-        property="og:type"
-        content="website"
-    >
-
-    <meta
-        property="og:url"
-        content="https://carrotto-0w0.github.io/BA-Hyakkiyako-club-Leaderboard/"
-    >
-
     <meta
         property="og:image"
         content="https://carrotto-0w0.github.io/BA-Hyakkiyako-club-Leaderboard/Hyakkiyako_Intro.png"
     >
-
     <meta
-        property="og:image:type"
-        content="image/png"
+        property="og:url"
+        content="https://carrotto-0w0.github.io/BA-Hyakkiyako-club-Leaderboard/"
     >
+    <meta property="og:type" content="website">
 
-    <meta
-        property="og:image:width"
-        content="800"
-    >
-
-    <meta
-        property="og:image:height"
-        content="1000"
-    >
-
-    <meta
-        name="twitter:card"
-        content="summary"
-    >
-
-    <meta
-        name="twitter:title"
-        content="Hyakkiyako Club"
-    >
-
-    <meta
-        name="twitter:description"
-        content="Hyakkiyako Club 5th Club Leaderboard"
-    >
-
-    <meta
-        name="twitter:image"
-        content="https://carrotto-0w0.github.io/BA-Hyakkiyako-club-Leaderboard/Hyakkiyako_Intro.png"
-    >
-
-
-    <!-- CSS -->
-    <link
-        rel="stylesheet"
-        href="./style.css"
-    >
-
+    <link rel="stylesheet" href="./style.css">
 </head>
-
 
 <body>
 
-
-<!-- =========================================================
-     GLOBAL PARTICLE CANVAS
-     ========================================================= -->
-
-<canvas id="particleCanvas"></canvas>
-
-
-
-<!-- =========================================================
+<!-- =====================================================
      MENU SCREEN
-     ========================================================= -->
+===================================================== -->
 
 <section
     id="menuScreen"
-    class="screen menu-screen"
+    class="screen menu-screen active"
 >
-
 
     <!-- Background -->
     <div
@@ -114,297 +46,187 @@
         class="menu-background"
     ></div>
 
+    <!-- Sakura particles -->
+    <canvas id="particleCanvas"></canvas>
 
-    <!-- Background overlay -->
-    <div class="background-overlay"></div>
+    <!-- Main content -->
+    <div class="menu-content">
 
-
-    <!-- Sakura atmosphere -->
-    <div class="sakura-haze"></div>
-
-
-    <!-- Logo -->
-    <div
-        id="logoContainer"
-        class="logo-container"
-    >
-
-        <img
-            id="logo"
-            class="main-logo"
-            src="./hyakkiyako.png"
-            alt="Hyakkiyako"
-            draggable="false"
+        <div
+            id="logoContainer"
+            class="logo-container"
         >
+            <img
+                id="mainLogo"
+                src="./hyakkiyako.png"
+                alt="Hyakkiyako"
+                class="main-logo"
+                draggable="false"
+            >
+        </div>
+
+        <div class="menu-buttons">
+
+            <button
+                id="leaderboardButton"
+                class="menu-button"
+            >
+                <span class="menu-button-main">
+                    CLUB LEADERBOARD
+                </span>
+
+                <span class="menu-button-sub">
+                    5TH CLUB RANKING
+                </span>
+
+                <span class="button-line"></span>
+            </button>
+
+            <button
+                id="patButton"
+                class="menu-button"
+            >
+                <span class="menu-button-main">
+                    PAT IZUNA
+                </span>
+
+                <span class="menu-button-sub">
+                    PETTING AREA
+                </span>
+
+                <span class="button-line"></span>
+            </button>
+
+        </div>
+
+        <!-- Day / Night -->
+        <button
+            id="modeToggle"
+            class="mode-toggle"
+            aria-label="Toggle day and night mode"
+        >
+            <span id="modeIcon">☀</span>
+            <span id="modeText">DAY</span>
+        </button>
 
     </div>
-
-
-    <!-- Menu -->
-    <div class="main-menu">
-
-
-        <button
-            id="leaderboardButton"
-            class="menu-button"
-            type="button"
-        >
-
-            <span class="menu-button-jp">
-                百鬼夜行
-            </span>
-
-            <span class="menu-button-title">
-                CLUB LEADERBOARD
-            </span>
-
-            <span class="menu-button-arrow">
-                →
-            </span>
-
-        </button>
-
-
-
-        <button
-            id="petButton"
-            class="menu-button"
-            type="button"
-        >
-
-            <span class="menu-button-jp">
-                イズナ
-            </span>
-
-            <span class="menu-button-title">
-                PAT IZUNA
-            </span>
-
-            <span class="menu-button-arrow">
-                →
-            </span>
-
-        </button>
-
-
-    </div>
-
-
-    <!-- Day / Night -->
-    <div class="mode-switcher">
-
-
-        <button
-            id="dayModeButton"
-            class="mode-button"
-            type="button"
-        >
-            ☀ DAY
-        </button>
-
-
-        <div class="mode-divider"></div>
-
-
-        <button
-            id="nightModeButton"
-            class="mode-button active"
-            type="button"
-        >
-            ☾ NIGHT
-        </button>
-
-
-    </div>
-
 
 </section>
 
 
-
-
-<!-- =========================================================
+<!-- =====================================================
      LEADERBOARD SCREEN
-     ========================================================= -->
+===================================================== -->
 
 <section
     id="leaderboardScreen"
-    class="screen secondary-screen"
+    class="screen secondary-screen leaderboard-screen"
 >
 
-
-    <div class="secondary-background"></div>
-
-    <div class="secondary-overlay"></div>
-
-
-    <div class="secondary-container">
-
-
-        <!-- Header -->
-
-        <div class="secondary-header">
-
-            <div class="section-kicker">
-                HYAKKIYAKO CLUB
-            </div>
-
-            <div class="section-title">
-                5TH CLUB LEADERBOARD
-            </div>
-
-            <div class="section-line"></div>
-
-        </div>
-
-
-
-        <!-- Boss selector -->
-
-        <div class="boss-selector">
-
-
-            <button
-                id="kaitenButton"
-                class="boss-button active"
-                type="button"
-            >
-
-                <span class="boss-small">
-                    BOSS SEASON
-                </span>
-
-                <span class="boss-name">
-                    KAITEN
-                </span>
-
-            </button>
-
-
-
-            <button
-                id="kurokageButton"
-                class="boss-button"
-                type="button"
-            >
-
-                <span class="boss-small">
-                    BOSS SEASON
-                </span>
-
-                <span class="boss-name">
-                    KUROKAGE
-                </span>
-
-            </button>
-
-
-        </div>
-
-
-
-        <!-- Score panel -->
-
-        <div
-            id="bossPanel"
-            class="boss-panel"
-        >
-
-
-            <div class="panel-decoration panel-tl"></div>
-            <div class="panel-decoration panel-tr"></div>
-            <div class="panel-decoration panel-bl"></div>
-            <div class="panel-decoration panel-br"></div>
-
-
-            <div
-                id="bossPanelTitle"
-                class="boss-panel-title"
-            >
-                KAITEN
-            </div>
-
-
-            <div class="boss-panel-subtitle">
-                BOSS SCORE RANKING
-            </div>
-
-
-            <div class="boss-panel-line"></div>
-
-
-            <div class="boss-panel-wip">
-                WIP
-            </div>
-
-
-            <div
-                id="bossPanelDescription"
-                class="boss-panel-description"
-            >
-                KAITEN MEMBER SCORE WILL APPEAR HERE
-            </div>
-
-
-        </div>
-
-
-
-        <!-- Back -->
+    <div class="screen-topbar">
 
         <button
             id="leaderboardBackButton"
             class="back-button"
-            type="button"
         >
             BACK
         </button>
 
+        <div class="screen-title-group">
+
+            <div class="screen-title">
+                HYAKKIYAKO CLUB
+            </div>
+
+            <div class="screen-subtitle">
+                5TH CLUB LEADERBOARD
+            </div>
+
+        </div>
 
     </div>
+
+
+    <!-- Season selector -->
+
+    <div class="season-selector">
+
+        <button
+            class="season-option"
+            data-season="kaiten"
+        >
+            <span class="season-code">
+                TA85
+            </span>
+
+            <span class="season-name">
+                KAITEN
+            </span>
+        </button>
+
+
+        <button
+            class="season-option active"
+            data-season="kurokage"
+        >
+            <span class="season-code">
+                GA33
+            </span>
+
+            <span class="season-name">
+                KUROKAGE
+            </span>
+        </button>
+
+    </div>
+
+
+    <!-- Leaderboard -->
+
+    <main
+        id="leaderboardList"
+        class="leaderboard-list"
+    >
+        <!-- Generated by JavaScript -->
+    </main>
 
 </section>
 
 
-
-
-<!-- =========================================================
+<!-- =====================================================
      PAT IZUNA SCREEN
-     ========================================================= -->
+===================================================== -->
 
 <section
-    id="petScreen"
-    class="screen secondary-screen pet-screen"
+    id="izunaScreen"
+    class="screen secondary-screen izuna-screen"
 >
 
+    <div class="screen-topbar">
 
-    <div class="secondary-background"></div>
+        <button
+            id="izunaBackButton"
+            class="back-button"
+        >
+            BACK
+        </button>
 
-    <div class="secondary-overlay"></div>
+        <div class="screen-title-group">
 
-
-    <div class="secondary-container pet-container">
-
-
-        <!-- Header -->
-
-        <div class="secondary-header">
-
-            <div class="section-kicker">
-                HYAKKIYAKO CLUB
-            </div>
-
-            <div class="section-title">
+            <div class="screen-title">
                 PAT IZUNA
             </div>
 
-            <div class="section-line"></div>
+            <div class="screen-subtitle">
+                HYAKKIYAKO PETTING AREA
+            </div>
 
         </div>
 
+    </div>
 
 
-        <!-- Score -->
+    <div class="izuna-content">
 
         <div class="pet-score">
 
@@ -419,14 +241,15 @@
         </div>
 
 
-
-        <!-- Izuna -->
-
         <div
             id="izunaArea"
             class="izuna-area"
         >
 
+            <div class="pet-ring ring-1"></div>
+            <div class="pet-ring ring-2"></div>
+
+            <div class="pet-glow"></div>
 
             <img
                 id="izunaStatic"
@@ -436,7 +259,6 @@
                 draggable="false"
             >
 
-
             <img
                 id="izunaPet"
                 class="izuna-image izuna-pet"
@@ -445,12 +267,7 @@
                 draggable="false"
             >
 
-
-            <div class="pet-glow"></div>
-
-
         </div>
-
 
 
         <div
@@ -460,27 +277,16 @@
             RUB IZUNA'S HEAD
         </div>
 
-
-
-        <!-- Back -->
-
-        <button
-            id="petBackButton"
-            class="back-button"
-            type="button"
-        >
-            BACK
-        </button>
-
+        <div class="pet-subinstruction">
+            MOVE WHILE HOLDING / DRAGGING
+        </div>
 
     </div>
 
 </section>
 
 
-
 <script src="./script.js"></script>
 
 </body>
-
 </html>
