@@ -1,0 +1,979 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "ParamHairFront2",
+			"GroupId": "",
+			"Name": "前髪3揺れ"
+		},
+		{
+			"Id": "ParamHairFront3",
+			"GroupId": "",
+			"Name": "前髪3揺れ"
+		},
+		{
+			"Id": "ParamHairFront4",
+			"GroupId": "",
+			"Name": "前髪2揺れ"
+		},
+		{
+			"Id": "ParamHairFront5",
+			"GroupId": "",
+			"Name": "前髪2揺れ"
+		},
+		{
+			"Id": "ParamHairFront10",
+			"GroupId": "",
+			"Name": "前髪2揺れ"
+		},
+		{
+			"Id": "ParamHairFront7",
+			"GroupId": "",
+			"Name": "前髪1揺れ"
+		},
+		{
+			"Id": "ParamHairFront8",
+			"GroupId": "",
+			"Name": "前髪1揺れ"
+		},
+		{
+			"Id": "ParamHairFront11",
+			"GroupId": "",
+			"Name": "前髪1揺れ"
+		},
+		{
+			"Id": "ParamHairFront6",
+			"GroupId": "",
+			"Name": "前髪4揺れ"
+		},
+		{
+			"Id": "ParamHairFront9",
+			"GroupId": "",
+			"Name": "前髪5揺れ"
+		},
+		{
+			"Id": "ParamAngleX",
+			"GroupId": "",
+			"Name": "角度 X"
+		},
+		{
+			"Id": "ParamAngleY",
+			"GroupId": "",
+			"Name": "角度 Y"
+		},
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "差分"
+		},
+		{
+			"Id": "Param6",
+			"GroupId": "",
+			"Name": "tn左右"
+		},
+		{
+			"Id": "Param7",
+			"GroupId": "",
+			"Name": "tn上下"
+		},
+		{
+			"Id": "Param8",
+			"GroupId": "",
+			"Name": "tn左右"
+		},
+		{
+			"Id": "Param9",
+			"GroupId": "",
+			"Name": "tn上下"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "ソックス差分"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "",
+			"Name": "より目"
+		},
+		{
+			"Id": "ParamBodyAngleY",
+			"GroupId": "",
+			"Name": "体の回転 Y"
+		},
+		{
+			"Id": "ParamAngleZ",
+			"GroupId": "",
+			"Name": "角度 Z"
+		},
+		{
+			"Id": "ParamAngleZ2",
+			"GroupId": "",
+			"Name": "角度 Z"
+		},
+		{
+			"Id": "ParamAngleZ3",
+			"GroupId": "",
+			"Name": "立ち上がり"
+		},
+		{
+			"Id": "ParamEyeLOpen",
+			"GroupId": "",
+			"Name": "左目　開閉"
+		},
+		{
+			"Id": "ParamEyeLSmile",
+			"GroupId": "",
+			"Name": "左目　笑顔"
+		},
+		{
+			"Id": "ParamEyeROpen",
+			"GroupId": "",
+			"Name": "右目　開閉"
+		},
+		{
+			"Id": "ParamEyeRSmile",
+			"GroupId": "",
+			"Name": "右目　笑顔"
+		},
+		{
+			"Id": "ParamBrowLY",
+			"GroupId": "",
+			"Name": "左眉　上下"
+		},
+		{
+			"Id": "ParamBrowRY",
+			"GroupId": "",
+			"Name": "右眉　上下"
+		},
+		{
+			"Id": "ParamBrowLX",
+			"GroupId": "",
+			"Name": "左眉　左右"
+		},
+		{
+			"Id": "ParamBrowRX",
+			"GroupId": "",
+			"Name": "右眉　左右"
+		},
+		{
+			"Id": "ParamBrowLAngle",
+			"GroupId": "",
+			"Name": "左眉　角度"
+		},
+		{
+			"Id": "ParamBrowRAngle",
+			"GroupId": "",
+			"Name": "右眉　角度"
+		},
+		{
+			"Id": "ParamBrowLForm",
+			"GroupId": "",
+			"Name": "左眉　変形"
+		},
+		{
+			"Id": "ParamBrowRForm",
+			"GroupId": "",
+			"Name": "右眉　変形"
+		},
+		{
+			"Id": "ParamBrowRForm2",
+			"GroupId": "",
+			"Name": "右眉　変形"
+		},
+		{
+			"Id": "ParamEyeBallX",
+			"GroupId": "",
+			"Name": "目玉 X"
+		},
+		{
+			"Id": "ParamEyeBallY",
+			"GroupId": "",
+			"Name": "目玉 Y"
+		},
+		{
+			"Id": "ParamMouthForm",
+			"GroupId": "",
+			"Name": "口　変形"
+		},
+		{
+			"Id": "ParamMouthOpenY",
+			"GroupId": "",
+			"Name": "口　開閉"
+		},
+		{
+			"Id": "ParamCheek",
+			"GroupId": "",
+			"Name": "舌出し"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "",
+			"Name": "舌左右"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "舌上下"
+		},
+		{
+			"Id": "ParamBodyAngleX",
+			"GroupId": "",
+			"Name": "体の回転 X"
+		},
+		{
+			"Id": "ParamBodyAngleZ",
+			"GroupId": "",
+			"Name": "体の回転 Z"
+		},
+		{
+			"Id": "ParamBreath",
+			"GroupId": "",
+			"Name": "呼吸"
+		},
+		{
+			"Id": "ParamHairFront",
+			"GroupId": "",
+			"Name": "髪揺れ　前"
+		},
+		{
+			"Id": "ParamHairSide",
+			"GroupId": "",
+			"Name": "髪揺れ　横"
+		},
+		{
+			"Id": "ParamHairBack",
+			"GroupId": "",
+			"Name": "髪揺れ　後"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "Part176",
+			"Name": "ChatGPT Image 2026年6月8日 02_17_47.png"
+		},
+		{
+			"Id": "Part175",
+			"Name": "ChatGPT Image 2026年6月8日 02_17_47.png"
+		},
+		{
+			"Id": "Part168",
+			"Name": "色トレス系.psd"
+		},
+		{
+			"Id": "Part126",
+			"Name": "ブレザー統合.psd"
+		},
+		{
+			"Id": "Part160",
+			"Name": "腕1分離.psd"
+		},
+		{
+			"Id": "Part156",
+			"Name": "まつ毛分離.psd"
+		},
+		{
+			"Id": "temp",
+			"Name": "temp"
+		},
+		{
+			"Id": "Part3",
+			"Name": "全体"
+		},
+		{
+			"Id": "Part154",
+			"Name": "まつ毛 のコピー"
+		},
+		{
+			"Id": "Part155",
+			"Name": "目_L_4"
+		},
+		{
+			"Id": "Part",
+			"Name": "色見本_服系"
+		},
+		{
+			"Id": "Part2",
+			"Name": "色見本_肌系"
+		},
+		{
+			"Id": "Part4",
+			"Name": "手_上"
+		},
+		{
+			"Id": "Part9",
+			"Name": "射精_オナホ_1_透過50%"
+		},
+		{
+			"Id": "Part10",
+			"Name": "射精_オナホ_2_透過50%"
+		},
+		{
+			"Id": "Part11",
+			"Name": "射精_手コキ_1"
+		},
+		{
+			"Id": "Part12",
+			"Name": "射精_フェラ_1"
+		},
+		{
+			"Id": "Part13",
+			"Name": "射精_フェラ_2"
+		},
+		{
+			"Id": "Part14",
+			"Name": "オナホ_上"
+		},
+		{
+			"Id": "Part15",
+			"Name": "ちんこ_1_手コキ"
+		},
+		{
+			"Id": "Part16",
+			"Name": "ちんこ_2_オナホ"
+		},
+		{
+			"Id": "Part17",
+			"Name": "フェラ_1"
+		},
+		{
+			"Id": "Part25",
+			"Name": "フェラ_2"
+		},
+		{
+			"Id": "Part26",
+			"Name": "フェラ_3"
+		},
+		{
+			"Id": "Part30",
+			"Name": "ぶっかけ_1"
+		},
+		{
+			"Id": "Part31",
+			"Name": "オナホ_下"
+		},
+		{
+			"Id": "Part32",
+			"Name": "手_下"
+		},
+		{
+			"Id": "Part120",
+			"Name": "前髪"
+		},
+		{
+			"Id": "Part33",
+			"Name": "頭_2"
+		},
+		{
+			"Id": "Part77",
+			"Name": "頭_1"
+		},
+		{
+			"Id": "Part165",
+			"Name": "ジャケット分離.psd"
+		},
+		{
+			"Id": "Part131",
+			"Name": "ジャケット_3_R"
+		},
+		{
+			"Id": "Part132",
+			"Name": "ジャケット_3_L"
+		},
+		{
+			"Id": "Part133",
+			"Name": "腕"
+		},
+		{
+			"Id": "Part125",
+			"Name": "シャツ＆ブレザー&ネクタイ"
+		},
+		{
+			"Id": "Part127",
+			"Name": "ジャケット下"
+		},
+		{
+			"Id": "Part140",
+			"Name": "シャツ＆ブレザー&ネクタイ"
+		},
+		{
+			"Id": "Part145",
+			"Name": "下着_上"
+		},
+		{
+			"Id": "Part146",
+			"Name": "胸"
+		},
+		{
+			"Id": "Part147",
+			"Name": "体ベース"
+		},
+		{
+			"Id": "Part148",
+			"Name": "ソックス"
+		},
+		{
+			"Id": "Part149",
+			"Name": "もも"
+		},
+		{
+			"Id": "Part150",
+			"Name": "ソックス"
+		},
+		{
+			"Id": "Part151",
+			"Name": "ソックス"
+		},
+		{
+			"Id": "Part153",
+			"Name": "はぎ"
+		},
+		{
+			"Id": "Part5",
+			"Name": "手_1_R"
+		},
+		{
+			"Id": "Part6",
+			"Name": "手_1_L"
+		},
+		{
+			"Id": "Part7",
+			"Name": "手_2_R"
+		},
+		{
+			"Id": "Part8",
+			"Name": "手_2_L"
+		},
+		{
+			"Id": "Part18",
+			"Name": "ちんこ_フェラ_1"
+		},
+		{
+			"Id": "Part19",
+			"Name": "口_フェラ_1"
+		},
+		{
+			"Id": "Part22",
+			"Name": "口_フェラ_2"
+		},
+		{
+			"Id": "Part27",
+			"Name": "口_フェラ_3"
+		},
+		{
+			"Id": "Part28",
+			"Name": "ちんこ_フェラ_3"
+		},
+		{
+			"Id": "Part29",
+			"Name": "舌_2 のコピー"
+		},
+		{
+			"Id": "Part169",
+			"Name": "前髪1"
+		},
+		{
+			"Id": "Part170",
+			"Name": "前髪2"
+		},
+		{
+			"Id": "Part171",
+			"Name": "前髪3"
+		},
+		{
+			"Id": "Part173",
+			"Name": "前髪4"
+		},
+		{
+			"Id": "Part174",
+			"Name": "前髪5"
+		},
+		{
+			"Id": "Part34",
+			"Name": "前髪_重ね_透過40%"
+		},
+		{
+			"Id": "Part37",
+			"Name": "眉_R"
+		},
+		{
+			"Id": "Part38",
+			"Name": "眉_L"
+		},
+		{
+			"Id": "Part39",
+			"Name": "眉"
+		},
+		{
+			"Id": "Part40",
+			"Name": "目_R"
+		},
+		{
+			"Id": "Part48",
+			"Name": "目_L"
+		},
+		{
+			"Id": "Part56",
+			"Name": "目"
+		},
+		{
+			"Id": "Part64",
+			"Name": "頬"
+		},
+		{
+			"Id": "Part65",
+			"Name": "口"
+		},
+		{
+			"Id": "Part72",
+			"Name": "髪"
+		},
+		{
+			"Id": "Part75",
+			"Name": "ベース"
+		},
+		{
+			"Id": "Part76",
+			"Name": "後頭部"
+		},
+		{
+			"Id": "Part78",
+			"Name": "髪_前髪_重ね_透過40%"
+		},
+		{
+			"Id": "Part81",
+			"Name": "眉_R"
+		},
+		{
+			"Id": "Part82",
+			"Name": "眉_L"
+		},
+		{
+			"Id": "Part83",
+			"Name": "目_R"
+		},
+		{
+			"Id": "Part94",
+			"Name": "目_L"
+		},
+		{
+			"Id": "Part105",
+			"Name": "頬"
+		},
+		{
+			"Id": "Part106",
+			"Name": "口"
+		},
+		{
+			"Id": "Part118",
+			"Name": "前髪"
+		},
+		{
+			"Id": "Part124",
+			"Name": "ベース"
+		},
+		{
+			"Id": "Part134",
+			"Name": "ジャケット_1_R"
+		},
+		{
+			"Id": "Part135",
+			"Name": "ジャケット_1_R"
+		},
+		{
+			"Id": "Part161",
+			"Name": "ジャケット_1_L"
+		},
+		{
+			"Id": "Part162",
+			"Name": "ジャケット_1_L"
+		},
+		{
+			"Id": "Part163",
+			"Name": "ジャケット_2_R"
+		},
+		{
+			"Id": "Part164",
+			"Name": "ジャケット_2_L"
+		},
+		{
+			"Id": "Part157",
+			"Name": "腕"
+		},
+		{
+			"Id": "Part136",
+			"Name": "腕_2_R"
+		},
+		{
+			"Id": "Part137",
+			"Name": "腕_2_L"
+		},
+		{
+			"Id": "Part138",
+			"Name": "腕_3_R"
+		},
+		{
+			"Id": "Part139",
+			"Name": "腕_3_L"
+		},
+		{
+			"Id": "Part141",
+			"Name": "ボタン"
+		},
+		{
+			"Id": "Part142",
+			"Name": "ネクタイ"
+		},
+		{
+			"Id": "Part143",
+			"Name": "ブレザー"
+		},
+		{
+			"Id": "Part144",
+			"Name": "シャツ"
+		},
+		{
+			"Id": "Part129",
+			"Name": "ソックス分離.psd"
+		},
+		{
+			"Id": "Part152",
+			"Name": "肌"
+		},
+		{
+			"Id": "Part20",
+			"Name": "舌"
+		},
+		{
+			"Id": "Part21",
+			"Name": "ベース"
+		},
+		{
+			"Id": "Part23",
+			"Name": "舌"
+		},
+		{
+			"Id": "Part24",
+			"Name": "口"
+		},
+		{
+			"Id": "Part172",
+			"Name": "前髪3"
+		},
+		{
+			"Id": "Part35",
+			"Name": "ヘアバンド"
+		},
+		{
+			"Id": "Part36",
+			"Name": "髪"
+		},
+		{
+			"Id": "Part41",
+			"Name": "目_R_1"
+		},
+		{
+			"Id": "Part45",
+			"Name": "目_R_2"
+		},
+		{
+			"Id": "Part47",
+			"Name": "目_R_3"
+		},
+		{
+			"Id": "Part49",
+			"Name": "目_L_1"
+		},
+		{
+			"Id": "Part53",
+			"Name": "目_L_2"
+		},
+		{
+			"Id": "Part55",
+			"Name": "目_L_3"
+		},
+		{
+			"Id": "Part57",
+			"Name": "目_1"
+		},
+		{
+			"Id": "Part61",
+			"Name": "目_2"
+		},
+		{
+			"Id": "Part63",
+			"Name": "目_3"
+		},
+		{
+			"Id": "Part66",
+			"Name": "口_4"
+		},
+		{
+			"Id": "Part67",
+			"Name": "口_5"
+		},
+		{
+			"Id": "Part68",
+			"Name": "口_6"
+		},
+		{
+			"Id": "Part69",
+			"Name": "口_7"
+		},
+		{
+			"Id": "Part70",
+			"Name": "口_8"
+		},
+		{
+			"Id": "Part71",
+			"Name": "口_9"
+		},
+		{
+			"Id": "Part73",
+			"Name": "ヘアバンド"
+		},
+		{
+			"Id": "Part74",
+			"Name": "髪"
+		},
+		{
+			"Id": "Part79",
+			"Name": "ヘアバンド"
+		},
+		{
+			"Id": "Part80",
+			"Name": "フォルダー 2"
+		},
+		{
+			"Id": "Part84",
+			"Name": "目_R_1"
+		},
+		{
+			"Id": "Part88",
+			"Name": "目_R_2"
+		},
+		{
+			"Id": "Part92",
+			"Name": "目_R_3"
+		},
+		{
+			"Id": "Part93",
+			"Name": "目_R_4"
+		},
+		{
+			"Id": "Part95",
+			"Name": "目_L_1"
+		},
+		{
+			"Id": "Part99",
+			"Name": "目_L_2"
+		},
+		{
+			"Id": "Part103",
+			"Name": "目_L_3"
+		},
+		{
+			"Id": "Part104",
+			"Name": "目_L_4"
+		},
+		{
+			"Id": "Part107",
+			"Name": "口_4"
+		},
+		{
+			"Id": "Part108",
+			"Name": "口_5"
+		},
+		{
+			"Id": "Part109",
+			"Name": "口_6"
+		},
+		{
+			"Id": "Part110",
+			"Name": "口_7"
+		},
+		{
+			"Id": "Part111",
+			"Name": "口_8"
+		},
+		{
+			"Id": "Part112",
+			"Name": "口_9"
+		},
+		{
+			"Id": "Part115",
+			"Name": "口_10"
+		},
+		{
+			"Id": "Part116",
+			"Name": "前髪オリジナル"
+		},
+		{
+			"Id": "Part119",
+			"Name": "前髪1"
+		},
+		{
+			"Id": "Part166",
+			"Name": "前髪2"
+		},
+		{
+			"Id": "Part121",
+			"Name": "前髪3"
+		},
+		{
+			"Id": "Part122",
+			"Name": "前髪4"
+		},
+		{
+			"Id": "Part123",
+			"Name": "前髪5"
+		},
+		{
+			"Id": "Part130",
+			"Name": "口作成.psd"
+		},
+		{
+			"Id": "Part158",
+			"Name": "腕_1_R"
+		},
+		{
+			"Id": "Part159",
+			"Name": "腕_1_L"
+		},
+		{
+			"Id": "Part128",
+			"Name": "ソックス"
+		},
+		{
+			"Id": "Part42",
+			"Name": "上まつげ のコピー 2"
+		},
+		{
+			"Id": "Part43",
+			"Name": "下まつ毛 のコピー 7"
+		},
+		{
+			"Id": "Part44",
+			"Name": "瞳 のコピー 6"
+		},
+		{
+			"Id": "Part46",
+			"Name": "まつげ のコピー 2"
+		},
+		{
+			"Id": "Part50",
+			"Name": "上まつげ のコピー"
+		},
+		{
+			"Id": "Part51",
+			"Name": "下まつ毛 のコピー 6"
+		},
+		{
+			"Id": "Part52",
+			"Name": "瞳 のコピー 5"
+		},
+		{
+			"Id": "Part54",
+			"Name": "まつげ のコピー"
+		},
+		{
+			"Id": "Part58",
+			"Name": "上まつげ"
+		},
+		{
+			"Id": "Part59",
+			"Name": "下まつ毛"
+		},
+		{
+			"Id": "Part60",
+			"Name": "瞳"
+		},
+		{
+			"Id": "Part62",
+			"Name": "まつげ"
+		},
+		{
+			"Id": "Part85",
+			"Name": "まつ毛 のコピー 3"
+		},
+		{
+			"Id": "Part86",
+			"Name": "下まつ毛 のコピー 4"
+		},
+		{
+			"Id": "Part87",
+			"Name": "瞳 のコピー 3"
+		},
+		{
+			"Id": "Part89",
+			"Name": "まつ毛 のコピー 4"
+		},
+		{
+			"Id": "Part90",
+			"Name": "下まつ毛 のコピー 5"
+		},
+		{
+			"Id": "Part91",
+			"Name": "瞳 のコピー 4"
+		},
+		{
+			"Id": "Part96",
+			"Name": "まつ毛 のコピー"
+		},
+		{
+			"Id": "Part97",
+			"Name": "下まつ毛 のコピー 2"
+		},
+		{
+			"Id": "Part98",
+			"Name": "瞳 のコピー"
+		},
+		{
+			"Id": "Part100",
+			"Name": "まつ毛 のコピー 2"
+		},
+		{
+			"Id": "Part101",
+			"Name": "下まつ毛 のコピー 3"
+		},
+		{
+			"Id": "Part102",
+			"Name": "瞳 のコピー 2"
+		},
+		{
+			"Id": "Part113",
+			"Name": "舌_9"
+		},
+		{
+			"Id": "Part114",
+			"Name": "ベース_9"
+		},
+		{
+			"Id": "Part117",
+			"Name": "ヘアバンド"
+		},
+		{
+			"Id": "Part167",
+			"Name": "前髪3"
+		}
+	],
+	"CombinedParameters": [
+		[
+			"Param6",
+			"Param7"
+		],
+		[
+			"ParamEyeBallX",
+			"ParamEyeBallY"
+		],
+		[
+			"ParamMouthForm",
+			"ParamMouthOpenY"
+		],
+		[
+			"Param4",
+			"Param3"
+		]
+	]
+}

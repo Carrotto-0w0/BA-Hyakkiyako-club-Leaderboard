@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ケイちゃんのアイスぺろぺろ</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ケイちゃんのアイスぺろぺろ">
+  <meta property="og:url" content="https://key8282.github.io/keichan_ice/">
+  <meta property="og:image" content="https://key8282.github.io/keichan_ice/social-card.png">
+  <meta name="twitter:card" content="player">
+  <meta name="twitter:site" content="@Lost_live2d">
+  <meta name="twitter:title" content="ケイちゃんのアイスぺろぺろ">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="https://key8282.github.io/keichan_ice/social-card.png">
+  <meta name="twitter:player" content="https://key8282.github.io/keichan_ice/">
+  <meta name="twitter:player:width" content="1200">
+  <meta name="twitter:player:height" content="1200">
+  <style>
+    html, body {
+      overflow: hidden;
+      margin: 0;
+    }
+    html {
+      overscroll-behavior-x: none;
+      touch-action: none;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+    }
+    body > canvas:only-child {
+      width: min(100vw, 100vh);
+      height: min(100vw, 100vh);
+    }
+    #loading-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.96);
+      transition: opacity 0.2s ease;
+    }
+    #loading-overlay.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #loading-card {
+      width: min(420px, calc(100vw - 32px));
+      padding: 18px 18px 16px;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+      font: 14px/1.5 system-ui, sans-serif;
+      color: #222;
+    }
+    #loading-title {
+      margin: 0 0 10px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    #fallback-status {
+      margin: 0 0 12px;
+      font-size: 13px;
+      color: #555;
+    }
+    #loading-bar {
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: #e8eef5;
+      overflow: hidden;
+    }
+    #loading-progress {
+      width: 10%;
+      height: 100%;
+      border-radius: 999px;
+      background: #3aa0ff;
+      transition: width 0.18s ease;
+    }
+  </style>
+  <!-- Live2DCubismCore script -->
+  <script src = "./Core/live2dcubismcore.js"></script>
+  <script src="./loading-ui.js"></script>
+  <!-- Build script -->
+  <script type="module" crossorigin src="./assets/index-B9OwIZ5f.js"></script>
+</head>
+<body>
+  <div id="loading-overlay">
+    <div id="loading-card">
+      <p id="loading-title">Loading Live2D</p>
+      <p id="fallback-status">Initializing...</p>
+      <div id="loading-bar" role="progressbar" aria-label="Loading Live2D" aria-valuemin="0" aria-valuemax="100" aria-valuenow="10">
+        <div id="loading-progress"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
