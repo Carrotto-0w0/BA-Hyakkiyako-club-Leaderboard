@@ -164,7 +164,13 @@
             type="button"
         >
 
-            <span>
+            <span class="button-shine"></span>
+
+            <span class="button-icon">
+                🏆
+            </span>
+
+            <span class="button-label">
                 CLUB LEADERBOARD
             </span>
 
@@ -181,8 +187,60 @@
             type="button"
         >
 
-            <span>
+            <span class="button-shine"></span>
+
+            <span class="button-icon">
+                🦊
+            </span>
+
+            <span class="button-label">
                 PAT IZUNA
+            </span>
+
+            <div
+                class="button-line"
+            ></div>
+
+        </button>
+
+
+        <button
+            id="keiIceButton"
+            class="menu-button"
+            type="button"
+        >
+
+            <span class="button-shine"></span>
+
+            <span class="button-icon">
+                🍦
+            </span>
+
+            <span class="button-label">
+                GIVE KEI CHAN ICE
+            </span>
+
+            <div
+                class="button-line"
+            ></div>
+
+        </button>
+
+
+        <button
+            id="medalsButton"
+            class="menu-button"
+            type="button"
+        >
+
+            <span class="button-shine"></span>
+
+            <span class="button-icon">
+                🎴
+            </span>
+
+            <span class="button-label">
+                CLUB MEMBERS
             </span>
 
             <div
@@ -230,6 +288,30 @@
     id="leaderboardScreen"
     class="screen leaderboard-screen"
 >
+
+
+    <!-- =====================================================
+         LEADERBOARD BACKGROUND (DAY / NIGHT)
+    ===================================================== -->
+
+    <div
+        id="leaderboardBackground"
+        class="leaderboard-background"
+    >
+
+        <div
+            class="background-layer leaderboard-bg-day"
+        ></div>
+
+        <div
+            class="background-layer leaderboard-bg-night"
+        ></div>
+
+        <div
+            class="leaderboard-background-overlay"
+        ></div>
+
+    </div>
 
 
     <div
@@ -305,6 +387,27 @@
 
             </button>
 
+
+            <button
+                id="ta86Button"
+                class="boss-button"
+                type="button"
+            >
+
+                <span
+                    class="boss-code"
+                >
+                    TA86
+                </span>
+
+                <span
+                    class="boss-name"
+                >
+                    DRUMBARKA
+                </span>
+
+            </button>
+
         </div>
 
 
@@ -323,8 +426,90 @@
         id="leaderboardBackButton"
         class="back-button"
         type="button"
+        aria-label="Back to menu"
     >
-        BACK
+        <span class="back-icon">←</span>
+        <span class="back-label">BACK</span>
+    </button>
+
+
+</section>
+
+
+<!-- =====================================================
+     CLUB MEMBER LIST SCREEN
+
+     Leader / Manager / Member ทั้งหมด
+     แก้ไขรูป/ชื่อ/Info ได้ที่ members-data.js
+===================================================== -->
+
+<section
+    id="medalsScreen"
+    class="screen leaderboard-screen medals-screen"
+>
+
+
+    <div
+        id="medalsBackground"
+        class="leaderboard-background"
+    >
+
+        <div
+            class="background-layer leaderboard-bg-day"
+        ></div>
+
+        <div
+            class="background-layer leaderboard-bg-night"
+        ></div>
+
+        <div
+            class="leaderboard-background-overlay"
+        ></div>
+
+    </div>
+
+
+    <div
+        class="club-panel"
+    >
+
+
+        <div
+            class="club-header"
+        >
+
+            <div
+                class="club-title"
+            >
+                百鬼夜行 CLUB MEMBERS
+            </div>
+
+            <div
+                class="club-subtitle"
+            >
+                LEADER — MANAGER — MEMBER
+            </div>
+
+        </div>
+
+
+        <div
+            id="medalsContent"
+            class="club-content"
+        ></div>
+
+
+    </div>
+
+
+    <button
+        id="medalsBackButton"
+        class="back-button"
+        type="button"
+        aria-label="Back to menu"
+    >
+        <span class="back-icon">←</span>
+        <span class="back-label">BACK</span>
     </button>
 
 
@@ -418,13 +603,87 @@
         id="izunaBackButton"
         class="back-button"
         type="button"
+        aria-label="Back to menu"
     >
-        BACK
+        <span class="back-icon">←</span>
+        <span class="back-label">BACK</span>
     </button>
 
 
 </section>
 
+
+<!-- =====================================================
+     GIVE KEI CHAN ICE — MINI GAME
+
+     Embed แบบ iframe จากโปรเจกต์ Live2D แยกต่างหาก
+     ที่อยู่ในโฟลเดอร์ kei-ice/ (ไม่ยุ่งกับไฟล์ข้างในเลย)
+     โหลด iframe แบบ Lazy — ใส่ src ตอนกดปุ่มเปิดเท่านั้น
+     เพื่อไม่ให้คนที่ไม่ได้เล่นต้องโหลดโมเดล Live2D ที่หนัก
+===================================================== -->
+
+<section
+    id="keiIceScreen"
+    class="screen leaderboard-screen kei-ice-screen"
+>
+
+
+    <div
+        class="leaderboard-background"
+    >
+
+        <div
+            class="background-layer leaderboard-bg-day"
+        ></div>
+
+        <div
+            class="background-layer leaderboard-bg-night"
+        ></div>
+
+        <div
+            class="leaderboard-background-overlay"
+        ></div>
+
+    </div>
+
+
+    <div
+        class="kei-ice-stage"
+    >
+
+        <iframe
+            id="keiIceFrame"
+            class="kei-ice-frame"
+            title="Give Kei-chan Ice"
+            allow="autoplay"
+        ></iframe>
+
+        <div
+            class="kei-ice-credit"
+        >
+            Artist by @abunai_scarfy
+        </div>
+
+    </div>
+
+
+    <button
+        id="keiIceBackButton"
+        class="back-button"
+        type="button"
+        aria-label="Back to menu"
+    >
+        <span class="back-icon">←</span>
+        <span class="back-label">BACK</span>
+    </button>
+
+
+</section>
+
+
+<script
+    src="./members-data.js"
+></script>
 
 <script
     src="./script.js"

@@ -284,7 +284,7 @@ body.night-mode
 
     flex-direction: column;
 
-    gap: 14px;
+    gap: 16px;
 
     align-items: center;
 }
@@ -293,15 +293,40 @@ body.night-mode
 .menu-button {
     position: relative;
 
-    width: 235px;
-    height: 52px;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 11px;
+
+    width: 250px;
+    height: 56px;
+
+    padding: 0 20px;
+
+    overflow: hidden;
+
+    clip-path:
+        polygon(
+            16px 0,
+            100% 0,
+            100% calc(100% - 16px),
+            calc(100% - 16px) 100%,
+            0 100%,
+            0 16px
+        );
 
     border:
         1px solid
-        rgba(255,160,215,0.65);
+        rgba(255,160,215,0.45);
 
     background:
-        rgba(20,5,20,0.62);
+        linear-gradient(
+            135deg,
+            rgba(60,14,50,0.55),
+            rgba(16,5,15,0.72)
+        );
 
     color: #fff1fa;
 
@@ -314,59 +339,158 @@ body.night-mode
 
     box-shadow:
         0 0 10px
-        rgba(255,100,190,0.16),
+        rgba(255,100,190,0.14),
 
-        inset 0 0 12px
-        rgba(255,120,200,0.035);
+        inset 0 0 14px
+        rgba(255,120,200,0.04);
 
     transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        background 0.25s ease,
-        box-shadow 0.25s ease;
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.menu-button::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            125deg,
+            transparent 40%,
+            rgba(255,255,255,0.07) 50%,
+            transparent 60%
+        );
+
+    pointer-events: none;
 }
 
 
 .menu-button:hover {
     transform:
-        translateY(-2px);
+        translateY(-3px);
 
     border-color:
-        rgba(255,190,230,0.95);
+        rgba(255,200,230,0.9);
 
     background:
-        rgba(90,20,70,0.28);
+        linear-gradient(
+            135deg,
+            rgba(100,22,80,0.68),
+            rgba(28,8,24,0.82)
+        );
 
     box-shadow:
-        0 0 13px
-        rgba(255,100,190,0.38),
+        0 8px 22px
+        rgba(255,90,180,0.25),
 
-        0 0 28px
-        rgba(255,80,180,0.14);
+        0 0 30px
+        rgba(255,140,210,0.18),
+
+        inset 0 0 18px
+        rgba(255,150,210,0.07);
+}
+
+
+.menu-button:active {
+    transform:
+        translateY(-1px)
+        scale(0.98);
+}
+
+
+.button-shine {
+    position: absolute;
+
+    top: 0;
+    left: -60%;
+
+    width: 35%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent,
+            rgba(255,255,255,0.30),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+
+    pointer-events: none;
+
+    transition:
+        left 0.65s ease;
+}
+
+
+.menu-button:hover .button-shine {
+    left: 130%;
+}
+
+
+.button-icon {
+    position: relative;
+
+    z-index: 1;
+
+    font-size: 16px;
+
+    line-height: 1;
+
+    filter:
+        drop-shadow(
+            0 0 6px
+            rgba(255,170,220,0.55)
+        );
+}
+
+
+.button-label {
+    position: relative;
+
+    z-index: 1;
 }
 
 
 .button-line {
     position: absolute;
 
-    left: 25px;
-    right: 25px;
+    left: 50%;
 
-    bottom: 5px;
+    bottom: 0;
 
-    height: 1px;
+    width: 0;
+
+    height: 2px;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,150,215,0.85),
+            #ff9fd6,
+            #ffe27a,
+            #ff9fd6,
             transparent
         );
 
-    box-shadow:
-        0 0 6px
-        rgba(255,100,190,0.65);
+    transform:
+        translateX(-50%);
+
+    transition:
+        width 0.4s ease;
+}
+
+
+.menu-button:hover .button-line {
+    width: 88%;
 }
 
 
@@ -455,19 +579,20 @@ body.night-mode
 
     pointer-events: none;
 
+    overflow: hidden;
+
     transform:
         scale(1.03);
 
     background:
-        radial-gradient(
-            ellipse at center,
-            rgba(150,35,110,0.12),
-            transparent 55%
-        ),
-
         #08040a;
 
     z-index: 20;
+
+    /*
+        สำคัญสำหรับ Background Layer
+    */
+    isolation: isolate;
 
     transition:
         opacity 0.65s ease,
@@ -489,11 +614,88 @@ body.night-mode
 
 
 /* =====================================================
+   LEADERBOARD BACKGROUND (DAY / NIGHT)
+===================================================== */
+
+.leaderboard-background {
+    position: absolute;
+
+    inset: -5%;
+
+    overflow: hidden;
+
+    z-index: 0;
+}
+
+
+.leaderboard-bg-day {
+    background-image:
+        url("./leaderboard-day.jpg");
+
+    filter:
+        blur(6px)
+        saturate(1.05)
+        brightness(0.85);
+
+    opacity: 1;
+}
+
+
+.leaderboard-bg-night {
+    background-image:
+        url("./leaderboard-night.jpg");
+
+    filter:
+        blur(6px)
+        saturate(1.1)
+        brightness(0.9);
+
+    opacity: 0;
+}
+
+
+body.night-mode
+.leaderboard-bg-day {
+    opacity: 0;
+}
+
+
+body.night-mode
+.leaderboard-bg-night {
+    opacity: 1;
+}
+
+
+.leaderboard-background-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(150,35,110,0.16),
+            transparent 58%
+        ),
+
+        linear-gradient(
+            180deg,
+            rgba(10,3,10,0.72),
+            rgba(6,2,8,0.90)
+        );
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
    LEADERBOARD CONTAINER
 ===================================================== */
 
 .leaderboard-container {
     position: relative;
+
+    z-index: 1;
 
     width:
         min(1180px, 94vw);
@@ -509,9 +711,17 @@ body.night-mode
     background:
         linear-gradient(
             180deg,
-            rgba(35,10,32,0.93),
-            rgba(10,4,13,0.97)
+            rgba(35,10,32,0.80),
+            rgba(10,4,13,0.90)
         );
+
+    backdrop-filter:
+        blur(18px)
+        saturate(1.15);
+
+    -webkit-backdrop-filter:
+        blur(18px)
+        saturate(1.15);
 
     border:
         1px solid
@@ -519,10 +729,38 @@ body.night-mode
 
     box-shadow:
         0 0 30px
-        rgba(255,80,180,0.09),
+        rgba(255,80,180,0.10),
+
+        0 0 90px
+        rgba(255,70,170,0.06),
 
         inset 0 0 40px
-        rgba(255,100,190,0.025);
+        rgba(255,100,190,0.03);
+}
+
+
+.leaderboard-container::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    top: 0;
+
+    height: 1px;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,180,225,0.85),
+            transparent
+        );
+
+    opacity: 0.7;
 }
 
 
@@ -690,8 +928,140 @@ body.night-mode
 }
 
 
+/* =====================================================
+   TOP 5 VARIANT (MAIN LEADERBOARD)
+===================================================== */
+
+.hero-rankings--five {
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 10px;
+}
+
+
+.hero-rankings--five .hero-card {
+    min-height: 165px;
+
+    padding:
+        16px 10px;
+}
+
+
+.hero-rankings--five .hero-rank {
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 5px;
+}
+
+
+.hero-rankings--five .hero-crown {
+    top: 8px;
+
+    font-size: 15px;
+}
+
+
+.hero-rankings--five .hero-name {
+    font-size: 13px;
+}
+
+
+.hero-rankings--five .hero-score {
+    margin-top: 10px;
+
+    font-size:
+        clamp(20px, 4.2vw, 30px);
+}
+
+
+/* =====================================================
+   LEADERBOARD — ENTRANCE REVEAL
+
+   Top 5 เปิดจากอันดับท้ายก่อน ไล่ขึ้นไปอันดับ 1
+   (สร้างความรู้สึกลุ้น เหมือนประกาศผล)
+   ใช้ inline --delay ที่ตั้งจาก script.js ต่อการ์ด/แถว
+===================================================== */
+
+@keyframes rankRevealCard {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(22px)
+            scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes rankRevealCardElevated {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(22px)
+            scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(-10px)
+            scale(1);
+    }
+}
+
+
+@keyframes rankRevealRow {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(-14px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(0);
+    }
+}
+
+
+/* =====================================================
+   LEADERBOARD CONTENT — CROSSFADE ON TAB SWITCH
+===================================================== */
+
+.leaderboard-content {
+    transition:
+        opacity 0.18s ease;
+}
+
+
+.leaderboard-content.is-switching {
+    opacity: 0;
+}
+
+
 .hero-card {
     position: relative;
+
+    z-index: 1;
 
     min-height: 180px;
 
@@ -724,6 +1094,9 @@ body.night-mode
 
         0 0 18px
         rgba(255,80,180,0.06);
+
+    transition:
+        transform 0.3s ease;
 }
 
 
@@ -734,11 +1107,248 @@ body.night-mode
 
     inset: 7px;
 
+    z-index: 1;
+
     border:
         1px solid
         rgba(255,170,220,0.10);
 
     pointer-events: none;
+}
+
+
+/* =====================================================
+   TOP 3 — SPECIAL RING AURA
+
+   วงแหวนไล่สีหมุนรอบการ์ด Top 3
+   สีต่างกันตามอันดับ (Gold / Silver / Bronze)
+   ผสมกับโทน Sakura ของธีม
+===================================================== */
+
+@property --ring-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+
+.hero-card.hero-rank-1,
+.hero-card.hero-rank-2,
+.hero-card.hero-rank-3 {
+    --ring-angle: 0deg;
+
+    overflow: visible;
+}
+
+
+.hero-card.hero-rank-1::after,
+.hero-card.hero-rank-2::after,
+.hero-card.hero-rank-3::after {
+    content: "";
+
+    position: absolute;
+
+    inset: -3px;
+
+    z-index: 0;
+
+    padding: 2px;
+
+    background:
+        conic-gradient(
+            from var(--ring-angle),
+            transparent 0%,
+            var(--ring-c1) 12%,
+            transparent 30%,
+            transparent 50%,
+            var(--ring-c2) 62%,
+            transparent 80%,
+            transparent 100%
+        );
+
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+
+    -webkit-mask-composite: xor;
+
+    mask-composite: exclude;
+
+    opacity: 0.9;
+
+    pointer-events: none;
+
+    animation:
+        ringSpin 5s linear infinite;
+}
+
+
+@keyframes ringSpin {
+
+    to {
+        --ring-angle: 360deg;
+    }
+}
+
+
+.hero-card.hero-rank-1 {
+    --ring-c1: #ffe9a8;
+    --ring-c2: #ff8fd0;
+
+    transform:
+        translateY(-10px);
+
+    animation:
+        heroGlowPulse 3s
+        ease-in-out infinite;
+}
+
+
+.hero-card.hero-rank-2 {
+    --ring-c1: #eaf1ff;
+    --ring-c2: #ff9fd6;
+
+    animation:
+        heroGlowPulse 3.6s
+        ease-in-out infinite;
+}
+
+
+.hero-card.hero-rank-3 {
+    --ring-c1: #ffc48a;
+    --ring-c2: #ff8fd0;
+
+    animation:
+        heroGlowPulse 4.2s
+        ease-in-out infinite;
+}
+
+
+@keyframes heroGlowPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            inset 0 0 25px
+            rgba(255,100,190,0.035),
+
+            0 0 18px
+            rgba(255,80,180,0.06);
+    }
+
+    50% {
+        box-shadow:
+            inset 0 0 30px
+            rgba(255,140,205,0.07),
+
+            0 0 34px
+            rgba(255,120,200,0.18);
+    }
+}
+
+
+.hero-card.hero-rank-1:hover,
+.hero-card.hero-rank-2:hover,
+.hero-card.hero-rank-3:hover {
+    transform:
+        translateY(-13px);
+}
+
+
+/* halo behind the rank-1 crown */
+
+.hero-card.hero-rank-1 .hero-crown {
+    z-index: 2;
+}
+
+
+.hero-card.hero-rank-1 .hero-crown::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 46px;
+    height: 46px;
+
+    transform:
+        translate(-50%,-50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,225,150,0.55),
+            transparent 70%
+        );
+
+    z-index: -1;
+
+    animation:
+        haloPulse 2.6s
+        ease-in-out infinite;
+}
+
+
+@keyframes haloPulse {
+
+    0%,
+    100% {
+        opacity: 0.55;
+        transform:
+            translate(-50%,-50%)
+            scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform:
+            translate(-50%,-50%)
+            scale(1.15);
+    }
+}
+
+
+/* =====================================================
+   LEADERBOARD — ENTRANCE REVEAL
+
+   คลาส .revealing ถูกเติมตอน render และลบออก
+   อัตโนมัติหลัง animation จบ (ดู script.js)
+   วางไว้หลัง rule ของ hero-rank-1/2/3 โดยตั้งใจ
+   เพื่อให้ชนะ cascade แทนที่ pulse ชั่วคราวตอนเข้าฉาก
+===================================================== */
+
+.hero-card.revealing {
+    animation:
+        rankRevealCard 0.55s
+        cubic-bezier(0.22, 0.9, 0.3, 1.2)
+        both;
+
+    animation-delay:
+        var(--reveal-delay, 0ms);
+}
+
+
+.hero-card.hero-rank-1.revealing {
+    animation:
+        rankRevealCardElevated 0.6s
+        cubic-bezier(0.22, 0.9, 0.3, 1.3)
+        both;
+
+    animation-delay:
+        var(--reveal-delay, 0ms);
+}
+
+
+.rank-row.revealing {
+    opacity: 0;
+
+    animation:
+        rankRevealRow 0.4s ease both;
+
+    animation-delay:
+        var(--reveal-delay, 0ms);
 }
 
 
@@ -803,6 +1413,8 @@ body.night-mode
 }
 
 
+
+
 /* =====================================================
    RANKING LIST
 ===================================================== */
@@ -817,6 +1429,10 @@ body.night-mode
 
 
 .rank-row {
+    position: relative;
+
+    overflow: hidden;
+
     display: grid;
 
     grid-template-columns:
@@ -829,7 +1445,7 @@ body.night-mode
     min-height: 47px;
 
     padding:
-        0 14px;
+        0 14px 0 17px;
 
     border:
         1px solid
@@ -840,7 +1456,35 @@ body.night-mode
 
     transition:
         background 0.2s ease,
-        border-color 0.2s ease;
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.rank-row::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 3px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffd98a,
+            #ff8fd0,
+            #c79bff
+        );
+
+    transform:
+        scaleY(0);
+
+    transition:
+        transform 0.25s ease;
 }
 
 
@@ -850,6 +1494,15 @@ body.night-mode
 
     border-color:
         rgba(255,150,215,0.25);
+
+    transform:
+        translateX(3px);
+}
+
+
+.rank-row:hover::before {
+    transform:
+        scaleY(1);
 }
 
 
@@ -1006,49 +1659,84 @@ body.night-mode
 .back-button {
     position: absolute;
 
-    left: 50%;
+    top:
+        calc(18px + env(safe-area-inset-top, 0px));
 
-    bottom: 22px;
+    left:
+        calc(18px + env(safe-area-inset-left, 0px));
 
-    transform:
-        translateX(-50%);
+    z-index: 30;
 
-    width: 135px;
-    height: 40px;
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 0 14px 0 12px;
+
+    height: 34px;
 
     border:
         1px solid
-        rgba(255,150,215,0.48);
+        rgba(255,150,215,0.4);
+
+    border-radius: 999px;
 
     background:
-        rgba(30,8,25,0.78);
+        rgba(20,7,17,0.55);
+
+    backdrop-filter:
+        blur(6px);
+
+    -webkit-backdrop-filter:
+        blur(6px);
 
     color:
         #ffeaf5;
 
-    font-size: 10px;
+    font-size: 9px;
 
-    letter-spacing: 4px;
+    letter-spacing: 3px;
 
     cursor: pointer;
 
+    opacity: 0.72;
+
     transition:
-        border-color 0.25s ease,
-        background 0.25s ease,
-        box-shadow 0.25s ease;
+        opacity 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.back-icon {
+    font-size: 14px;
+
+    line-height: 1;
+
+    transform:
+        translateY(-1px);
 }
 
 
 .back-button:hover {
+    opacity: 1;
+
     border-color:
         rgba(255,190,230,0.9);
 
     background:
-        rgba(90,20,70,0.35);
+        rgba(90,20,70,0.45);
 
     box-shadow:
         0 0 14px
         rgba(255,100,190,0.25);
+
+    transform:
+        translateX(-2px);
 }
 
 
@@ -1261,6 +1949,594 @@ body.night-mode
 
 
 /* =====================================================
+   CLUB MEMBER LIST — PANEL
+
+   หน้าต่างทรงแปดเหลี่ยม (Octagon) กรอบไล่สีหมุนรอบ
+   ใช้แสดง Club Leader / Manager / Member ทั้งหมด
+===================================================== */
+
+@property --panel-ring-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+
+.club-panel {
+    position: relative;
+
+    z-index: 1;
+
+    width:
+        min(1100px, 94vw);
+
+    height:
+        min(88vh, 900px);
+
+    padding:
+        42px 34px 34px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    --panel-ring-angle: 0deg;
+
+    border:
+        2px solid
+        transparent;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(35,10,32,0.86),
+            rgba(10,4,13,0.94)
+        )
+        padding-box,
+
+        conic-gradient(
+            from var(--panel-ring-angle),
+            #ffd98a,
+            #ff8fd0,
+            #c79bff,
+            #ff8fd0,
+            #ffd98a
+        )
+        border-box;
+
+    clip-path:
+        polygon(
+            34px 0,
+            calc(100% - 34px) 0,
+            100% 34px,
+            100% calc(100% - 34px),
+            calc(100% - 34px) 100%,
+            34px 100%,
+            0 calc(100% - 34px),
+            0 34px
+        );
+
+    box-shadow:
+        0 0 40px
+        rgba(255,90,180,0.12),
+
+        0 0 90px
+        rgba(180,120,255,0.08);
+
+    animation:
+        panelRingSpin 12s
+        linear infinite;
+}
+
+
+@keyframes panelRingSpin {
+
+    to {
+        --panel-ring-angle: 360deg;
+    }
+}
+
+
+.club-panel::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 14px;
+
+    border:
+        1px solid
+        rgba(255,170,220,0.14);
+
+    pointer-events: none;
+}
+
+
+.club-panel::-webkit-scrollbar {
+    width: 5px;
+}
+
+
+.club-panel::-webkit-scrollbar-thumb {
+    background:
+        rgba(255,135,205,0.35);
+}
+
+
+/* =====================================================
+   CLUB MEMBER LIST — HEADER
+===================================================== */
+
+.club-header {
+    text-align: center;
+
+    margin-bottom:
+        26px;
+}
+
+
+.club-title {
+    color:
+        #fff2fa;
+
+    font-size: 25px;
+
+    font-weight: 400;
+
+    letter-spacing: 6px;
+
+    text-shadow:
+        0 0 14px
+        rgba(255,180,120,0.35);
+}
+
+
+.club-subtitle {
+    margin-top: 9px;
+
+    color:
+        rgba(255,200,225,0.55);
+
+    font-size: 10px;
+
+    letter-spacing: 5px;
+}
+
+
+/* =====================================================
+   CLUB MEMBER LIST — LEADERSHIP ROW
+
+   Leader อยู่บนสุด เด่นสุด
+   Manager (Carrot ซ้าย / Serene ขวา) อยู่รองลงมา
+===================================================== */
+
+.club-leadership {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 22px;
+
+    margin-bottom: 34px;
+
+    padding-bottom: 30px;
+
+    border-bottom:
+        1px solid
+        rgba(255,160,215,0.16);
+}
+
+
+.club-managers-row {
+    display: flex;
+
+    justify-content: center;
+    align-items: flex-start;
+
+    flex-wrap: wrap;
+
+    gap: 22px;
+}
+
+
+/* =====================================================
+   CLUB MEMBER LIST — CARD
+
+   .club-card--leader   = ใหญ่สุด ใช้ครั้งเดียว
+   .club-card--manager  = กลาง ใช้ 2 ใบ
+   .club-card--member   = เล็ก ใช้ในตาราง Grid
+===================================================== */
+
+.club-card {
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+
+.club-photo-frame {
+    position: relative;
+
+    overflow: hidden;
+
+    width: 128px;
+    height: 128px;
+
+    border:
+        1px solid
+        rgba(255,160,215,0.4);
+
+    background:
+        rgba(20,6,18,0.6);
+
+    clip-path:
+        polygon(
+            12px 0,
+            100% 0,
+            100% calc(100% - 12px),
+            calc(100% - 12px) 100%,
+            0 100%,
+            0 12px
+        );
+
+    box-shadow:
+        0 0 14px
+        rgba(255,90,180,0.10),
+
+        inset 0 0 18px
+        rgba(255,100,190,0.05);
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.club-photo {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        opacity 0.25s ease;
+}
+
+
+.club-card:hover .club-photo-frame {
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(255,200,230,0.85);
+
+    box-shadow:
+        0 8px 18px
+        rgba(255,90,180,0.18),
+
+        0 0 24px
+        rgba(255,140,210,0.14);
+}
+
+
+/* ---------- LEADER (ใหญ่สุด) ---------- */
+
+.club-card--leader
+.club-photo-frame {
+    width: 190px;
+    height: 190px;
+
+    border-width: 2px;
+
+    border-color:
+        rgba(255,222,150,0.6);
+
+    clip-path:
+        polygon(
+            18px 0,
+            100% 0,
+            100% calc(100% - 18px),
+            calc(100% - 18px) 100%,
+            0 100%,
+            0 18px
+        );
+
+    box-shadow:
+        0 0 26px
+        rgba(255,180,110,0.22),
+
+        0 0 50px
+        rgba(255,90,180,0.12);
+
+    animation:
+        heroGlowPulse 3s
+        ease-in-out infinite;
+}
+
+
+/* ---------- MANAGER (กลาง) ---------- */
+
+.club-card--manager
+.club-photo-frame {
+    width: 150px;
+    height: 150px;
+
+    border-color:
+        rgba(200,220,255,0.5);
+}
+
+
+/* ---------- ROLE / NAME / INFO ---------- */
+
+.club-role {
+    margin-top: 12px;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    color:
+        rgba(255,215,235,0.55);
+}
+
+
+.club-card--leader .club-role {
+    color:
+        #ffe0a0;
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+
+    text-shadow:
+        0 0 10px
+        rgba(255,200,120,0.5);
+}
+
+
+.club-name {
+    margin-top: 4px;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    color:
+        #fff5fb;
+
+    max-width: 150px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+.club-card--leader .club-name {
+    margin-top: 6px;
+
+    font-size: 21px;
+
+    font-weight: 600;
+}
+
+
+.club-card--manager .club-name {
+    font-size: 16px;
+}
+
+
+.club-info-btn {
+    margin-top: 8px;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,170,220,0.4);
+
+    background:
+        rgba(255,140,210,0.08);
+
+    color:
+        rgba(255,220,240,0.75);
+
+    font-size: 11px;
+
+    font-style: italic;
+    font-family: Georgia, serif;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.club-info-btn:hover {
+    border-color:
+        rgba(255,200,230,0.9);
+
+    background:
+        rgba(255,140,210,0.22);
+
+    transform:
+        scale(1.1);
+}
+
+
+.club-card.info-open .club-info-btn {
+    background:
+        rgba(255,150,210,0.35);
+
+    border-color:
+        rgba(255,210,235,0.95);
+}
+
+
+.club-info-text {
+    max-width: 180px;
+
+    margin-top: 0;
+
+    max-height: 0;
+
+    overflow: hidden;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    color:
+        rgba(255,230,242,0.8);
+
+    opacity: 0;
+
+    transition:
+        max-height 0.35s ease,
+        opacity 0.3s ease,
+        margin-top 0.35s ease;
+}
+
+
+.club-card.info-open .club-info-text {
+    margin-top: 9px;
+
+    max-height: 220px;
+
+    opacity: 1;
+}
+
+
+/* =====================================================
+   CLUB MEMBER LIST — MEMBER GRID
+===================================================== */
+
+.club-members-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(100px, 1fr));
+
+    gap: 20px 14px;
+}
+
+
+.club-card--member
+.club-photo-frame {
+    width: 100%;
+    height: 0;
+
+    padding-bottom: 100%;
+}
+
+
+.club-card--member
+.club-photo-frame
+.club-photo {
+    position: absolute;
+
+    inset: 0;
+}
+
+
+.club-card--member .club-name {
+    font-size: 12px;
+
+    max-width: 100%;
+}
+
+
+/* =====================================================
+   GIVE KEI CHAN ICE — MINI GAME STAGE
+===================================================== */
+
+.kei-ice-stage {
+    position: relative;
+
+    z-index: 1;
+
+    width:
+        min(560px, 92vw);
+
+    aspect-ratio: 1 / 1;
+
+    max-height: 88vh;
+
+    border:
+        1px solid
+        rgba(255,160,215,0.32);
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    background:
+        #fff;
+
+    box-shadow:
+        0 0 40px
+        rgba(255,90,180,0.14),
+
+        0 0 90px
+        rgba(180,120,255,0.08);
+}
+
+
+.kei-ice-frame {
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+
+    display: block;
+}
+
+
+.kei-ice-credit {
+    position: absolute;
+
+    right: 12px;
+    bottom: 10px;
+
+    padding: 4px 10px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(20,20,20,0.35);
+
+    color:
+        rgba(255,255,255,0.85);
+
+    font-size: 10px;
+
+    letter-spacing: 0.5px;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
    MOBILE
 ===================================================== */
 
@@ -1281,6 +2557,7 @@ body.night-mode
 
         height: 50px;
     }
+
 
 
     .boss-selector {
@@ -1346,6 +2623,50 @@ body.night-mode
 
     .izuna-area {
         width: 82vw;
+    }
+
+
+    .club-panel {
+        width: 94vw;
+
+        height: 88vh;
+
+        padding:
+            30px 14px 24px;
+    }
+
+
+    .club-title {
+        font-size: 17px;
+
+        letter-spacing: 3px;
+    }
+
+
+    .club-card--leader
+    .club-photo-frame {
+        width: 140px;
+        height: 140px;
+    }
+
+
+    .club-card--manager
+    .club-photo-frame {
+        width: 110px;
+        height: 110px;
+    }
+
+
+    .club-managers-row {
+        gap: 14px;
+    }
+
+
+    .club-members-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 16px 10px;
     }
 
 }

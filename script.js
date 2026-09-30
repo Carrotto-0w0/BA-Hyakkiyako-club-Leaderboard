@@ -24,6 +24,12 @@ const leaderboardScreen =
 const izunaScreen =
     document.getElementById("izunaScreen");
 
+const medalsScreen =
+    document.getElementById("medalsScreen");
+
+const keiIceScreen =
+    document.getElementById("keiIceScreen");
+
 
 const logo =
     document.getElementById("logo");
@@ -38,12 +44,24 @@ const leaderboardButton =
 const patButton =
     document.getElementById("patButton");
 
+const keiIceButton =
+    document.getElementById("keiIceButton");
+
+const medalsButton =
+    document.getElementById("medalsButton");
+
 
 const leaderboardBackButton =
     document.getElementById("leaderboardBackButton");
 
 const izunaBackButton =
     document.getElementById("izunaBackButton");
+
+const keiIceBackButton =
+    document.getElementById("keiIceBackButton");
+
+const medalsBackButton =
+    document.getElementById("medalsBackButton");
 
 
 const modeToggle =
@@ -62,9 +80,18 @@ const ta85Button =
 const ga33Button =
     document.getElementById("ga33Button");
 
+const ta86Button =
+    document.getElementById("ta86Button");
+
 
 const leaderboardContent =
     document.getElementById("leaderboardContent");
+
+const medalsContent =
+    document.getElementById("medalsContent");
+
+const keiIceFrame =
+    document.getElementById("keiIceFrame");
 
 
 const izunaArea =
@@ -876,6 +903,14 @@ function showScreen(
         "active"
     );
 
+    keiIceScreen.classList.remove(
+        "active"
+    );
+
+    medalsScreen.classList.remove(
+        "active"
+    );
+
 
     screen.classList.add(
         "active"
@@ -1042,10 +1077,30 @@ function openLeaderboard() {
 
     /*
         เปิด Leaderboard
+        (re-render ใหม่ทุกครั้ง เพื่อให้ Reveal
+        Animation เล่นใหม่ทุกครั้งที่เปิดหน้านี้)
     */
 
     setTimeout(
         () => {
+
+            if (
+                ga33Button.classList.contains("active")
+            ) {
+
+                renderKurokage();
+
+            } else if (
+                ta86Button.classList.contains("active")
+            ) {
+
+                renderTA86();
+
+            } else {
+
+                renderTA85();
+            }
+
 
             showScreen(
                 leaderboardScreen
@@ -1081,6 +1136,45 @@ function openIzuna() {
 
 
 /* =====================================================
+   GO TO GIVE KEI CHAN ICE
+
+   Lazy-load: ใส่ src ให้ iframe ตอนกดเปิดครั้งแรก
+   เท่านั้น เพื่อไม่ให้คนที่ไม่ได้กดต้องโหลดโมเดล
+   Live2D ที่มีขนาดใหญ่ไปโดยเปล่าประโยชน์
+===================================================== */
+
+function openKeiIce() {
+
+    if (
+        !keiIceFrame.src
+    ) {
+
+        keiIceFrame.src =
+            "./kei-ice/index.html";
+    }
+
+
+    showScreen(
+        keiIceScreen
+    );
+}
+
+
+/* =====================================================
+   GO TO CLUB MEMBER LIST
+===================================================== */
+
+function openMedals() {
+
+    renderClub();
+
+    showScreen(
+        medalsScreen
+    );
+}
+
+
+/* =====================================================
    BACK TO MENU
 ===================================================== */
 
@@ -1092,6 +1186,16 @@ function goBackToMenu() {
 
 
     izunaScreen.classList.remove(
+        "active"
+    );
+
+
+    keiIceScreen.classList.remove(
+        "active"
+    );
+
+
+    medalsScreen.classList.remove(
         "active"
     );
 
@@ -1163,6 +1267,18 @@ patButton.addEventListener(
 );
 
 
+keiIceButton.addEventListener(
+    "click",
+    openKeiIce
+);
+
+
+medalsButton.addEventListener(
+    "click",
+    openMedals
+);
+
+
 leaderboardBackButton.addEventListener(
     "click",
     goBackToMenu
@@ -1170,6 +1286,18 @@ leaderboardBackButton.addEventListener(
 
 
 izunaBackButton.addEventListener(
+    "click",
+    goBackToMenu
+);
+
+
+keiIceBackButton.addEventListener(
+    "click",
+    goBackToMenu
+);
+
+
+medalsBackButton.addEventListener(
     "click",
     goBackToMenu
 );
@@ -1449,6 +1577,285 @@ const kuroKageData = [
 
 
 /* =====================================================
+   TA86 — DRUMBARKA DATA
+===================================================== */
+
+const ta86Data = [
+
+    {
+        rank: 1,
+        name: "「SH」Carrotic",
+        score: "70"
+    },
+
+    {
+        rank: 2,
+        name: "แควมวย (Ebimiso)",
+        score: "345"
+    },
+
+    {
+        rank: 3,
+        name: "Polygon",
+        score: "451"
+    },
+
+    {
+        rank: 4,
+        name: "「SH」Keen",
+        score: "883"
+    },
+
+    {
+        rank: 5,
+        name: "「SH」nero",
+        score: "985"
+    },
+
+    {
+        rank: 6,
+        name: "ไอ๊หยาา",
+        score: "987"
+    },
+
+    {
+        rank: 7,
+        name: "「SH」DedeMiku",
+        score: "1154"
+    },
+
+    {
+        rank: 8,
+        name: "Derain",
+        score: "1294"
+    },
+
+    {
+        rank: 9,
+        name: "セリーン",
+        score: "1305"
+    },
+
+    {
+        rank: 10,
+        name: "「SH」Ronaldo",
+        score: "1324"
+    },
+
+    {
+        rank: 11,
+        name: "「SH」Lunari",
+        score: "1736"
+    },
+
+    {
+        rank: 12,
+        name: "「SH」雨息",
+        score: "1942"
+    },
+
+    {
+        rank: 13,
+        name: "Demornato",
+        score: "2123"
+    },
+
+    {
+        rank: 14,
+        name: "Astra",
+        score: "2309"
+    },
+
+    {
+        rank: 15,
+        name: "Uncle.POM",
+        score: "2310"
+    },
+
+    {
+        rank: 16,
+        name: "Geeao",
+        score: "2341"
+    },
+
+    {
+        rank: 17,
+        name: "「SH」Yura",
+        score: "2706"
+    },
+
+    {
+        rank: 18,
+        name: "Kargvee",
+        score: "3161"
+    },
+
+    {
+        rank: 19,
+        name: "「SH」Nahima",
+        score: "3295"
+    },
+
+    {
+        rank: 20,
+        name: "S_Chainzer",
+        score: "3344"
+    },
+
+    {
+        rank: 21,
+        name: "Vannesith",
+        score: "3371"
+    },
+
+    {
+        rank: 22,
+        name: "「SH」DiPa",
+        score: "3754"
+    },
+
+    {
+        rank: 23,
+        name: "kondee",
+        score: "4028"
+    },
+
+    {
+        rank: 24,
+        name: "Rui",
+        score: "4033"
+    },
+
+    {
+        rank: 25,
+        name: "「SH」Velloz",
+        score: "4421"
+    },
+
+    {
+        rank: 26,
+        name: "Mthanh",
+        score: "4949"
+    },
+
+    {
+        rank: 27,
+        name: "ⓋFOXSNOW✿࿐",
+        score: "6403"
+    },
+
+    {
+        rank: 28,
+        name: "Relax",
+        score: "7591"
+    },
+
+    {
+        rank: 29,
+        name: "j4k4l4",
+        score: "7895"
+    },
+
+    {
+        rank: 30,
+        name: "CallMeGarr",
+        score: "8815"
+    },
+
+    {
+        rank: 31,
+        name: "NW2M",
+        score: "8928"
+    },
+
+    {
+        rank: 32,
+        name: "「SH」Fournier",
+        score: "9047"
+    },
+
+    {
+        rank: 33,
+        name: "WhoTao",
+        score: "9114"
+    },
+
+    {
+        rank: 34,
+        name: "Nezunanda",
+        score: "9248"
+    },
+
+    {
+        rank: 35,
+        name: "「SH」Xyren",
+        score: "9269"
+    },
+
+    {
+        rank: 36,
+        name: "「SH」Messi",
+        score: "9733"
+    },
+
+    {
+        rank: 37,
+        name: "Yayus",
+        score: "11542"
+    },
+
+    {
+        rank: 38,
+        name: "EmptyCup",
+        score: "13117"
+    },
+
+    {
+        rank: 39,
+        name: "Helheim",
+        score: "20649"
+    },
+
+    {
+        rank: 40,
+        name: "「SH」SkyRish☆",
+        score: "#N/A"
+    },
+
+    {
+        rank: 41,
+        name: "「SH」Miyuki",
+        score: "#N/A"
+    },
+
+    {
+        rank: 42,
+        name: "Kiralya",
+        score: "#N/A"
+    },
+
+    {
+        rank: 43,
+        name: "5M0K3>.<",
+        score: "#N/A"
+    },
+
+    {
+        rank: 44,
+        name: "ผมหิวข้าว",
+        score: "#N/A"
+    },
+
+    {
+        rank: 45,
+        name: "coretta",
+        score: "#N/A"
+    }
+
+];
+
+
+/* =====================================================
    HTML ESCAPE
 ===================================================== */
 
@@ -1529,7 +1936,9 @@ function rankNameHTML(
 ===================================================== */
 
 function createHeroCard(
-    player
+    player,
+    index,
+    total
 ) {
 
     const isNA =
@@ -1548,9 +1957,28 @@ function createHeroCard(
     }
 
 
+    const rankClass =
+        (player.rank === 1 ||
+         player.rank === 2 ||
+         player.rank === 3)
+            ? `hero-rank-${player.rank}`
+            : "";
+
+
+    /*
+        เปิดจากอันดับท้ายก่อน ไล่ขึ้นไปอันดับ 1
+        (index 0 = อันดับ 1 ต้องดีเลย์มากสุด)
+    */
+    const revealDelay =
+        (total - 1 - index) * 90;
+
+
     return `
 
-        <div class="hero-card">
+        <div
+            class="hero-card ${rankClass} revealing"
+            style="--reveal-delay: ${revealDelay}ms"
+        >
 
             ${crown}
 
@@ -1564,8 +1992,11 @@ function createHeroCard(
 
             <div
                 class="hero-score ${isNA ? "hero-na" : ""}"
+                ${isNA
+                    ? ""
+                    : `data-count-target="${player.score}"`}
             >
-                ${escapeHTML(player.score)}
+                ${isNA ? escapeHTML(player.score) : "0"}
             </div>
 
         </div>
@@ -1579,12 +2010,20 @@ function createHeroCard(
 ===================================================== */
 
 function createRankRow(
-    player
+    player,
+    index
 ) {
+
+    const revealDelay =
+        Math.min(index, 14) * 35;
+
 
     return `
 
-        <div class="rank-row">
+        <div
+            class="rank-row revealing"
+            style="--reveal-delay: ${revealDelay}ms"
+        >
 
             <div class="rank-number">
                 #${player.rank}
@@ -1610,26 +2049,31 @@ function createRankRow(
 
 function renderKurokage() {
 
-    const topThree =
+    const topFive =
         kuroKageData.slice(
             0,
-            3
+            5
         );
 
 
     const remaining =
         kuroKageData.slice(
-            3
+            5
         );
 
 
     leaderboardContent.innerHTML = `
 
-        <div class="hero-rankings">
+        <div class="hero-rankings hero-rankings--five">
 
-            ${topThree
+            ${topFive
                 .map(
-                    createHeroCard
+                    (player, index) =>
+                        createHeroCard(
+                            player,
+                            index,
+                            topFive.length
+                        )
                 )
                 .join("")}
 
@@ -1640,13 +2084,156 @@ function renderKurokage() {
 
             ${remaining
                 .map(
-                    createRankRow
+                    (player, index) =>
+                        createRankRow(
+                            player,
+                            index
+                        )
                 )
                 .join("")}
 
         </div>
 
     `;
+
+
+    setupLeaderboardRevealCleanup();
+
+    animateScoreCounts();
+}
+
+
+/* =====================================================
+   REVEAL CLEANUP
+
+   ลบคลาส .revealing ออกหลัง animation จบ เพื่อคืนค่า
+   transform/animation ให้การ์ด rank 1-3 กลับไปใช้
+   heroGlowPulse + hover ตามปกติ (ผูก listener ครั้งเดียว)
+===================================================== */
+
+let revealCleanupBound =
+    false;
+
+function setupLeaderboardRevealCleanup() {
+
+    if (
+        revealCleanupBound
+    ) {
+
+        return;
+    }
+
+
+    revealCleanupBound =
+        true;
+
+
+    leaderboardContent.addEventListener(
+        "animationend",
+        (event) => {
+
+            const target =
+                event.target;
+
+            if (
+                target.classList &&
+                target.classList.contains("revealing")
+            ) {
+
+                target.classList.remove(
+                    "revealing"
+                );
+            }
+        }
+    );
+}
+
+
+/* =====================================================
+   SCORE COUNT-UP
+
+   ให้ตัวเลขคะแนนใน Top 5 นับขึ้นจาก 0 ถึงคะแนนจริง
+===================================================== */
+
+function animateScoreCounts() {
+
+    const scoreElements =
+        leaderboardContent.querySelectorAll(
+            ".hero-score[data-count-target]"
+        );
+
+
+    scoreElements.forEach(
+        (el) => {
+
+            const target =
+                parseInt(
+                    el.dataset.countTarget,
+                    10
+                );
+
+
+            if (
+                !Number.isFinite(target)
+            ) {
+
+                return;
+            }
+
+
+            const duration =
+                900;
+
+            const startTime =
+                performance.now();
+
+
+            function tick(
+                now
+            ) {
+
+                const elapsed =
+                    now - startTime;
+
+                const progress =
+                    Math.min(
+                        elapsed / duration,
+                        1
+                    );
+
+                const eased =
+                    1 - Math.pow(
+                        1 - progress,
+                        3
+                    );
+
+                el.textContent =
+                    Math.round(
+                        target * eased
+                    ).toLocaleString();
+
+
+                if (
+                    progress < 1
+                ) {
+
+                    requestAnimationFrame(
+                        tick
+                    );
+
+                } else {
+
+                    el.textContent =
+                        target.toLocaleString();
+                }
+            }
+
+
+            requestAnimationFrame(
+                tick
+            );
+        }
+    );
 }
 
 
@@ -1675,6 +2262,257 @@ function renderTA85() {
 
 
 /* =====================================================
+   RENDER TA86 — DRUMBARKA
+===================================================== */
+
+function renderTA86() {
+
+    const topFive =
+        ta86Data.slice(
+            0,
+            5
+        );
+
+
+    const remaining =
+        ta86Data.slice(
+            5
+        );
+
+
+    leaderboardContent.innerHTML = `
+
+        <div class="hero-rankings hero-rankings--five">
+
+            ${topFive
+                .map(
+                    (player, index) =>
+                        createHeroCard(
+                            player,
+                            index,
+                            topFive.length
+                        )
+                )
+                .join("")}
+
+        </div>
+
+
+        <div class="ranking-list">
+
+            ${remaining
+                .map(
+                    (player, index) =>
+                        createRankRow(
+                            player,
+                            index
+                        )
+                )
+                .join("")}
+
+        </div>
+
+    `;
+
+
+    setupLeaderboardRevealCleanup();
+
+    animateScoreCounts();
+}
+
+
+/* =====================================================
+   CLUB MEMBER LIST — CARD BUILDER
+
+   ใช้ข้อมูลจาก clubLeader / clubManagers / clubMembers
+   ที่อยู่ในไฟล์ members-data.js (แก้ไขข้อมูลที่นั่นได้เลย)
+
+   tier: "leader" | "manager" | "member"
+===================================================== */
+
+function createClubCard(
+    person,
+    tier
+) {
+
+    const hasAlt =
+        Boolean(person.imageAlt);
+
+    const hasInfo =
+        Boolean(person.info) || hasAlt;
+
+    const roleLabel =
+        tier === "leader"
+            ? "CLUB LEADER"
+            : tier === "manager"
+                ? "CLUB MANAGER"
+                : "";
+
+
+    return `
+
+        <div
+            class="club-card club-card--${tier}"
+            data-main="${escapeHTML(person.image)}"
+            data-alt="${escapeHTML(person.imageAlt || "")}"
+        >
+
+            <div class="club-photo-frame">
+
+                <img
+                    class="club-photo"
+                    src="${escapeHTML(person.image)}"
+                    alt="${escapeHTML(person.name)}"
+                    loading="lazy"
+                >
+
+            </div>
+
+            ${roleLabel
+                ? `<div class="club-role">${roleLabel}</div>`
+                : ""}
+
+            <div class="club-name">
+                ${escapeHTML(person.name)}
+            </div>
+
+            ${hasInfo
+                ? `
+                    <button
+                        class="club-info-btn"
+                        type="button"
+                    >i</button>
+
+                    <div class="club-info-text">
+                        ${escapeHTML(person.info || "")}
+                    </div>
+                `
+                : ""}
+
+        </div>
+
+    `;
+}
+
+
+/* =====================================================
+   CLUB MEMBER LIST — RENDER
+===================================================== */
+
+function renderClub() {
+
+    const leaderHTML =
+        clubLeader
+            ? createClubCard(
+                clubLeader,
+                "leader"
+            )
+            : "";
+
+
+    const managersHTML =
+        (clubManagers || [])
+            .map(
+                (person) =>
+                    createClubCard(
+                        person,
+                        "manager"
+                    )
+            )
+            .join("");
+
+
+    const membersHTML =
+        (clubMembers || [])
+            .map(
+                (person) =>
+                    createClubCard(
+                        person,
+                        "member"
+                    )
+            )
+            .join("");
+
+
+    medalsContent.innerHTML = `
+
+        <div class="club-leadership">
+
+            ${leaderHTML}
+
+            <div class="club-managers-row">
+                ${managersHTML}
+            </div>
+
+        </div>
+
+
+        <div class="club-members-grid">
+            ${membersHTML}
+        </div>
+
+    `;
+}
+
+
+/* =====================================================
+   CLUB MEMBER LIST — INFO TOGGLE
+
+   คลิกปุ่ม "i" ใต้ชื่อ เพื่อโชว์/ซ่อน Info
+   สำหรับ Leader / Manager ที่มีรูปที่ 2 (imageAlt)
+   จะสลับรูปไปมาโดยอัตโนมัติตอนเปิด/ปิด Info
+===================================================== */
+
+medalsContent.addEventListener(
+    "click",
+    (event) => {
+
+        const button =
+            event.target.closest(
+                ".club-info-btn"
+            );
+
+        if (
+            !button
+        ) {
+
+            return;
+        }
+
+
+        const card =
+            button.closest(
+                ".club-card"
+            );
+
+        const isOpen =
+            card.classList.toggle(
+                "info-open"
+            );
+
+        const altSrc =
+            card.dataset.alt;
+
+
+        if (
+            altSrc
+        ) {
+
+            const img =
+                card.querySelector(
+                    ".club-photo"
+                );
+
+            img.src =
+                isOpen
+                    ? altSrc
+                    : card.dataset.main;
+        }
+    }
+);
+
+
+/* =====================================================
    BOSS BUTTONS
 ===================================================== */
 
@@ -1690,9 +2528,47 @@ function activateBoss(
         "active"
     );
 
+    ta86Button.classList.remove(
+        "active"
+    );
+
 
     activeButton.classList.add(
         "active"
+    );
+}
+
+
+/* =====================================================
+   BOSS TAB SWITCH (with crossfade)
+===================================================== */
+
+function switchBossTab(
+    button,
+    renderFn
+) {
+
+    activateBoss(
+        button
+    );
+
+
+    leaderboardContent.classList.add(
+        "is-switching"
+    );
+
+
+    setTimeout(
+        () => {
+
+            renderFn();
+
+            leaderboardContent.classList.remove(
+                "is-switching"
+            );
+
+        },
+        160
     );
 }
 
@@ -1701,11 +2577,10 @@ ta85Button.addEventListener(
     "click",
     () => {
 
-        activateBoss(
-            ta85Button
+        switchBossTab(
+            ta85Button,
+            renderTA85
         );
-
-        renderTA85();
 
     }
 );
@@ -1715,11 +2590,23 @@ ga33Button.addEventListener(
     "click",
     () => {
 
-        activateBoss(
-            ga33Button
+        switchBossTab(
+            ga33Button,
+            renderKurokage
         );
 
-        renderKurokage();
+    }
+);
+
+
+ta86Button.addEventListener(
+    "click",
+    () => {
+
+        switchBossTab(
+            ta86Button,
+            renderTA86
+        );
 
     }
 );
@@ -1774,6 +2661,55 @@ const MIN_RUB_DISTANCE =
 
 const PET_IDLE_DELAY =
     220;
+
+
+/* =====================================================
+   PET SOUND EFFECT
+
+   เล่นเสียงเมื่อผู้เล่น "หยุดลูบหัว" Izuna
+   - PET_SOUND_MIN_DURATION = ต้องลูบอย่างน้อยกี่ ms
+     ถึงจะมีเสียง (กันการแตะเบาๆ โดยไม่ตั้งใจ)
+   - PET_SOUND_VOLUME = ความดัง 0.0 - 1.0
+===================================================== */
+
+const PET_SOUND_MIN_DURATION =
+    300;
+
+const PET_SOUND_VOLUME =
+    0.8;
+
+
+const petSound =
+    new Audio(
+        "./sounds/izuna-nin-nin.mp3"
+    );
+
+petSound.preload =
+    "auto";
+
+petSound.volume =
+    PET_SOUND_VOLUME;
+
+
+function playPetSound() {
+
+    petSound.currentTime =
+        0;
+
+
+    const playPromise =
+        petSound.play();
+
+
+    if (
+        playPromise !== undefined
+    ) {
+
+        playPromise.catch(
+            () => {}
+        );
+    }
+}
 
 
 /* =====================================================
@@ -1929,9 +2865,22 @@ function stopPetting() {
         petStartTime !== null
     ) {
 
-        totalPetTime +=
+        const sessionDuration =
             performance.now() -
             petStartTime;
+
+
+        totalPetTime +=
+            sessionDuration;
+
+
+        if (
+            sessionDuration >=
+            PET_SOUND_MIN_DURATION
+        ) {
+
+            playPetSound();
+        }
     }
 
 
