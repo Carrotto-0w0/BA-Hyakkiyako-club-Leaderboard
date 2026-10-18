@@ -83,6 +83,9 @@ const ga33Button =
 const ta86Button =
     document.getElementById("ta86Button");
 
+const ga34Button =
+    document.getElementById("ga34Button");
+
 
 const leaderboardContent =
     document.getElementById("leaderboardContent");
@@ -1096,6 +1099,12 @@ function openLeaderboard() {
 
                 renderTA86();
 
+            } else if (
+                ga34Button.classList.contains("active")
+            ) {
+
+                renderGA34();
+
             } else {
 
                 renderTA85();
@@ -1752,7 +1761,7 @@ const ta86Data = [
 
     {
         rank: 29,
-        name: "j4k4l4",
+        name: "j4k4l41238325",
         score: "7895"
     },
 
@@ -1848,6 +1857,278 @@ const ta86Data = [
 
     {
         rank: 45,
+        name: "coretta",
+        score: "#N/A"
+    }
+
+];
+
+/* =====================================================
+   GA34 — WAKAMO DATA
+===================================================== */
+
+const ga34Data = [
+
+    {
+        rank: 1,
+        name: "Polygon",
+        score: "126"
+    },
+
+    {
+        rank: 2,
+        name: "「SH」Yura",
+        score: "269"
+    },
+
+    {
+        rank: 3,
+        name: "Mthanh",
+        score: "366"
+    },
+
+    {
+        rank: 4,
+        name: "「SH」Carrotic",
+        score: "433"
+    },
+
+    {
+        rank: 5,
+        name: "「SH」Lunari",
+        score: "546"
+    },
+
+    {
+        rank: 6,
+        name: "Derain",
+        score: "744"
+    },
+
+    {
+        rank: 7,
+        name: "「SH」DedeMiku",
+        score: "834"
+    },
+
+    {
+        rank: 8,
+        name: "セリーン",
+        score: "916"
+    },
+
+    {
+        rank: 9,
+        name: "「SH」Velloz",
+        score: "1350"
+    },
+
+    {
+        rank: 10,
+        name: "「SH」雨息",
+        score: "1469"
+    },
+
+    {
+        rank: 11,
+        name: "「SH」Ronaldo",
+        score: "1478"
+    },
+
+    {
+        rank: 12,
+        name: "Rui",
+        score: "1696"
+    },
+
+    {
+        rank: 13,
+        name: "Kargvee",
+        score: "1766"
+    },
+
+    {
+        rank: 14,
+        name: "แควมวย (Ebimiso)",
+        score: "1953"
+    },
+
+    {
+        rank: 15,
+        name: "Demornato",
+        score: "2104"
+    },
+
+    {
+        rank: 16,
+        name: "「SH」Messi",
+        score: "2204"
+    },
+
+    {
+        rank: 17,
+        name: "「SH」Keen",
+        score: "2469"
+    },
+
+    {
+        rank: 18,
+        name: "「SH」nero",
+        score: "2609"
+    },
+
+    {
+        rank: 19,
+        name: "Vannesith",
+        score: "2661"
+    },
+
+    {
+        rank: 20,
+        name: "Geeao",
+        score: "2777"
+    },
+
+    {
+        rank: 21,
+        name: "「SH」Nahima",
+        score: "2881"
+    },
+
+    {
+        rank: 22,
+        name: "ไอ๊หยาา",
+        score: "3073"
+    },
+
+    {
+        rank: 23,
+        name: "「SH」DiPa",
+        score: "3253"
+    },
+
+    {
+        rank: 24,
+        name: "Uncle.POM",
+        score: "3376"
+    },
+
+    {
+        rank: 25,
+        name: "S_Chainzer",
+        score: "4417"
+    },
+
+    {
+        rank: 26,
+        name: "EmptyCup",
+        score: "5779"
+    },
+
+    {
+        rank: 27,
+        name: "WhoTao",
+        score: "5861"
+    },
+
+    {
+        rank: 28,
+        name: "j4k4l41238325",
+        score: "6282"
+    },
+
+    {
+        rank: 29,
+        name: "Nezunanda",
+        score: "6927"
+    },
+
+    {
+        rank: 30,
+        name: "Relax",
+        score: "7262"
+    },
+
+    {
+        rank: 31,
+        name: "Astra",
+        score: "7637"
+    },
+
+    {
+        rank: 32,
+        name: "ⓋFOXSNOW✿࿐",
+        score: "8419"
+    },
+
+    {
+        rank: 33,
+        name: "「SH」Fournier",
+        score: "8504"
+    },
+
+    {
+        rank: 34,
+        name: "「SH」Xyren",
+        score: "9005"
+    },
+
+    {
+        rank: 35,
+        name: "kondee",
+        score: "9311"
+    },
+
+    {
+        rank: 36,
+        name: "「SH」SkyRish☆",
+        score: "9411"
+    },
+
+    {
+        rank: 37,
+        name: "CallMeGarr",
+        score: "13279"
+    },
+
+    {
+        rank: 38,
+        name: "Helheim",
+        score: "26347"
+    },
+
+    {
+        rank: 39,
+        name: "Yayus",
+        score: "#N/A"
+    },
+
+    {
+        rank: 40,
+        name: "「SH」Miyuki",
+        score: "#N/A"
+    },
+
+    {
+        rank: 41,
+        name: "Kiralya",
+        score: "#N/A"
+    },
+
+    {
+        rank: 42,
+        name: "5M0K3>.<",
+        score: "#N/A"
+    },
+
+    {
+        rank: 43,
+        name: "ผมหิวข้าว",
+        score: "#N/A"
+    },
+
+    {
+        rank: 44,
         name: "coretta",
         score: "#N/A"
     }
@@ -2320,6 +2601,65 @@ function renderTA86() {
     animateScoreCounts();
 }
 
+/* =====================================================
+   RENDER GA34 — WAKAMO
+===================================================== */
+
+function renderGA34() {
+
+    const topFive =
+        ga34Data.slice(
+            0,
+            5
+        );
+
+
+    const remaining =
+        ga34Data.slice(
+            5
+        );
+
+
+    leaderboardContent.innerHTML = `
+
+        <div class="hero-rankings hero-rankings--five">
+
+            ${topFive
+                .map(
+                    (player, index) =>
+                        createHeroCard(
+                            player,
+                            index,
+                            topFive.length
+                        )
+                )
+                .join("")}
+
+        </div>
+
+
+        <div class="ranking-list">
+
+            ${remaining
+                .map(
+                    (player, index) =>
+                        createRankRow(
+                            player,
+                            index
+                        )
+                )
+                .join("")}
+
+        </div>
+
+    `;
+
+
+    setupLeaderboardRevealCleanup();
+
+    animateScoreCounts();
+}
+
 
 /* =====================================================
    CLUB MEMBER LIST — CARD BUILDER
@@ -2532,6 +2872,10 @@ function activateBoss(
         "active"
     );
 
+    ga34Button.classList.remove(
+        "active"
+    );
+
 
     activeButton.classList.add(
         "active"
@@ -2606,6 +2950,19 @@ ta86Button.addEventListener(
         switchBossTab(
             ta86Button,
             renderTA86
+        );
+
+    }
+);
+
+
+ga34Button.addEventListener(
+    "click",
+    () => {
+
+        switchBossTab(
+            ga34Button,
+            renderGA34
         );
 
     }

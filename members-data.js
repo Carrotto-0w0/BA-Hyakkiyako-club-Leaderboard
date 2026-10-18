@@ -104,10 +104,24 @@ const clubMembers = [
     },
 
     {
-        name: "Demonnarto",
+        name: "Demonarto",
         image: "members/Demonnarto.png",
         imageAlt: "",
         info: "The elite and all mighty Raid Fighter of the club. Competitive hard carry, and owner of a barbershop who only knows the bald haircut. Can finish the raid blindfolded — only bad gacha can limit his unlimited power."
+    },
+
+    {
+        name: "Vannesith",
+        image: "members/Vannesith1.png",
+        imageAlt: "members/Vannesith2.png",
+        info: "Niche student? Goat ammi! Geburah? Nah!! Child? Im in!!!"
+    },
+
+    {
+        name: "Foxsnow",
+        image: "members/Foxsnow.png",
+        imageAlt: "",
+        info: "Vannesith's art slave."
     },
 
     {
@@ -120,13 +134,6 @@ const clubMembers = [
     {
         name: "Messi",
         image: "members/Messi.png",
-        imageAlt: "",
-        info: ""
-    },
-
-    {
-        name: "Foxsnow",
-        image: "members/Foxsnow.png",
         imageAlt: "",
         info: ""
     },
@@ -155,13 +162,6 @@ const clubMembers = [
     {
         name: "Rui",
         image: "members/Rui.png",
-        imageAlt: "",
-        info: ""
-    },
-
-    {
-        name: "Vannesith",
-        image: "members/Vannesith.png",
         imageAlt: "",
         info: ""
     },
